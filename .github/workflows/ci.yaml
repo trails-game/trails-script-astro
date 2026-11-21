@@ -65,4 +65,12 @@ jobs:
           name: astro-artifacts
 
       - name: Sync artifacts to OSS
-        run: ossutil sync dist/ ${{ secrets.BUCKET }} -u --delete -f
+        env:
+          OSS_BUCKET: ${{ secrets.BUCKET }}
+        run: |
+          OSS_BUCKET="$(printf '%s' "$OSS_BUCKET" | tr -d '[:space:]')"
+          case "$OSS_BUCKET" in
+            oss://*) TARGET="$OSS_BUCKET" ;;
+            *) TARGET="oss://${OSS_BUCKET#/}" ;;
+          esac
+          ossutil sync dist/ "$TARGET" -u --delete -f
