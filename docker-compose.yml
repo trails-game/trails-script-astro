@@ -1,0 +1,14 @@
+services:
+  web:
+    image: node:22-alpine
+    working_dir: /workspace
+    user: "${UID:-1000}:${GID:-1000}"
+    environment:
+      - HOME=/tmp
+      - NPM_CONFIG_CACHE=/tmp/.npm
+      - NODE_OPTIONS=--max-old-space-size=4096
+    volumes:
+      - .:/workspace
+    ports:
+      - "4321:4321"
+    command: sh -c "if [ ! -d node_modules ]; then npm install; fi && if [ ! -f dist/pagefind/pagefind.js ]; then npm run build; fi && npm run preview"

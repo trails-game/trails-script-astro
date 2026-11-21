@@ -1,0 +1,891 @@
+---
+import logoImg from '../assets/logo.webp';
+import { AUTHOR_INFO } from '../data/authors';
+import {
+	ARCS,
+	CHAPTER_COUNTS,
+	GAMES_CHRONOLOGICAL,
+	TOTAL_CHAPTERS,
+} from '../data/games';
+
+const contributors = Object.values(AUTHOR_INFO);
+---
+
+<div class="home-portal not-content">
+	<!-- Atmospheric Orbal Hero -->
+	<section class="orbal-hero">
+		<div class="orbal-astrolabe" aria-hidden="true">
+			<svg viewBox="0 0 360 360" fill="none">
+				<g class="astrolabe-ring-outer">
+					<circle cx="180" cy="180" r="168" stroke="currentColor" stroke-width="1" stroke-dasharray="6 6" opacity="0.35" />
+					<circle cx="180" cy="180" r="150" stroke="currentColor" stroke-width="1.2" opacity="0.22" />
+					<path d="M180 6V24 M180 336V354 M6 180H24 M336 180H354" stroke="currentColor" stroke-width="1.5" opacity="0.55" />
+					<path d="M57 57L70 70 M290 290L303 303 M303 57L290 70 M70 290L57 303" stroke="currentColor" stroke-width="1.2" opacity="0.35" />
+				</g>
+				<g class="astrolabe-ring-inner">
+					<circle cx="180" cy="180" r="112" stroke="currentColor" stroke-width="1.2" stroke-dasharray="18 8 4 8" opacity="0.45" />
+					<polygon points="180,76 270,232 90,232" stroke="currentColor" stroke-width="1" opacity="0.28" />
+					<polygon points="180,284 270,128 90,128" stroke="currentColor" stroke-width="1" opacity="0.22" />
+					<circle cx="180" cy="180" r="44" stroke="currentColor" stroke-width="1.2" opacity="0.5" />
+					<circle cx="180" cy="180" r="10" fill="currentColor" opacity="0.6" />
+				</g>
+			</svg>
+		</div>
+
+		<div class="hero-content">
+			<div class="hero-eyebrow">
+				<span class="eyebrow-dot" aria-hidden="true"></span>
+				<span>ZEMURIA ORBAL ARCHIVE · 塞姆利亚导力书库</span>
+			</div>
+
+			<div class="hero-title-row">
+				<img
+					class="hero-logo"
+					src={logoImg.src}
+					width={logoImg.width}
+					height={logoImg.height}
+					alt="咖啡屋 | 轨迹系列"
+				/>
+				<div>
+					<h1 id="_top">Falcom轨迹系列中文剧情</h1>
+					<p class="hero-subtitle">咖啡屋 · 轨迹系列主线剧本、羁绊事件与门扉全收录</p>
+				</div>
+			</div>
+
+			<div class="hero-stats">
+				<div class="stat-pill">
+					<span class="stat-num">5</span>
+					<span class="stat-label">大故事篇章</span>
+				</div>
+				<div class="stat-pill">
+					<span class="stat-num">12</span>
+					<span class="stat-label">部系列作品</span>
+				</div>
+				<div class="stat-pill">
+					<span class="stat-num">{TOTAL_CHAPTERS}</span>
+					<span class="stat-label">篇收录章节</span>
+				</div>
+				<div class="stat-pill">
+					<span class="stat-num">34</span>
+					<span class="stat-label">首经典 BGM</span>
+				</div>
+			</div>
+
+			<div class="hero-actions">
+				<a href="/sora-fc/summary/" class="btn-orbal btn-primary">
+					<span>从《空之轨迹FC》启程</span>
+				</a>
+				<a href="/kuro2/summary/" class="btn-orbal btn-secondary">
+					<span>最新收录《黎之轨迹Ⅱ》</span>
+				</a>
+				<button type="button" class="btn-orbal btn-ghost" data-trigger-search>
+					<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<circle cx="11" cy="11" r="8" />
+						<line x1="21" y1="21" x2="16.65" y2="16.65" />
+					</svg>
+					<span>搜索全系列台词 / 角色</span>
+					<kbd>Ctrl K</kbd>
+				</button>
+				<a
+					href="https://trails-game.com"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="btn-orbal btn-ghost"
+				>
+					<span>访问 Cafe主站</span>
+					<svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+						<polyline points="15 3 21 3 21 9" />
+						<line x1="10" y1="14" x2="21" y2="3" />
+					</svg>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Spoiler Warning & Featured BGM Bento Strip -->
+	<section class="bento-strip">
+		<div class="spoiler-card">
+			<div class="spoiler-head">
+				<span class="spoiler-badge">SPOILER ALERT</span>
+				<h2>剧透警示 · 阅读前必读</h2>
+			</div>
+			<p>
+				本文档全是剧透，完整收录了塞姆利亚大陆各作的主线对话脚本、真相揭晓与结局剧情，尚未通关对应作品的玩家请慎重考虑是否继续阅读！
+			</p>
+		</div>
+
+		<div class="featured-bgm-card">
+			<audio controls loop style="width: 100%">
+				<source src="/bgms/sora-fc/Hoshi-no-Arika.mp3" type="audio/mpeg" />
+				Your browser does not support the audio element.
+			</audio>
+		</div>
+	</section>
+
+	<!-- Saga Filter & 5-Arc Game Cards -->
+	<section class="saga-directory" aria-label="作品目录">
+		<div class="directory-header">
+			<div>
+				<h2 class="section-heading">塞姆利亚编年史 · 剧情文本制作进度与目录</h2>
+				<p class="section-desc">按时代顺序浏览五个主要故事篇章，点击卡片进入剧情简介或直接跳转章节。</p>
+			</div>
+			<div class="arc-filter-bar" role="group" aria-label="按篇章筛选">
+				<button type="button" class="arc-filter-btn" data-arc-filter="all" aria-pressed="true">
+					全部篇章
+				</button>
+				{ARCS.map((arc) => (
+					<button
+						type="button"
+						class="arc-filter-btn"
+						data-arc-filter={arc.id}
+						aria-pressed="false"
+						style={`--arc-accent: ${arc.color}`}
+					>
+						<span class="filter-dot" aria-hidden="true"></span>
+						<span>{arc.name}</span>
+					</button>
+				))}
+			</div>
+		</div>
+
+		<div class="arc-list">
+			{ARCS.map((arc) => {
+				const arcGames = GAMES_CHRONOLOGICAL.filter((g) => g.arcId === arc.id);
+				return (
+					<div class="arc-section" data-arc-section={arc.id} style={`--arc-accent: ${arc.color}`}>
+						<div class="arc-header">
+							<div class="arc-title-line">
+								<span class="arc-emblem" aria-hidden="true"></span>
+								<h3>{arc.name}</h3>
+								<span class="arc-en">{arc.nameEn}</span>
+								<span class="arc-years">{arc.years}</span>
+							</div>
+							<p class="arc-summary">{arc.summary}</p>
+						</div>
+
+						<div class="game-grid">
+							{arcGames.map((game) => {
+								const count = CHAPTER_COUNTS[game.prefix] ?? 0;
+								return (
+									<article class="game-card">
+										<div class="game-card-top">
+											<span class="game-year">{game.year}</span>
+											<span class="game-chapters">收录 {count} 篇</span>
+										</div>
+
+										<h4 class="game-title">
+											<a href={`/${game.prefix}/summary/`}>{game.title}</a>
+										</h4>
+										<div class="game-subtitle">{game.subtitle}</div>
+										<p class="game-tagline">{game.tagline}</p>
+
+										<div class="game-status-row">
+											<span class="status-chip is-done">
+												<span>作品简介</span>
+												<span>已完成 ✔️</span>
+											</span>
+											<span class:list={['status-chip', game.scriptDone ? 'is-done' : 'is-wip']}>
+												<span>对话剧情</span>
+												<span>{game.scriptDone ? '已完成 ✔️' : '制作中 ⭕'}</span>
+											</span>
+										</div>
+
+										<div class="game-quick-links">
+											{game.quickLinks.map((ql) => (
+												<a href={ql.href} class="quick-link-pill">
+													{ql.label}
+												</a>
+											))}
+										</div>
+									</article>
+								);
+							})}
+						</div>
+					</div>
+				);
+			})}
+		</div>
+	</section>
+
+	<!-- Contributors Showcase -->
+	<section class="contributors-section" aria-label="咖啡屋整理成员">
+		<div class="contributors-header">
+			<h2 class="section-heading">咖啡屋整理成员</h2>
+			<p class="section-desc">感谢以下小伙伴长期以来的剧本整理、校对与排版贡献。</p>
+		</div>
+		<div class="contributors-grid">
+			{contributors.map((member) => (
+				<a
+					href={member.link}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="contributor-card"
+				>
+					<img
+						src={member.avatar}
+						alt={member.name}
+						width="44"
+						height="44"
+						loading="lazy"
+					/>
+					<div class="contributor-meta">
+						<span class="contributor-name">{member.name}</span>
+						<span class="contributor-role">剧情文本整理 ↗</span>
+					</div>
+				</a>
+			))}
+		</div>
+	</section>
+</div>
+
+<script>
+	const searchTrigger = document.querySelector<HTMLButtonElement>('[data-trigger-search]');
+	searchTrigger?.addEventListener('click', () => {
+		const starlightSearchBtn = document.querySelector<HTMLButtonElement>(
+			'site-search button[data-open-modal], button[data-open-modal]'
+		);
+		starlightSearchBtn?.click();
+	});
+
+	const filterBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-arc-filter]'));
+	const arcSections = Array.from(document.querySelectorAll<HTMLElement>('[data-arc-section]'));
+
+	for (const btn of filterBtns) {
+		btn.addEventListener('click', () => {
+			const target = btn.dataset.arcFilter || 'all';
+			for (const b of filterBtns) {
+				b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+			}
+			for (const sec of arcSections) {
+				const show = target === 'all' || sec.dataset.arcSection === target;
+				sec.hidden = !show;
+			}
+		});
+	}
+</script>
+
+<style>
+	.home-portal {
+		display: flex;
+		flex-direction: column;
+		gap: 2.25rem;
+		padding-top: 0.5rem;
+	}
+
+	/* Hero Card */
+	.orbal-hero {
+		position: relative;
+		overflow: hidden;
+		border-radius: 1.25rem;
+		border: 1px solid var(--archive-border-strong);
+		background:
+			radial-gradient(circle at 85% 20%, rgba(56, 189, 248, 0.16), transparent 52%),
+			radial-gradient(circle at 12% 85%, rgba(251, 191, 36, 0.12), transparent 48%),
+			var(--archive-surface-elevated);
+		padding: 2.25rem 2rem;
+		box-shadow: var(--sl-shadow-lg);
+	}
+
+	.orbal-astrolabe {
+		position: absolute;
+		right: -3.5rem;
+		top: -3.5rem;
+		width: 22rem;
+		height: 22rem;
+		color: var(--sl-color-text-accent);
+		pointer-events: none;
+		opacity: 0.75;
+	}
+
+	.astrolabe-ring-outer {
+		transform-origin: 180px 180px;
+		animation: orbal-spin 90s linear infinite;
+	}
+
+	.astrolabe-ring-inner {
+		transform-origin: 180px 180px;
+		animation: orbal-spin-rev 60s linear infinite;
+	}
+
+	@keyframes orbal-spin {
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	@keyframes orbal-spin-rev {
+		to {
+			transform: rotate(-360deg);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.astrolabe-ring-outer,
+		.astrolabe-ring-inner {
+			animation: none;
+		}
+	}
+
+	.hero-content {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		gap: 1.35rem;
+		max-width: 52rem;
+	}
+
+	.hero-eyebrow {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		width: fit-content;
+		padding: 0.3rem 0.85rem;
+		border-radius: 9999px;
+		border: 1px solid var(--archive-border-strong);
+		background: var(--archive-pill-bg);
+		font-size: var(--sl-text-xs);
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		color: var(--sl-color-text-accent);
+	}
+
+	.eyebrow-dot {
+		width: 0.45rem;
+		height: 0.45rem;
+		border-radius: 9999px;
+		background: var(--archive-gold);
+		box-shadow: 0 0 8px var(--archive-gold);
+	}
+
+	.hero-title-row {
+		display: flex;
+		align-items: center;
+		gap: 1.15rem;
+	}
+
+	.hero-logo {
+		width: 4rem;
+		height: 4rem;
+		border-radius: 0.9rem;
+		border: 1px solid var(--archive-border-strong);
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+		flex-shrink: 0;
+	}
+
+	.hero-title-row h1 {
+		margin: 0;
+		font-size: clamp(1.75rem, 3.6vw, 2.75rem);
+		line-height: 1.15;
+		font-weight: 800;
+		color: var(--sl-color-white);
+		letter-spacing: -0.01em;
+	}
+
+	.hero-subtitle {
+		margin: 0.35rem 0 0;
+		font-size: var(--sl-text-base);
+		color: var(--sl-color-gray-2);
+	}
+
+	.hero-stats {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+
+	.stat-pill {
+		display: inline-flex;
+		align-items: baseline;
+		gap: 0.4rem;
+		padding: 0.45rem 0.9rem;
+		border-radius: 0.75rem;
+		border: 1px solid var(--archive-border);
+		background: var(--archive-surface);
+	}
+
+	.stat-num {
+		font-size: var(--sl-text-xl);
+		font-weight: 800;
+		color: var(--sl-color-text-accent);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.stat-label {
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-2);
+	}
+
+	.hero-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+
+	.btn-orbal {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.45rem;
+		padding: 0.6rem 1.1rem;
+		border-radius: 0.65rem;
+		font-size: var(--sl-text-sm);
+		font-weight: 600;
+		text-decoration: none;
+		cursor: pointer;
+		border: 1px solid transparent;
+		transition: transform 0.15s ease, border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+	}
+
+	.btn-orbal:hover {
+		transform: translateY(-1px);
+	}
+
+	.btn-primary {
+		background: var(--sl-color-text-accent);
+		color: var(--sl-color-text-invert);
+		box-shadow: 0 6px 20px rgba(56, 189, 248, 0.25);
+	}
+
+	.btn-secondary {
+		background: var(--archive-gold-soft);
+		border-color: var(--archive-gold-border);
+		color: var(--archive-gold);
+	}
+
+	.btn-ghost {
+		background: var(--archive-surface);
+		border-color: var(--archive-border-strong);
+		color: var(--sl-color-white);
+	}
+
+	.btn-ghost:hover {
+		border-color: var(--sl-color-text-accent);
+		color: var(--sl-color-text-accent);
+	}
+
+	.btn-orbal kbd {
+		font-family: var(--sl-font-mono);
+		font-size: 0.7rem;
+		padding: 0.1rem 0.35rem;
+		border-radius: 0.3rem;
+		border: 1px solid var(--archive-border-strong);
+		background: var(--archive-pill-bg);
+		color: var(--sl-color-gray-2);
+	}
+
+	/* Bento Strip */
+	.bento-strip {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
+
+	@media (min-width: 56rem) {
+		.bento-strip {
+			grid-template-columns: 1.25fr 1fr;
+			align-items: stretch;
+		}
+	}
+
+	.spoiler-card {
+		border-radius: 1rem;
+		border: 1px solid rgba(245, 158, 11, 0.38);
+		background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(239, 68, 68, 0.06)), var(--archive-surface);
+		padding: 1.15rem 1.35rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 0.45rem;
+	}
+
+	.spoiler-head {
+		display: flex;
+		align-items: center;
+		gap: 0.65rem;
+		flex-wrap: wrap;
+	}
+
+	.spoiler-badge {
+		font-size: 0.68rem;
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		padding: 0.18rem 0.5rem;
+		border-radius: 0.35rem;
+		background: rgba(245, 158, 11, 0.2);
+		color: var(--archive-gold);
+		border: 1px solid rgba(245, 158, 11, 0.4);
+	}
+
+	.spoiler-head h2 {
+		margin: 0;
+		font-size: var(--sl-text-base);
+		font-weight: 700;
+		color: var(--sl-color-white);
+	}
+
+	.spoiler-card p {
+		margin: 0;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-2);
+		line-height: 1.65;
+	}
+
+	.featured-bgm-card {
+		display: flex;
+		align-items: center;
+	}
+
+	.featured-bgm-card > :global(.orbal-audio-card),
+	.featured-bgm-card > audio {
+		width: 100%;
+		margin: 0;
+	}
+
+	/* Saga Directory */
+	.saga-directory {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.directory-header {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.section-heading {
+		margin: 0;
+		font-size: var(--sl-text-2xl);
+		font-weight: 700;
+		color: var(--sl-color-white);
+	}
+
+	.section-desc {
+		margin: 0.3rem 0 0;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-3);
+	}
+
+	.arc-filter-bar {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.arc-filter-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.45rem;
+		padding: 0.42rem 0.85rem;
+		border-radius: 9999px;
+		border: 1px solid var(--archive-border);
+		background: var(--archive-surface);
+		color: var(--sl-color-gray-2);
+		font-size: var(--sl-text-xs);
+		font-weight: 600;
+		cursor: pointer;
+		transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+	}
+
+	.arc-filter-btn:hover {
+		border-color: var(--arc-accent, var(--sl-color-text-accent));
+		color: var(--sl-color-white);
+	}
+
+	.arc-filter-btn[aria-pressed='true'] {
+		border-color: var(--arc-accent, var(--sl-color-text-accent));
+		background: var(--archive-pill-bg);
+		color: var(--sl-color-white);
+		box-shadow: 0 0 0 1px color-mix(in srgb, var(--arc-accent, var(--sl-color-text-accent)) 45%, transparent);
+	}
+
+	.filter-dot {
+		width: 0.5rem;
+		height: 0.5rem;
+		border-radius: 9999px;
+		background: var(--arc-accent, var(--sl-color-text-accent));
+	}
+
+	.arc-list {
+		display: flex;
+		flex-direction: column;
+		gap: 2.25rem;
+	}
+
+	.arc-section {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.arc-section[hidden] {
+		display: none;
+	}
+
+	.arc-header {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		padding-left: 0.9rem;
+		border-left: 3px solid var(--arc-accent);
+	}
+
+	.arc-title-line {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+	}
+
+	.arc-emblem {
+		width: 0.6rem;
+		height: 0.6rem;
+		border-radius: 2px;
+		transform: rotate(45deg);
+		background: var(--arc-accent);
+		box-shadow: 0 0 10px color-mix(in srgb, var(--arc-accent) 65%, transparent);
+	}
+
+	.arc-title-line h3 {
+		margin: 0;
+		font-size: var(--sl-text-xl);
+		font-weight: 700;
+		color: var(--sl-color-white);
+	}
+
+	.arc-en {
+		font-size: var(--sl-text-xs);
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--sl-color-gray-3);
+	}
+
+	.arc-years {
+		font-family: var(--sl-font-mono);
+		font-size: var(--sl-text-xs);
+		padding: 0.12rem 0.5rem;
+		border-radius: 9999px;
+		background: var(--archive-pill-bg);
+		border: 1px solid var(--archive-border);
+		color: var(--arc-accent);
+		font-weight: 600;
+	}
+
+	.arc-summary {
+		margin: 0;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-2);
+	}
+
+	.game-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(18.5rem, 1fr));
+		gap: 1rem;
+	}
+
+	.game-card {
+		display: flex;
+		flex-direction: column;
+		gap: 0.65rem;
+		padding: 1.2rem;
+		border-radius: 1rem;
+		border: 1px solid var(--archive-border);
+		background: var(--archive-surface);
+		transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+	}
+
+	.game-card:hover {
+		transform: translateY(-2px);
+		border-color: color-mix(in srgb, var(--arc-accent) 65%, transparent);
+		box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+	}
+
+	.game-card-top {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.game-year {
+		font-family: var(--sl-font-mono);
+		font-size: 0.72rem;
+		font-weight: 700;
+		color: var(--arc-accent);
+	}
+
+	.game-chapters {
+		font-size: 0.72rem;
+		padding: 0.12rem 0.5rem;
+		border-radius: 9999px;
+		border: 1px solid var(--archive-border);
+		background: var(--archive-pill-bg);
+		color: var(--sl-color-gray-2);
+	}
+
+	.game-title {
+		margin: 0;
+		font-size: var(--sl-text-xl);
+		font-weight: 700;
+		line-height: 1.25;
+	}
+
+	.game-title a {
+		color: var(--sl-color-white);
+		text-decoration: none;
+	}
+
+	.game-title a:hover {
+		color: var(--arc-accent);
+	}
+
+	.game-subtitle {
+		font-size: 0.75rem;
+		color: var(--sl-color-gray-3);
+		margin-top: -0.45rem;
+	}
+
+	.game-tagline {
+		margin: 0;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-2);
+		line-height: 1.6;
+		flex-grow: 1;
+	}
+
+	.game-status-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+		padding-top: 0.25rem;
+	}
+
+	.status-chip {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		font-size: 0.72rem;
+		font-weight: 600;
+		padding: 0.18rem 0.55rem;
+		border-radius: 0.45rem;
+		border: 1px solid var(--archive-border);
+		background: var(--archive-pill-bg);
+	}
+
+	.status-chip.is-done {
+		color: var(--sl-color-green-high);
+		border-color: rgba(16, 185, 129, 0.3);
+	}
+
+	.status-chip.is-wip {
+		color: var(--archive-gold);
+		border-color: rgba(245, 158, 11, 0.35);
+	}
+
+	.game-quick-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+		padding-top: 0.45rem;
+		border-top: 1px solid var(--archive-border);
+	}
+
+	.quick-link-pill {
+		font-size: 0.75rem;
+		font-weight: 600;
+		padding: 0.26rem 0.65rem;
+		border-radius: 0.5rem;
+		border: 1px solid var(--archive-border-strong);
+		background: var(--archive-pill-bg);
+		color: var(--sl-color-text-accent);
+		text-decoration: none;
+		transition: border-color 0.15s ease, background-color 0.15s ease;
+	}
+
+	.quick-link-pill:hover {
+		border-color: var(--arc-accent);
+		color: var(--sl-color-white);
+	}
+
+	/* Contributors Showcase */
+	.contributors-section {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		padding-top: 0.5rem;
+	}
+
+	.contributors-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr));
+		gap: 0.75rem;
+	}
+
+	.contributor-card {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.75rem 0.9rem;
+		border-radius: 0.85rem;
+		border: 1px solid var(--archive-border);
+		background: var(--archive-surface);
+		text-decoration: none;
+		transition: border-color 0.15s ease, transform 0.15s ease;
+	}
+
+	.contributor-card:hover {
+		transform: translateY(-1px);
+		border-color: var(--sl-color-text-accent);
+	}
+
+	.contributor-card img {
+		width: 44px;
+		height: 44px;
+		border-radius: 9999px;
+		object-fit: cover;
+		border: 2px solid var(--archive-border-strong);
+		flex-shrink: 0;
+	}
+
+	.contributor-meta {
+		display: flex;
+		flex-direction: column;
+		min-width: 0;
+	}
+
+	.contributor-name {
+		font-size: var(--sl-text-sm);
+		font-weight: 700;
+		color: var(--sl-color-white);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.contributor-role {
+		font-size: 0.72rem;
+		color: var(--sl-color-gray-3);
+	}
+
+	@media (max-width: 40rem) {
+		.orbal-hero {
+			padding: 1.5rem 1.25rem;
+		}
+		.orbal-astrolabe {
+			width: 14rem;
+			height: 14rem;
+			right: -3rem;
+			top: -3rem;
+		}
+		.hero-title-row {
+			align-items: flex-start;
+		}
+		.hero-logo {
+			width: 3rem;
+			height: 3rem;
+		}
+	}
+</style>

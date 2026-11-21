@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.npm/
+.env
+.env.*
+*.pem
+*.key
+*.log
+.DS_Store

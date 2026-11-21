@@ -1,0 +1,153 @@
+---
+import MobileMenuFooter from 'virtual:starlight/components/MobileMenuFooter';
+import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.astro';
+import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
+import navigation from '../data/navigation.json';
+import { CHAPTER_COUNTS, getGameByPathname } from '../data/games';
+
+const { sidebar } = Astro.locals.starlightRoute;
+const pathname = Astro.url.pathname;
+const gameIdx = navigation.sections.findIndex((s) => pathname.startsWith(`/${s.prefix}/`));
+const gameCtx = getGameByPathname(pathname);
+
+const desktopSublist =
+	gameIdx !== -1 && sidebar[gameIdx]?.type === 'group'
+		? sidebar[gameIdx].entries
+		: sidebar.map((entry) => (entry.type === 'group' ? { ...entry, collapsed: true } : entry));
+
+const mobileSublist = sidebar.map((entry, idx) =>
+	entry.type === 'group' ? { ...entry, collapsed: idx !== gameIdx } : entry
+);
+---
+
+<div class="sl-hidden md:sl-block">
+	{gameCtx && (
+		<div class="sidebar-game-card" style={`--arc-accent: ${gameCtx.arc.color}`}>
+			<div class="sidebar-game-badges">
+				<span class="sidebar-arc-pill">
+					<span class="sidebar-arc-dot" aria-hidden="true"></span>
+					<span>{gameCtx.arc.name}</span>
+				</span>
+				<span class="sidebar-year-pill">{gameCtx.game.year}</span>
+			</div>
+			<div class="sidebar-game-title">{gameCtx.game.title}</div>
+			<div class="sidebar-game-meta">
+				<span>{gameCtx.game.subtitle}</span>
+				<span class="sidebar-chapter-count">共 {CHAPTER_COUNTS[gameCtx.game.prefix] ?? 0} 篇</span>
+			</div>
+		</div>
+	)}
+	<SidebarPersister>
+		<SidebarSublist sublist={desktopSublist} />
+	</SidebarPersister>
+</div>
+
+<div class="md:sl-hidden">
+	<ul class="mobile-quick-links">
+		<li>
+			<a href="/" aria-current={pathname === '/' ? 'page' : undefined}>首页</a>
+		</li>
+		{navigation.externalLinks.map((ext) => (
+			<li>
+				<a href={ext.href} target="_blank" rel="noopener noreferrer">
+					{ext.label} ↗
+				</a>
+			</li>
+		))}
+	</ul>
+	<SidebarSublist sublist={mobileSublist} />
+	<MobileMenuFooter />
+</div>
+
+<style>
+	@layer starlight.core {
+		.sidebar-game-card {
+			padding: 0.85rem 0.9rem;
+			margin-bottom: 0.9rem;
+			border-radius: 0.75rem;
+			border: 1px solid color-mix(in srgb, var(--arc-accent) 32%, var(--archive-border));
+			background:
+				radial-gradient(circle at 90% 10%, color-mix(in srgb, var(--arc-accent) 16%, transparent), transparent 60%),
+				var(--archive-surface);
+			display: flex;
+			flex-direction: column;
+			gap: 0.35rem;
+		}
+
+		.sidebar-game-badges {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 0.4rem;
+		}
+
+		.sidebar-arc-pill {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.35rem;
+			font-size: 0.7rem;
+			font-weight: 600;
+			color: var(--sl-color-gray-2);
+		}
+
+		.sidebar-arc-dot {
+			width: 0.42rem;
+			height: 0.42rem;
+			border-radius: 9999px;
+			background: var(--arc-accent);
+		}
+
+		.sidebar-year-pill {
+			font-family: var(--sl-font-mono);
+			font-size: 0.68rem;
+			font-weight: 700;
+			color: var(--arc-accent);
+		}
+
+		.sidebar-game-title {
+			font-size: var(--sl-text-base);
+			font-weight: 700;
+			color: var(--sl-color-white);
+			line-height: 1.25;
+		}
+
+		.sidebar-game-meta {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 0.5rem;
+			font-size: 0.7rem;
+			color: var(--sl-color-gray-3);
+		}
+
+		.sidebar-chapter-count {
+			white-space: nowrap;
+			font-weight: 600;
+			color: var(--sl-color-gray-2);
+		}
+
+		.mobile-quick-links {
+			list-style: none;
+			padding: 0 0 0.75rem;
+			margin: 0 0 0.75rem;
+			border-bottom: 1px solid var(--sl-color-hairline-light);
+			display: flex;
+			flex-direction: column;
+			gap: 0.25rem;
+		}
+
+		.mobile-quick-links a {
+			display: block;
+			padding: 0.35rem 0.5rem;
+			border-radius: 0.25rem;
+			font-size: var(--sl-text-base);
+			font-weight: 600;
+			color: var(--sl-color-white);
+			text-decoration: none;
+		}
+
+		.mobile-quick-links a[aria-current='page'] {
+			color: var(--sl-color-text-accent);
+		}
+	}
+</style>

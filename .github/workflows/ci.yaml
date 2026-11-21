@@ -1,0 +1,68 @@
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type and template check
+        run: npm run check
+
+      - name: Build Astro Starlight site
+        run: npm run build
+
+      - name: Precompress assets with Brotli for .htaccess
+        run: |
+          command -v brotli >/dev/null 2>&1 || (sudo apt-get update && sudo apt-get install -y brotli)
+          find dist -type f \( -name "*.js" -o -name "*.css" -o -name "*.json" \) -exec brotli -q 9 -k {} +
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+
+      - name: Upload dist artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: astro-artifacts
+          path: dist
+          include-hidden-files: true
+
+  deploy-oss:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: yizhoumo/setup-ossutil@v1
+        with:
+          ossutil-version: '1.7.15'
+          endpoint: oss-cn-hangzhou.aliyuncs.com
+          access-key-id: ${{ secrets.ACCESS_ID }}
+          access-key-secret: ${{ secrets.ACCESS_KEY_SECRET }}
+
+      - name: Download dist artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+          name: astro-artifacts
+
+      - name: Sync artifacts to OSS
+        run: ossutil sync dist/ ${{ secrets.BUCKET }} -u --delete -f

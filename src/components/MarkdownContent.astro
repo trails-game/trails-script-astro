@@ -1,0 +1,231 @@
+---
+import '@astrojs/starlight/style/markdown.css';
+import HomePortal from './HomePortal.astro';
+
+const isHome = Astro.url.pathname === '/';
+---
+
+{isHome ? (
+	<HomePortal />
+) : (
+	<div class="sl-markdown-content" id="trails-script-body">
+		<slot />
+	</div>
+)}
+
+<script>
+	function extractTrackName(audio: HTMLAudioElement): string {
+		const source = audio.querySelector('source');
+		const rawSrc = source?.getAttribute('src') || audio.getAttribute('src') || '';
+		if (!rawSrc) return '游戏原声 BGM';
+		const filename = rawSrc.split('/').pop()?.split('?')[0] || rawSrc;
+		let decoded = filename;
+		try {
+			decoded = decodeURIComponent(filename);
+		} catch {
+			// keep original if malformed URI
+		}
+		return decoded
+			.replace(/\.mp3$/i, '')
+			.replace(/^\d+_\d+_/, '')
+			.replace(/-/g, ' ')
+			.trim();
+	}
+
+	function enhanceAudioPlayers() {
+		const audios = Array.from(document.querySelectorAll<HTMLAudioElement>('audio'));
+		for (const audio of audios) {
+			if (audio.closest('.orbal-audio-card')) continue;
+			const trackTitle = extractTrackName(audio);
+
+			const card = document.createElement('div');
+			card.className = 'orbal-audio-card not-content';
+
+			const header = document.createElement('div');
+			header.className = 'orbal-audio-head';
+			header.innerHTML = `
+				<span class="orbal-disc" aria-hidden="true"></span>
+				<span class="orbal-audio-meta">
+					<span class="orbal-audio-label">导力留声机 · BGM</span>
+					<span class="orbal-audio-title"></span>
+				</span>
+				<span class="orbal-eq" aria-hidden="true">
+					<i></i><i></i><i></i><i></i>
+				</span>
+			`;
+			const titleEl = header.querySelector('.orbal-audio-title');
+			if (titleEl) titleEl.textContent = trackTitle;
+
+			audio.parentNode?.insertBefore(card, audio);
+			card.appendChild(header);
+			card.appendChild(audio);
+
+			const syncState = () => {
+				card.classList.toggle('is-playing', !audio.paused && !audio.ended);
+			};
+			audio.addEventListener('play', syncState);
+			audio.addEventListener('pause', syncState);
+			audio.addEventListener('ended', syncState);
+		}
+	}
+
+	function speakerHue(name: string): number {
+		const clean = name.replace(/^[【（(]|[】）)]$/g, '');
+		let sum = 0;
+		for (let i = 0; i < clean.length; i++) {
+			sum += clean.charCodeAt(i);
+		}
+		return sum % 8;
+	}
+
+	function formatGlossesOutsideTags(html: string): string {
+		return html.replace(
+			/(<[^>]+>)|(\{([^{}<>\n]{1,45})\})/g,
+			(_match, tag, _gloss, inner) => {
+				if (tag) return tag;
+				return `<span class="trails-gloss"><span class="rp">{</span>${inner}<span class="rp">}</span></span>`;
+			}
+		);
+	}
+
+	function formatInlineActions(speechHtml: string): string {
+		return speechHtml.replace(
+			/(<[^>]+>)|(【[^】<>]{1,48}】|（[^）<>]{1,48}）)/g,
+			(_match, tag, action) => {
+				if (tag) return tag;
+				return `<span class="dlg-action">${action}</span>`;
+			}
+		);
+	}
+
+	function enhanceLine(line: string): { html: string; changed: boolean } {
+		if (!line.trim()) return { html: line, changed: false };
+
+		// 1. Scene / Time / Chapter Title banner
+		if (/^\s*(?:<strong>)?\s*(?:【(?:场景|剧情时间|时间|章节标题)】|——)/.test(line)) {
+			return {
+				html: `<span class="script-scene-line">${formatGlossesOutsideTags(line)}</span>`,
+				changed: true,
+			};
+		}
+
+		// 2. Character introduction line
+		if (/^\s*(?:<strong>)?\s*【角色介绍】/.test(line)) {
+			return {
+				html: `<span class="script-char-line">${formatGlossesOutsideTags(line)}</span>`,
+				changed: true,
+			};
+		}
+
+		// 3. Spoken dialogue line: `Speaker：Speech`
+		const dlgMatch = line.match(
+			/^(\s*)(【[^】<>]{1,20}】|[^：:<>\n【（(“"「『※*\s][^：:<>\n【（(]{0,20})：(\s*)([\s\S]+)$/
+		);
+		if (dlgMatch) {
+			const [, leadWs, speaker, midWs, speech] = dlgMatch;
+			const hue = speakerHue(speaker);
+			const speechWithActions = formatInlineActions(speech);
+			const formattedSpeech = formatGlossesOutsideTags(speechWithActions);
+			return {
+				html: `${leadWs}<span class="dlg-line"><span class="dlg-speaker" data-hue="${hue}">${formatGlossesOutsideTags(speaker)}</span><span class="dlg-colon">：</span><span class="dlg-speech">${midWs}${formattedSpeech}</span></span>`,
+				changed: true,
+			};
+		}
+
+		// 4. Standalone stage direction / narration cue
+		if (/^\s*(?:【[^】<>]+】|（[^）<>]+）)\s*$/.test(line)) {
+			return {
+				html: `<span class="script-stage-line">${formatGlossesOutsideTags(line)}</span>`,
+				changed: true,
+			};
+		}
+
+		// 5. Plain narration line (only update if inline glosses exist)
+		if (/\{[^{}<>\n]{1,45}\}/.test(line)) {
+			return {
+				html: formatGlossesOutsideTags(line),
+				changed: true,
+			};
+		}
+
+		return { html: line, changed: false };
+	}
+
+	function enhanceParagraph(p: HTMLParagraphElement) {
+		if (p.dataset.enhanced === '1') return;
+		p.dataset.enhanced = '1';
+
+		if (p.querySelector('audio, img, a, table, pre, code')) return;
+
+		const parts = p.innerHTML.split(/<br\s*\/?>\n?/i);
+		let anyChanged = false;
+		const nextParts = parts.map((part) => {
+			const res = enhanceLine(part);
+			if (res.changed) anyChanged = true;
+			return res.html;
+		});
+
+		if (anyChanged) {
+			p.innerHTML = nextParts.join('<br>\n');
+			p.classList.add('has-script-lines');
+		}
+	}
+
+	function enhanceScriptBody() {
+		const container = document.getElementById('trails-script-body');
+		if (!container) return;
+
+		const paragraphs = Array.from(container.querySelectorAll<HTMLParagraphElement>(':scope > p'));
+		const initialBatch = paragraphs.slice(0, 60);
+		for (const p of initialBatch) {
+			enhanceParagraph(p);
+		}
+
+		const remaining = paragraphs.slice(60);
+		if (remaining.length === 0) return;
+
+		const pending = new Set<HTMLParagraphElement>(remaining);
+		const observer =
+			'IntersectionObserver' in window
+				? new IntersectionObserver(
+						(entries) => {
+							for (const entry of entries) {
+								if (!entry.isIntersecting) continue;
+								const p = entry.target as HTMLParagraphElement;
+								pending.delete(p);
+								observer?.unobserve(p);
+								enhanceParagraph(p);
+							}
+						},
+						{ rootMargin: '800px 0px' }
+					)
+				: null;
+
+		for (const p of remaining) {
+			observer?.observe(p);
+		}
+
+		const scheduleIdle =
+			window.requestIdleCallback ||
+			((cb: () => void) => window.setTimeout(cb, 16));
+
+		function drainChunk() {
+			let processed = 0;
+			for (const p of pending) {
+				pending.delete(p);
+				observer?.unobserve(p);
+				enhanceParagraph(p);
+				processed++;
+				if (processed >= 80) break;
+			}
+			if (pending.size > 0) {
+				scheduleIdle(drainChunk);
+			}
+		}
+
+		scheduleIdle(drainChunk);
+	}
+
+	enhanceAudioPlayers();
+	enhanceScriptBody();
+</script>

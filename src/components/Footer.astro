@@ -1,0 +1,209 @@
+---
+import EditLink from 'virtual:starlight/components/EditLink';
+import LastUpdated from 'virtual:starlight/components/LastUpdated';
+import { Icon } from '@astrojs/starlight/components';
+import config from 'virtual:starlight/user-config';
+import navigation from '../data/navigation.json';
+
+const { dir, pagination } = Astro.locals.starlightRoute;
+const pathname = Astro.url.pathname;
+const activePrefix =
+	navigation.sections.find((s) => pathname.startsWith(`/${s.prefix}/`))?.prefix ?? null;
+
+const sameGame = (href?: string) =>
+	Boolean(href && activePrefix && href.startsWith(`/${activePrefix}/`));
+
+const prev = sameGame(pagination.prev?.href) ? pagination.prev : undefined;
+const next = sameGame(pagination.next?.href) ? pagination.next : undefined;
+const isRtl = dir === 'rtl';
+---
+
+<footer class="sl-flex">
+	<div class="meta sl-flex">
+		<EditLink />
+		<LastUpdated />
+	</div>
+
+	{(prev || next) && (
+		<div class="pagination-links print:hidden" dir={dir}>
+			{prev && (
+				<a href={prev.href} rel="prev">
+					<Icon name={isRtl ? 'right-arrow' : 'left-arrow'} size="1.5rem" />
+					<span>
+						{Astro.locals.t('page.previousLink')}
+						<br />
+						<span class="link-title">{prev.label}</span>
+					</span>
+				</a>
+			)}
+			{next && (
+				<a href={next.href} rel="next">
+					<Icon name={isRtl ? 'left-arrow' : 'right-arrow'} size="1.5rem" />
+					<span>
+						{Astro.locals.t('page.nextLink')}
+						<br />
+						<span class="link-title">{next.label}</span>
+					</span>
+				</a>
+			)}
+		</div>
+	)}
+
+	<div class="site-legal-footer">
+		<p>
+			ICP备案:{' '}
+			<a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">
+				沪ICP备2021002641号-1
+			</a>
+		</p>
+		<p>
+			沪公网安备:{' '}
+			<a
+				href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31010402008841"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				31010402008841号
+			</a>
+		</p>
+	</div>
+
+	{config.credits && (
+		<a class="kudos sl-flex" href="https://starlight.astro.build">
+			<Icon name="starlight" /> {Astro.locals.t('builtWithStarlight.label')}
+		</a>
+	)}
+</footer>
+
+<button type="button" id="back-to-top" class="back-to-top print:hidden" aria-label="回到顶部">
+	<svg
+		aria-hidden="true"
+		width="14"
+		height="14"
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="2.5"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+	>
+		<polyline points="18 15 12 9 6 15" />
+	</svg>
+	<span>回到顶部</span>
+</button>
+
+<script>
+	const topBtn = document.getElementById('back-to-top');
+	if (topBtn) {
+		if (topBtn.parentElement !== document.body) {
+			document.body.appendChild(topBtn);
+		}
+		const updateVisibility = () => {
+			topBtn.classList.toggle('is-visible', window.scrollY > 300);
+		};
+		updateVisibility();
+		window.addEventListener('scroll', updateVisibility, { passive: true });
+		topBtn.addEventListener('click', () => {
+			const instant = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			window.scrollTo({ top: 0, behavior: instant ? 'auto' : 'smooth' });
+		});
+	}
+
+	async function initLightbox() {
+		const imgs = Array.from(document.querySelectorAll<HTMLImageElement>('img.imgLightbox'));
+		if (imgs.length === 0) return;
+
+		const [{ default: GLightbox }] = await Promise.all([
+			import('glightbox'),
+			import('glightbox/dist/css/glightbox.min.css'),
+		]);
+
+		const groups = new Set<string>();
+		for (const img of imgs) {
+			if (img.closest('a.glightbox-item')) continue;
+			const gallery = img.dataset.gallery || 't1';
+			const anchor = document.createElement('a');
+			anchor.href = img.currentSrc || img.src;
+			anchor.className = `glightbox-item ${gallery}`;
+			anchor.dataset.gallery = gallery;
+			if (img.title) anchor.title = img.title;
+			img.parentNode?.insertBefore(anchor, img);
+			anchor.appendChild(img);
+			groups.add(`.${gallery}`);
+		}
+		for (const selector of groups) {
+			GLightbox({ selector });
+		}
+	}
+
+	initLightbox();
+</script>
+
+<style>
+	@layer starlight.core {
+		footer {
+			flex-direction: column;
+			gap: 1.5rem;
+		}
+		.meta {
+			gap: 0.75rem 3rem;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			margin-top: 3rem;
+			font-size: var(--sl-text-sm);
+			color: var(--sl-color-gray-3);
+		}
+		.pagination-links {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+			gap: 1rem;
+		}
+		.pagination-links a {
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			gap: 0.5rem;
+			width: 100%;
+			border: 1px solid var(--sl-color-gray-5);
+			border-radius: 0.5rem;
+			padding: 1rem;
+			text-decoration: none;
+			color: var(--sl-color-gray-2);
+			box-shadow: var(--sl-shadow-md);
+			overflow-wrap: anywhere;
+		}
+		.pagination-links [rel='next'] {
+			justify-content: end;
+			text-align: end;
+			flex-direction: row-reverse;
+		}
+		.pagination-links a:hover {
+			border-color: var(--sl-color-gray-2);
+		}
+		.link-title {
+			color: var(--sl-color-white);
+			font-size: var(--sl-text-2xl);
+			line-height: var(--sl-line-height-headings);
+		}
+		.pagination-links svg {
+			flex-shrink: 0;
+		}
+		.kudos {
+			align-items: center;
+			gap: 0.5em;
+			margin: 1.5rem auto;
+			font-size: var(--sl-text-xs);
+			text-decoration: none;
+			color: var(--sl-color-gray-3);
+		}
+		.kudos:hover {
+			color: var(--sl-color-white);
+		}
+	}
+
+	@layer starlight.components {
+		.kudos :global(svg) {
+			color: var(--sl-color-orange);
+		}
+	}
+</style>

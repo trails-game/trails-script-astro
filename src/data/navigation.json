@@ -1,0 +1,824 @@
+{
+  "externalLinks": [
+    {
+      "label": "Cafe主站",
+      "href": "https://trails-game.com"
+    }
+  ],
+  "sections": [
+    {
+      "label": "黎之轨迹Ⅱ",
+      "prefix": "kuro2",
+      "href": "/kuro2/summary/",
+      "sidebar": {
+        "label": "黎之轨迹Ⅱ",
+        "collapsed": false,
+        "items": [
+          {
+            "label": "黎之轨迹Ⅱ - 剧情简介",
+            "slug": "kuro2/summary"
+          },
+          {
+            "label": "序幕 「绯红咆哮」",
+            "slug": "kuro2/chapter-0"
+          },
+          {
+            "label": "幕前 「童话庭园」",
+            "slug": "kuro2/chapter-pre"
+          },
+          {
+            "label": "第Ⅰ部side A  「北方港都随想曲」",
+            "slug": "kuro2/chapter-1a"
+          },
+          {
+            "label": "第Ⅰ部side B 「代理地下万事屋」",
+            "slug": "kuro2/chapter-1b"
+          },
+          {
+            "label": "第Ⅱ部side A 「再访煌都～黑月撩乱～」",
+            "slug": "kuro2/chapter-2a"
+          },
+          {
+            "label": "第Ⅱ部side B 「潜入亚拉密斯～并不那么悠闲的日子～」",
+            "slug": "kuro2/chapter-2b"
+          },
+          {
+            "label": "断章 「涅梅丝岛～另一个节日～」",
+            "slug": "kuro2/chapter-mid"
+          },
+          {
+            "label": "第Ⅲ部 「普世欢腾」",
+            "slug": "kuro2/chapter-3"
+          },
+          {
+            "label": "尾声 「流转的终点」",
+            "slug": "kuro2/chapter-4"
+          },
+          {
+            "label": "EXTRA 「扭曲童话者～然后……」",
+            "slug": "kuro2/chapter-extra"
+          },
+          {
+            "label": "连结事件",
+            "slug": "kuro2/bond-events"
+          },
+          {
+            "label": "电影文本&全角色赏析",
+            "slug": "kuro2/movies"
+          },
+          {
+            "label": "调查报告&有声故事",
+            "slug": "kuro2/extrastories"
+          }
+        ]
+      }
+    },
+    {
+      "label": "黎之轨迹",
+      "prefix": "kuro",
+      "href": "/kuro/summary/",
+      "sidebar": {
+        "label": "黎之轨迹",
+        "collapsed": false,
+        "items": [
+          {
+            "label": "黎之轨迹 - 剧情简介",
+            "slug": "kuro/summary"
+          },
+          {
+            "label": "序章 「旧市街的地下万事屋」",
+            "slug": "kuro/chapter-0"
+          },
+          {
+            "label": "第一章 「纯真之焰～启程～」",
+            "slug": "kuro/chapter-1"
+          },
+          {
+            "label": "第二章 「宿星～煌都的麒麟儿」",
+            "slug": "kuro/chapter-2"
+          },
+          {
+            "label": "第三章 「萨尔巴德狂想曲」",
+            "slug": "kuro/chapter-3"
+          },
+          {
+            "label": "第四章 「灾厄协定」",
+            "slug": "kuro/chapter-4"
+          },
+          {
+            "label": "间章 「龙来温泉乡奇谭」",
+            "slug": "kuro/chapter-4-5"
+          },
+          {
+            "label": "第五章 「白夜的嘉年华」",
+            "slug": "kuro/chapter-5"
+          },
+          {
+            "label": "最终章 「为了总有一天终将归来的你」",
+            "slug": "kuro/chapter-6"
+          },
+          {
+            "label": "连结事件",
+            "slug": "kuro/bond-events"
+          },
+          {
+            "label": "电影文本&全角色赏析",
+            "slug": "kuro/movies"
+          }
+        ]
+      }
+    },
+    {
+      "label": "创之轨迹",
+      "prefix": "hajimari",
+      "href": "/hajimari/summary/",
+      "sidebar": {
+        "label": "创之轨迹",
+        "collapsed": false,
+        "items": [
+          {
+            "label": "创之轨迹 - 剧情简介",
+            "slug": "hajimari/summary"
+          },
+          {
+            "label": "序章 「克洛斯贝尔解放作战」",
+            "slug": "hajimari/chapter-0"
+          },
+          {
+            "label": "第一章",
+            "slug": "hajimari/chapter-1"
+          },
+          {
+            "label": "第二章",
+            "slug": "hajimari/chapter-2"
+          },
+          {
+            "label": "第三章",
+            "slug": "hajimari/chapter-3"
+          },
+          {
+            "label": "第四章",
+            "slug": "hajimari/chapter-4"
+          },
+          {
+            "label": "终章 「终焉，以及创始」",
+            "slug": "hajimari/chapter-5"
+          },
+          {
+            "label": "额外章节 「前往梦幻的彼端」",
+            "slug": "hajimari/dlc"
+          },
+          {
+            "label": "追忆石盘",
+            "collapsed": false,
+            "items": [
+              {
+                "label": "章节",
+                "slug": "hajimari/episode"
+              },
+              {
+                "label": "退路、岔路、前方的路",
+                "slug": "hajimari/episodes/ep1"
+              },
+              {
+                "label": "再出发～支援课的一天",
+                "slug": "hajimari/episodes/ep2"
+              },
+              {
+                "label": "女子学院事件簿～美嘉与美丽的剑士～",
+                "slug": "hajimari/episodes/ep3"
+              },
+              {
+                "label": "令人怀念的家乡",
+                "slug": "hajimari/episodes/ep4"
+              },
+              {
+                "label": "白兔与沉睡的傀儡",
+                "slug": "hajimari/episodes/ep5"
+              },
+              {
+                "label": "光辉中的全新一步",
+                "slug": "hajimari/episodes/ep6"
+              },
+              {
+                "label": "重逢～少女的忧郁～",
+                "slug": "hajimari/episodes/ep7"
+              },
+              {
+                "label": "我所选择的路",
+                "slug": "hajimari/episodes/ep8"
+              },
+              {
+                "label": "两人的正义",
+                "slug": "hajimari/episodes/ep9"
+              },
+              {
+                "label": "堕落的皇子",
+                "slug": "hajimari/episodes/ep10"
+              },
+              {
+                "label": "新·导力装甲开发计划 前篇",
+                "slug": "hajimari/episodes/ep11"
+              },
+              {
+                "label": "新·导力装甲开发计划 后篇",
+                "slug": "hajimari/episodes/ep12"
+              },
+              {
+                "label": "魔女们的追忆",
+                "slug": "hajimari/episodes/ep13"
+              },
+              {
+                "label": "同窗的标杆",
+                "slug": "hajimari/episodes/ep14"
+              },
+              {
+                "label": "究极的野味",
+                "slug": "hajimari/episodes/ep15"
+              },
+              {
+                "label": "幸运之石与不幸之船",
+                "slug": "hajimari/episodes/ep16"
+              },
+              {
+                "label": "无尽之剑",
+                "slug": "hajimari/episodes/ep17"
+              },
+              {
+                "label": "猜猜我是谁",
+                "slug": "hajimari/episodes/ep18"
+              },
+              {
+                "label": "布莱特家的假日",
+                "slug": "hajimari/episodes/ex1"
+              },
+              {
+                "label": "踏出的一步",
+                "slug": "hajimari/episodes/ex2"
+              },
+              {
+                "label": "回忆的眼神无比火热",
+                "slug": "hajimari/episodes/ex3"
+              },
+              {
+                "label": "第Ⅱ分校研修祭",
+                "slug": "hajimari/episodes/ex4"
+              }
+            ]
+          },
+          {
+            "label": "创始的彼方",
+            "collapsed": false,
+            "items": [
+              {
+                "label": "前言",
+                "slug": "hajimari/extra"
+              },
+              {
+                "label": "另一个温泉乡",
+                "slug": "hajimari/extras/extra1"
+              },
+              {
+                "label": "某位少女的校园生活",
+                "slug": "hajimari/extras/extra2"
+              },
+              {
+                "label": "于是少女将握著手中的剑继续前进",
+                "slug": "hajimari/extras/extra3"
+              }
+            ]
+          },
+          {
+            "label": "游戏方石",
+            "slug": "hajimari/games"
+          },
+          {
+            "label": "试炼之门",
+            "slug": "hajimari/battles"
+          },
+          {
+            "label": "附录：特殊战斗胜利对话",
+            "slug": "hajimari/victory"
+          }
+        ]
+      }
+    },
+    {
+      "label": "闪之轨迹Ⅳ",
+      "prefix": "sen4",
+      "href": "/sen4/summary/",
+      "sidebar": {
+        "label": "闪之轨迹Ⅳ",
+        "collapsed": false,
+        "items": [
+          {
+            "label": "闪之轨迹Ⅳ - 剧情简介",
+            "slug": "sen4/summary"
+          }
+        ]
+      }
+    },
+    {
+      "label": "闪之轨迹Ⅲ",
+      "prefix": "sen3",
+      "href": "/sen3/summary/",
+      "sidebar": {
+        "label": "闪之轨迹Ⅲ",
+        "collapsed": false,
+        "items": [
+          {
+            "label": "闪之轨迹Ⅲ - 剧情简介",
+            "slug": "sen3/summary"
+          },
+          {
+            "label": "序章 ｢春日再临｣",
+            "slug": "sen3/chapter-0"
+          }
+        ]
+      }
+    },
+    {
+      "label": "闪之轨迹Ⅱ",
+      "prefix": "sen2",
+      "href": "/sen2/summary/",
+      "sidebar": {
+        "label": "闪之轨迹Ⅱ",
+        "collapsed": false,
+        "items": [
+          {
+            "label": "闪之轨迹Ⅱ - 剧情简介",
+            "slug": "sen2/summary"
+          },
+          {
+            "label": "序章 「归乡～失意的尽头～」",
+            "slug": "sen2/chapter-0"
+          },
+          {
+            "label": "第Ⅰ部 「灰色战记」",
+            "slug": "sen2/chapter-1"
+          },
+          {
+            "label": "幕间 「白银巨船」",
+            "slug": "sen2/chapter-1-5"
+          },
+          {
+            "label": "第Ⅱ部 「红翼～苏醒的狮子们」",
+            "slug": "sen2/chapter-2"
+          },
+          {
+            "label": "外传 ｢边境小镇阿尔斯塔｣",
+            "slug": "sen2/memoir"
+          },
+          {
+            "label": "终章 ｢只管一路向前｣",
+            "slug": "sen2/chapter-3"
+          },
+          {
+            "label": "外传 「占领下的克洛斯贝尔」",
+            "slug": "sen2/chapter-4"
+          },
+          {
+            "label": "后日谭 「冬日的尾声」",
+            "slug": "sen2/chapter-5"
+          },
+          {
+            "label": "全羁绊事件",
+            "slug": "sen2/bond-events"
+          }
+        ]
+      }
+    },
+    {
+      "label": "闪之轨迹Ⅰ",
+      "prefix": "sen1",
+      "href": "/sen1/summary/",
+      "sidebar": {
+        "label": "闪之轨迹Ⅰ",
+        "collapsed": false,
+        "items": [
+          {
+            "label": "闪之轨迹Ⅰ - 剧情简介",
+            "slug": "sen1/summary"
+          },
+          {
+            "label": "序章 ｢托尔兹军官学院｣",
+            "slug": "sen1/chapter-0"
+          },
+          {
+            "label": "第一章 ｢新学期～首次实习～｣",
+            "slug": "sen1/chapter-1"
+          },
+          {
+            "label": "第二章 ｢美丽翡翠之都｣",
+            "slug": "sen1/chapter-2"
+          },
+          {
+            "label": "第三章 ｢横跨铁路～苍穹的大地～｣",
+            "slug": "sen1/chapter-3"
+          },
+          {
+            "label": "第四章 ｢绯之帝都 ～仲夏祭～｣",
+            "slug": "sen1/chapter-4"
+          },
+          {
+            "label": "第五章 ｢开始行动的意志｣",
+            "slug": "sen1/chapter-5"
+          },
+          {
+            "label": "第六章 ｢黑与银～钢都动乱～｣",
+            "slug": "sen1/chapter-6"
+          },
+          {
+            "label": "幕间 ｢返乡～迷惘的尽头～｣",
+            "slug": "sen1/intermission"
+          },
+          {
+            "label": "终章 ｢军官学院祭，然后──｣",
+            "slug": "sen1/chapter-7"
+          },
+          {
+            "label": "全羁绊事件",
+            "slug": "sen1/bond-events"
+          }
+        ]
+      }
+    },
+    {
+      "label": "碧之轨迹",
+      "prefix": "aoi",
+      "href": "/aoi/summary/",
+      "sidebar": {
+        "label": "碧之轨迹",
+        "collapsed": false,
+        "items": [
+          {
+            "label": "碧之轨迹 - 剧情简介",
+            "slug": "aoi/summary"
+          },
+          {
+            "label": "序章 ｢D之残影｣",
+            "slug": "aoi/prologue"
+          },
+          {
+            "label": "第一章 ｢预兆～崭新的日子｣",
+            "slug": "aoi/chapter-1"
+          },
+          {
+            "label": "第二章 ｢西塞姆里亚通商会议｣",
+            "slug": "aoi/chapter-2"
+          },
+          {
+            "label": "间章 ｢短暂的休息｣",
+            "slug": "aoi/intermission"
+          },
+          {
+            "label": "第三章 ｢胎动～众兽的狂欢节｣",
+            "slug": "aoi/chapter-3"
+          },
+          {
+            "label": "第四章 ｢命运未卜的克洛斯贝尔｣",
+            "slug": "aoi/chapter-4"
+          },
+          {
+            "label": "断章 ｢跨越虚幻的乐土｣",
+            "slug": "aoi/intermission2"
+          },
+          {
+            "label": "终章 ｢即使如此，我们也……｣",
+            "slug": "aoi/chapter-5"
+          }
+        ]
+      }
+    },
+    {
+      "label": "零之轨迹",
+      "prefix": "zero",
+      "href": "/zero/summary/",
+      "sidebar": {
+        "label": "零之轨迹",
+        "collapsed": false,
+        "items": [
+          {
+            "label": "零之轨迹 - 剧情简介",
+            "slug": "zero/summary"
+          },
+          {
+            "label": "序章 ｢特别任务支援科｣",
+            "slug": "zero/prologue"
+          },
+          {
+            "label": "第一章 ｢神狼们的午后｣",
+            "slug": "zero/chapter-1"
+          },
+          {
+            "label": "第二章 ｢金之太阳、银之月｣",
+            "slug": "zero/chapter-2"
+          },
+          {
+            "label": "第三章 ｢克洛斯贝尔创立纪念庆典｣",
+            "slug": "zero/chapter-3"
+          },
+          {
+            "label": "间章 ｢琪雅｣",
+            "slug": "zero/intermission"
+          },
+          {
+            "label": "第四章 ｢悄然袭来的睿智｣",
+            "slug": "zero/chapter-4"
+          },
+          {
+            "label": "终章 ｢克洛斯贝尔最漫长的一日｣",
+            "slug": "zero/finale"
+          }
+        ]
+      }
+    },
+    {
+      "label": "空之轨迹3RD",
+      "prefix": "sora-3rd",
+      "href": "/sora-3rd/summary/",
+      "sidebar": {
+        "label": "空之轨迹3RD",
+        "collapsed": false,
+        "items": [
+          {
+            "label": "空之轨迹3RD - 剧情简介",
+            "slug": "sora-3rd/summary"
+          },
+          {
+            "label": "第零话 ｢星杯骑士｣",
+            "slug": "sora-3rd/chapter-0"
+          },
+          {
+            "label": "第一话 ｢影之国｣",
+            "slug": "sora-3rd/chapter-1"
+          },
+          {
+            "label": "第二话 ｢异界化王都｣",
+            "slug": "sora-3rd/chapter-2"
+          },
+          {
+            "label": "第三话 ｢金之道，银之道｣",
+            "slug": "sora-3rd/chapter-3"
+          },
+          {
+            "label": "第四话 ｢昏暗圣痕｣",
+            "slug": "sora-3rd/chapter-4"
+          },
+          {
+            "label": "第五话 ｢光与影的迷宫｣",
+            "slug": "sora-3rd/chapter-5"
+          },
+          {
+            "label": "第六话 ｢守护者的试炼｣",
+            "slug": "sora-3rd/chapter-6"
+          },
+          {
+            "label": "第七话 ｢邃远的炙炎｣",
+            "slug": "sora-3rd/chapter-7"
+          },
+          {
+            "label": "最终话 ｢时光的终焉，艰辛的彼岸｣",
+            "slug": "sora-3rd/chapter-8"
+          },
+          {
+            "label": "星之门",
+            "collapsed": false,
+            "items": [
+              {
+                "label": "章节",
+                "slug": "sora-3rd/star"
+              },
+              {
+                "label": "｢尤莉亚大人的假日｣",
+                "slug": "sora-3rd/doors/star-1"
+              },
+              {
+                "label": "｢盐之桩｣",
+                "slug": "sora-3rd/doors/star-2"
+              },
+              {
+                "label": "｢庆祝会之夜｣",
+                "slug": "sora-3rd/doors/star-3"
+              },
+              {
+                "label": "｢旅途的终点｣",
+                "slug": "sora-3rd/doors/star-4"
+              },
+              {
+                "label": "｢剑之道｣",
+                "slug": "sora-3rd/doors/star-5"
+              },
+              {
+                "label": "｢重剑流特训法｣",
+                "slug": "sora-3rd/doors/star-6"
+              },
+              {
+                "label": "｢爱普斯泰恩财团｣",
+                "slug": "sora-3rd/doors/star-7"
+              },
+              {
+                "label": "｢回归帝都｣",
+                "slug": "sora-3rd/doors/star-8"
+              },
+              {
+                "label": "｢操之过急的关怀｣",
+                "slug": "sora-3rd/doors/star-9"
+              },
+              {
+                "label": "｢戈尔地雅斯级实验计划书｣",
+                "slug": "sora-3rd/doors/star-10"
+              },
+              {
+                "label": "｢『怪盗B』调查报告｣",
+                "slug": "sora-3rd/doors/star-11"
+              },
+              {
+                "label": "｢调查委托，敬悉｣",
+                "slug": "sora-3rd/doors/star-12"
+              },
+              {
+                "label": "｢帝国支部连续袭击事件｣",
+                "slug": "sora-3rd/doors/star-13"
+              },
+              {
+                "label": "｢幻焰计划｣",
+                "slug": "sora-3rd/doors/star-14"
+              },
+              {
+                "label": "｢乐园的少女｣",
+                "slug": "sora-3rd/doors/star-15"
+              },
+              {
+                "label": "｢科洛丝的毕业典礼｣（废案）",
+                "slug": "sora-3rd/doors/star-16-annulled"
+              },
+              {
+                "label": "｢酒的诱惑｣（废案）",
+                "slug": "sora-3rd/doors/star-17-annulled"
+              },
+              {
+                "label": "｢百日战役的新星｣（废案）",
+                "slug": "sora-3rd/doors/star-18-annulled"
+              },
+              {
+                "label": "｢圣痕的背叛｣（废案）",
+                "slug": "sora-3rd/doors/star-19-annulled"
+              },
+              {
+                "label": "｢执行者的真实｣（废案）",
+                "slug": "sora-3rd/doors/star-20-annulled"
+              }
+            ]
+          },
+          {
+            "label": "月之门",
+            "collapsed": false,
+            "items": [
+              {
+                "label": "章节",
+                "slug": "sora-3rd/moon"
+              },
+              {
+                "label": "｢导力装甲开发计划/前篇｣",
+                "slug": "sora-3rd/doors/moon-1-1"
+              },
+              {
+                "label": "｢导力装甲开发计划/后篇｣",
+                "slug": "sora-3rd/doors/moon-1-2"
+              },
+              {
+                "label": "｢委托人｣",
+                "slug": "sora-3rd/doors/moon-2"
+              },
+              {
+                "label": "｢飘落的羽翼｣",
+                "slug": "sora-3rd/doors/moon-3"
+              },
+              {
+                "label": "｢启程的清晨｣",
+                "slug": "sora-3rd/doors/moon-4"
+              },
+              {
+                "label": "｢幸福之石｣",
+                "slug": "sora-3rd/doors/moon-5"
+              }
+            ]
+          },
+          {
+            "label": "太阳之门",
+            "collapsed": false,
+            "items": [
+              {
+                "label": "章节",
+                "slug": "sora-3rd/sun"
+              },
+              {
+                "label": "｢山猫卡普亚的特快专递｣",
+                "slug": "sora-3rd/doors/sun-1"
+              },
+              {
+                "label": "｢爆钓传说艾丝蒂尔｣",
+                "slug": "sora-3rd/doors/sun-2"
+              },
+              {
+                "label": "｢THE CASINO ～赌博师杰克～｣",
+                "slug": "sora-3rd/doors/sun-4"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "空之轨迹SC",
+      "prefix": "sora-sc",
+      "href": "/sora-sc/summary/",
+      "sidebar": {
+        "label": "空之轨迹SC",
+        "collapsed": false,
+        "items": [
+          {
+            "label": "空之轨迹SC - 剧情简介",
+            "slug": "sora-sc/summary"
+          },
+          {
+            "label": "序章 ｢少女的决意｣",
+            "slug": "sora-sc/chapter-0"
+          },
+          {
+            "label": "第一章 ｢潜行的白影｣",
+            "slug": "sora-sc/chapter-1"
+          },
+          {
+            "label": "第二章 ｢狂暴的大地｣",
+            "slug": "sora-sc/chapter-2"
+          },
+          {
+            "label": "第三章 ｢纷乱的茶会｣",
+            "slug": "sora-sc/chapter-3"
+          },
+          {
+            "label": "第四章 ｢雾魔的标矢｣",
+            "slug": "sora-sc/chapter-4"
+          },
+          {
+            "label": "第五章 ｢守护的信念｣",
+            "slug": "sora-sc/chapter-5"
+          },
+          {
+            "label": "第六章 ｢羁绊的所在｣",
+            "slug": "sora-sc/chapter-6"
+          },
+          {
+            "label": "第七章 ｢四轮之塔｣",
+            "slug": "sora-sc/chapter-7"
+          },
+          {
+            "label": "第八章 ｢迷乱的大地｣",
+            "slug": "sora-sc/chapter-8"
+          },
+          {
+            "label": "终章 ｢空之轨迹｣",
+            "slug": "sora-sc/chapter-9"
+          }
+        ]
+      }
+    },
+    {
+      "label": "空之轨迹FC",
+      "prefix": "sora-fc",
+      "href": "/sora-fc/summary/",
+      "sidebar": {
+        "label": "空之轨迹FC",
+        "collapsed": false,
+        "items": [
+          {
+            "label": "空之轨迹FC - 剧情简介",
+            "slug": "sora-fc/summary"
+          },
+          {
+            "label": "序章 ｢父亲，启程｣",
+            "slug": "sora-fc/chapter-0"
+          },
+          {
+            "label": "第一章 ｢消失的定期船｣",
+            "slug": "sora-fc/chapter-1"
+          },
+          {
+            "label": "第二章 ｢白花恋诗｣",
+            "slug": "sora-fc/chapter-2"
+          },
+          {
+            "label": "第三章 ｢黑色导力器｣",
+            "slug": "sora-fc/chapter-3"
+          },
+          {
+            "label": "终章 ｢王都缭乱｣",
+            "slug": "sora-fc/chapter-4"
+          }
+        ]
+      }
+    }
+  ]
+}

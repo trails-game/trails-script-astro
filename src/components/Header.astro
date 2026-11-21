@@ -1,0 +1,276 @@
+---
+import config from 'virtual:starlight/user-config';
+import LanguageSelect from 'virtual:starlight/components/LanguageSelect';
+import Search from 'virtual:starlight/components/Search';
+import SiteTitle from 'virtual:starlight/components/SiteTitle';
+import ThemeSelect from 'virtual:starlight/components/ThemeSelect';
+import { Icon } from '@astrojs/starlight/components';
+import navigation from '../data/navigation.json';
+import { ARC_BY_ID, GAMES, getGameByPathname } from '../data/games';
+
+const shouldRenderSearch =
+	config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro';
+const socialLinks = config.social || [];
+const pathname = Astro.url.pathname;
+const gameCtx = getGameByPathname(pathname);
+const activePrefix = gameCtx?.game.prefix ?? null;
+const activeArc = gameCtx?.arc ?? null;
+---
+
+<div class="header-stack" data-arc={activeArc?.id} style={activeArc ? `--arc-accent: ${activeArc.color}` : undefined}>
+	<div class="header">
+		<div class="title-wrapper sl-flex"><SiteTitle /></div>
+		<div class="sl-flex print:hidden">{shouldRenderSearch && <Search />}</div>
+		<div class="sl-hidden md:sl-flex print:hidden right-group">
+			{socialLinks.length > 0 && (
+				<div class="sl-flex social-icons">
+					{socialLinks.map(({ label, href, icon }) => (
+						<a
+							{href}
+							target="_blank"
+							rel="me noopener noreferrer"
+							class="sl-flex"
+							title={label}
+						>
+							<span class="sr-only">{label}</span>
+							<Icon name={icon} />
+						</a>
+					))}
+				</div>
+			)}
+			<ThemeSelect />
+			<LanguageSelect />
+		</div>
+	</div>
+
+	<nav class="nav-tabs sl-hidden md:sl-flex print:hidden" aria-label="游戏导航">
+		<a href="/" class="nav-tab" aria-current={pathname === '/' ? 'page' : undefined}>
+			首页
+		</a>
+		{navigation.externalLinks.map((ext) => (
+			<a
+				href={ext.href}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="nav-tab nav-tab-external"
+			>
+				<span>{ext.label}</span>
+				<svg
+					aria-hidden="true"
+					width="12"
+					height="12"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+					<polyline points="15 3 21 3 21 9" />
+					<line x1="10" y1="14" x2="21" y2="3" />
+				</svg>
+			</a>
+		))}
+		{navigation.sections.map((section) => {
+			const game = GAMES[section.prefix];
+			const tabColor = game ? ARC_BY_ID[game.arcId].color : undefined;
+			return (
+				<a
+					href={section.href}
+					class="nav-tab"
+					aria-current={activePrefix === section.prefix ? 'page' : undefined}
+					style={tabColor ? `--tab-accent: ${tabColor}` : undefined}
+				>
+					<span class="tab-dot" aria-hidden="true"></span>
+					<span>{section.label}</span>
+				</a>
+			);
+		})}
+	</nav>
+
+	<div class="reading-progress-track print:hidden" aria-hidden="true">
+		<div id="reading-progress-bar" class="reading-progress-bar"></div>
+	</div>
+</div>
+
+<script>
+	const activeTab = document.querySelector<HTMLElement>('.nav-tabs .nav-tab[aria-current="page"]');
+	if (activeTab) {
+		activeTab.scrollIntoView({ block: 'nearest', inline: 'center' });
+	}
+
+	const progressBar = document.getElementById('reading-progress-bar');
+	const scriptBody = document.getElementById('trails-script-body');
+	if (progressBar && scriptBody) {
+		let rafPending = false;
+		const updateProgress = () => {
+			rafPending = false;
+			const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+			const ratio = maxScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0;
+			progressBar.style.transform = `scaleX(${ratio})`;
+		};
+		updateProgress();
+		window.addEventListener(
+			'scroll',
+			() => {
+				if (!rafPending) {
+					rafPending = true;
+					requestAnimationFrame(updateProgress);
+				}
+			},
+			{ passive: true }
+		);
+	}
+</script>
+
+<style>
+	@layer starlight.core {
+		.header-stack {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+			width: 100%;
+		}
+
+		.header {
+			display: flex;
+			gap: var(--sl-nav-gap);
+			justify-content: space-between;
+			align-items: center;
+			height: 100%;
+		}
+
+		.title-wrapper {
+			overflow: clip;
+			padding: 0.25rem;
+			margin: -0.25rem;
+			min-width: 0;
+		}
+
+		.right-group,
+		.social-icons {
+			gap: 1rem;
+			align-items: center;
+		}
+
+		.social-icons a {
+			color: var(--sl-color-text-accent);
+			padding: 0.5em;
+			margin: -0.5em;
+		}
+
+		.social-icons a:hover {
+			color: var(--sl-color-white);
+		}
+
+		.social-icons::after {
+			content: '';
+			height: 2rem;
+			border-inline-end: 1px solid var(--sl-color-gray-5);
+		}
+
+		.nav-tabs {
+			height: 2.5rem;
+			flex: 0 0 2.5rem;
+			align-items: center;
+			gap: 0.25rem;
+			overflow-x: auto;
+			overflow-y: hidden;
+			border-top: 1px solid var(--archive-border);
+			scrollbar-width: thin;
+		}
+
+		.nav-tab {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.35rem;
+			height: 1.85rem;
+			padding: 0 0.65rem;
+			border-radius: 0.45rem;
+			font-size: var(--sl-text-sm);
+			font-weight: 500;
+			color: var(--sl-color-gray-2);
+			text-decoration: none;
+			white-space: nowrap;
+			border: 1px solid transparent;
+			transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+		}
+
+		.tab-dot {
+			width: 0.38rem;
+			height: 0.38rem;
+			border-radius: 9999px;
+			background: var(--tab-accent, var(--sl-color-text-accent));
+			opacity: 0.5;
+			transition: opacity 0.15s ease, transform 0.15s ease;
+		}
+
+		.nav-tab:hover {
+			color: var(--sl-color-white);
+			background: var(--archive-pill-bg);
+		}
+
+		.nav-tab:hover .tab-dot,
+		.nav-tab[aria-current='page'] .tab-dot {
+			opacity: 1;
+			transform: scale(1.15);
+		}
+
+		.nav-tab[aria-current='page'] {
+			color: var(--sl-color-white);
+			background: var(--archive-pill-bg);
+			border-color: color-mix(in srgb, var(--tab-accent, var(--sl-color-text-accent)) 55%, transparent);
+			font-weight: 600;
+		}
+
+		.reading-progress-track {
+			position: absolute;
+			left: calc(-1 * var(--sl-nav-pad-x));
+			right: calc(-1 * var(--sl-nav-pad-x));
+			bottom: 0;
+			height: 2px;
+			pointer-events: none;
+			overflow: hidden;
+		}
+
+		.reading-progress-bar {
+			width: 100%;
+			height: 100%;
+			transform-origin: left center;
+			transform: scaleX(0);
+			background: linear-gradient(90deg, var(--arc-accent, var(--sl-color-text-accent)), var(--archive-gold));
+		}
+
+		@media (min-width: 50rem) {
+			:global(:root[data-has-sidebar]) {
+				--__sidebar-pad: calc(2 * var(--sl-nav-pad-x));
+			}
+			:global(:root:not([data-has-toc])) {
+				--__toc-width: 0rem;
+			}
+			.header {
+				height: 3.75rem;
+				flex: 0 0 3.75rem;
+				--__sidebar-width: max(0rem, var(--sl-content-inline-start, 0rem) - var(--sl-nav-pad-x));
+				--__main-column-fr: calc(
+					(
+							100% + var(--__sidebar-pad, 0rem) - var(--__toc-width, var(--sl-sidebar-width)) -
+								(2 * var(--__toc-width, var(--sl-nav-pad-x))) - var(--sl-content-inline-start, 0rem) -
+								var(--sl-content-width)
+						) / 2
+				);
+				display: grid;
+				grid-template-columns:
+					minmax(
+						calc(var(--__sidebar-width) + max(0rem, var(--__main-column-fr) - var(--sl-nav-gap))),
+						auto
+					)
+					1fr
+					auto;
+				align-content: center;
+			}
+		}
+	}
+</style>
