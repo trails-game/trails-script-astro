@@ -1,6 +1,27 @@
 ---
-const { lang, lastUpdated, entry } = Astro.locals.starlightRoute;
-const createdAt = entry.data.createdAt;
+import { getGitDatesForDoc } from '../utils/git-dates';
+
+const { lang, lastUpdated: routeLastUpdated, entry } = Astro.locals.starlightRoute;
+const hideDates = entry.id === '404' || entry.data.lastUpdated === false;
+const frontmatterLastUpdated =
+	entry.data.lastUpdated instanceof Date ? entry.data.lastUpdated : undefined;
+const gitDates = hideDates ? undefined : getGitDatesForDoc(entry.filePath);
+
+let effectiveLastUpdated: Date | undefined;
+if (!hideDates) {
+	if (gitDates?.latestCommitDate && frontmatterLastUpdated) {
+		effectiveLastUpdated =
+			gitDates.latestCommitDate.getTime() > frontmatterLastUpdated.getTime()
+				? gitDates.latestCommitDate
+				: frontmatterLastUpdated;
+	} else {
+		effectiveLastUpdated = gitDates?.latestCommitDate ?? frontmatterLastUpdated ?? routeLastUpdated;
+	}
+}
+
+const effectiveCreatedAt = hideDates
+	? undefined
+	: (entry.data.createdAt ?? gitDates?.firstCommitDate);
 
 const formatDateTime = (date: Date) =>
 	date.toLocaleString(lang || 'zh-CN', {
@@ -14,24 +35,24 @@ const formatDateTime = (date: Date) =>
 	});
 ---
 
-{(lastUpdated || createdAt) && (
+{(effectiveLastUpdated || effectiveCreatedAt) && (
 	<div class="git-dates">
-		{lastUpdated && (
+		{effectiveLastUpdated && (
 			<p class="git-date-item">
 				<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
 					<path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z" />
 				</svg>
 				<span>{Astro.locals.t('page.lastUpdated')}</span>
-				<time datetime={lastUpdated.toISOString()}>{formatDateTime(lastUpdated)}</time>
+				<time datetime={effectiveLastUpdated.toISOString()}>{formatDateTime(effectiveLastUpdated)}</time>
 			</p>
 		)}
-		{createdAt && (
+		{effectiveCreatedAt && (
 			<p class="git-date-item">
 				<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
 					<path d="M15 13h1.5v2.8l2.4 1.4-.8 1.3-3.1-1.8V13m4-1c2.2 0 4 1.8 4 4s-1.8 4-4 4-4-1.8-4-4 1.8-4 4-4m0-2c-3.3 0-6 2.7-6 6s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6m-7 9.9c-4.4-.4-7.9-4.1-7.9-8.6 0-4.8 3.9-8.7 8.7-8.7 3.9 0 7.2 2.6 8.3 6.2-.7-.2-1.4-.3-2.2-.3-1.1-3-3.9-5-7.2-5-4.1 0-7.4 3.3-7.4 7.4 0 3.7 2.8 6.8 6.4 7.3-.4.5-.6 1.1-.7 1.7m1.5-12.9v5.2l2.1 1.3c-.4.4-.7.9-.9 1.4L12 13V7h1.5Z" />
 				</svg>
 				<span>创建日期：</span>
-				<time datetime={createdAt.toISOString()}>{formatDateTime(createdAt)}</time>
+				<time datetime={effectiveCreatedAt.toISOString()}>{formatDateTime(effectiveCreatedAt)}</time>
 			</p>
 		)}
 	</div>
