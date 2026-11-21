@@ -1,7 +1,7 @@
 ---
 title: "Falcom轨迹系列中文剧情"
-lastUpdated: 2021-02-17T20:26:29-05:00
-createdAt: 2021-02-17T19:24:44-05:00
+lastUpdated: 2024-08-02T08:22:39-07:00
+createdAt: 2021-02-17T18:38:23-05:00
 description: '轨迹游戏剧情和脚本'
 tableOfContents: false
 ---

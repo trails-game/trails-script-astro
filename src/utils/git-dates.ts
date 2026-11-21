@@ -5,7 +5,11 @@ export interface DocGitDates {
 	firstCommitDate?: Date;
 }
 
-const INITIAL_IMPORT_PREFIX = '989a62c';
+const IGNORED_COMMIT_PREFIXES = ['989a62c', 'e0e964a'];
+const SKIP_DATE_MARKER = '[skip-date]';
+const DOC_PREFIX = 'src/content/docs/';
+const HOME_DOC_PATH = 'src/content/docs/index.md';
+const HOME_PROGRESS_SOURCES = new Set(['README.md', 'src/data/games.ts']);
 
 let cachedMap: Map<string, DocGitDates> | null = null;
 
@@ -13,9 +17,33 @@ function normalizeDocPath(filePath: string): string {
 	return filePath.replace(/\\/g, '/').replace(/^\.\//, '').replace(/^\/+/, '');
 }
 
+function recordDate(
+	map: Map<string, DocGitDates>,
+	docPath: string,
+	date: Date,
+	includeCreated: boolean
+): void {
+	const existing = map.get(docPath);
+	if (!existing) {
+		map.set(docPath, {
+			latestCommitDate: date,
+			...(includeCreated ? { firstCommitDate: date } : {}),
+		});
+		return;
+	}
+	if (!existing.latestCommitDate || date.getTime() > existing.latestCommitDate.getTime()) {
+		existing.latestCommitDate = date;
+	}
+	if (
+		includeCreated &&
+		(!existing.firstCommitDate || date.getTime() < existing.firstCommitDate.getTime())
+	) {
+		existing.firstCommitDate = date;
+	}
+}
+
 export function parseGitLogOutput(stdout: string): Map<string, DocGitDates> {
 	const map = new Map<string, DocGitDates>();
-	let currentHash = '';
 	let currentDate: Date | null = null;
 
 	for (const rawLine of stdout.split(/\r?\n/)) {
@@ -23,31 +51,33 @@ export function parseGitLogOutput(stdout: string): Map<string, DocGitDates> {
 		if (!line) continue;
 
 		if (line.startsWith('COMMIT ')) {
-			const parts = line.split(' ');
-			currentHash = parts[1] || '';
-			const epochSec = Number(parts[2]);
-			currentDate = Number.isFinite(epochSec) && epochSec > 0 ? new Date(epochSec * 1000) : null;
+			const match = line.match(/^COMMIT\s+([0-9a-f]+)\s+(\d+)(?:\s+(.*))?$/i);
+			if (!match) {
+				currentDate = null;
+				continue;
+			}
+			const hash = match[1];
+			const epochSec = Number(match[2]);
+			const subject = match[3] || '';
+			const ignored =
+				IGNORED_COMMIT_PREFIXES.some((prefix) => hash.startsWith(prefix)) ||
+				subject.includes(SKIP_DATE_MARKER);
+			currentDate =
+				!ignored && Number.isFinite(epochSec) && epochSec > 0
+					? new Date(epochSec * 1000)
+					: null;
 			continue;
 		}
 
-		if (!currentDate || currentHash.startsWith(INITIAL_IMPORT_PREFIX)) {
+		if (!currentDate) {
 			continue;
 		}
 
 		const normPath = normalizeDocPath(line);
-		const existing = map.get(normPath);
-		if (!existing) {
-			map.set(normPath, {
-				latestCommitDate: currentDate,
-				firstCommitDate: currentDate,
-			});
-		} else {
-			if (!existing.latestCommitDate || currentDate.getTime() > existing.latestCommitDate.getTime()) {
-				existing.latestCommitDate = currentDate;
-			}
-			if (!existing.firstCommitDate || currentDate.getTime() < existing.firstCommitDate.getTime()) {
-				existing.firstCommitDate = currentDate;
-			}
+		if (normPath.startsWith(DOC_PREFIX)) {
+			recordDate(map, normPath, currentDate, true);
+		} else if (HOME_PROGRESS_SOURCES.has(normPath)) {
+			recordDate(map, HOME_DOC_PATH, currentDate, false);
 		}
 	}
 
@@ -59,7 +89,17 @@ function getGitDatesMap(): Map<string, DocGitDates> {
 	try {
 		const res = spawnSync(
 			'git',
-			['-c', 'core.quotepath=false', 'log', '--format=COMMIT %H %ct', '--name-only', '--', 'src/content/docs'],
+			[
+				'-c',
+				'core.quotepath=false',
+				'log',
+				'--format=COMMIT %H %ct %s',
+				'--name-only',
+				'--',
+				'src/content/docs',
+				'README.md',
+				'src/data/games.ts',
+			],
 			{
 				cwd: process.cwd(),
 				encoding: 'utf-8',
