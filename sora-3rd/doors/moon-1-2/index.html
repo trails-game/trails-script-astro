@@ -1,0 +1,799 @@
+<!DOCTYPE html><html lang="zh-CN" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar data-astro-cid-g5ptsecz><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>月之门: 导力装甲开发计划/后篇 | 咖啡屋 | 轨迹系列 - Cafe</title><link rel="canonical" href="https://book.trails-game.com/sora-3rd/doors/moon-1-2/"/><link rel="sitemap" href="/sitemap-index.xml"/><script>try{var p=JSON.parse(localStorage.getItem('trails-reader-prefs')||'{}');var r=document.documentElement;if(p.font)r.dataset.readerFont=p.font;if(p.width)r.dataset.readerWidth=p.width;if(p.mode)r.dataset.scriptMode=p.mode;}catch(e){}</script><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?ver=2&id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K6VQFRC');
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({ event: 'pageview' });</script><link rel="shortcut icon" href="/images/webicons/favicon-32x32.png" type="image/png"/><meta name="generator" content="Astro v7.4.13"/><meta name="generator" content="Starlight v0.43.1"/><meta property="og:title" content="月之门: 导力装甲开发计划/后篇"/><meta property="og:type" content="article"/><meta property="og:url" content="https://book.trails-game.com/sora-3rd/doors/moon-1-2/"/><meta property="og:locale" content="zh-CN"/><meta property="og:description" content="轨迹游戏剧情和脚本"/><meta property="og:site_name" content="咖啡屋 | 轨迹系列 - Cafe"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="轨迹游戏剧情和脚本"/><meta name="author" content="轨迹系列 - Cafe"/><script>
+	(() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+	})();
+</script><link rel="stylesheet" href="/_astro/print.C9eyqPGL.css" media="print"><link rel="stylesheet" href="/_astro/glightbox.Bs8IL7CH.css"><link rel="stylesheet" href="/_astro/common.UMNqHLp_.css"><script type="module" src="/_astro/page.Cze0mStU.js"></script></head><body data-astro-cid-g5ptsecz><a class="sl-skip-link" href="#_top" data-astro-cid-qb7clj6f>跳转到内容</a><div class="page sl-flex" data-astro-cid-yntsjkba><header class="header" data-astro-cid-yntsjkba><div class="header-stack" data-arc="liberl" style="--arc-accent: #38bdf8" data-astro-cid-nen7h5rs><div class="header" data-astro-cid-nen7h5rs><div class="title-wrapper sl-flex" data-astro-cid-nen7h5rs><a href="/" class="site-title sl-flex" data-astro-cid-6rvad3va><img alt="咖啡屋" src="/_astro/logo.DB5m8W9b.webp" width="180" height="180" data-astro-cid-6rvad3va><span translate="no" data-astro-cid-6rvad3va>咖啡屋 | 轨迹系列 - Cafe</span></a></div><div class="sl-flex print:hidden" data-astro-cid-nen7h5rs><site-search data-translations="{&quot;placeholder&quot;:&quot;搜索&quot;}" data-astro-cid-b5kgnn7o="true"><button data-open-modal disabled aria-label="搜索" aria-keyshortcuts="Control+K" data-astro-cid-b5kgnn7o><svg data-astro-cid-b5kgnn7o="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg><span class="sl-hidden md:sl-block" aria-hidden="true" data-astro-cid-b5kgnn7o>搜索</span><kbd class="sl-hidden md:sl-flex" style="display: none" data-astro-cid-b5kgnn7o><kbd data-astro-cid-b5kgnn7o>Ctrl</kbd><kbd data-astro-cid-b5kgnn7o>K</kbd></kbd></button><dialog style="padding: 0" aria-label="搜索" data-astro-cid-b5kgnn7o><div class="dialog-frame sl-flex" data-astro-cid-b5kgnn7o><button data-close-modal class="sl-flex md:sl-hidden" data-astro-cid-b5kgnn7o>取消</button><div class="search-container" data-astro-cid-b5kgnn7o><div id="starlight__search" data-astro-cid-b5kgnn7o></div></div></div></dialog></site-search><script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script><script type="module" src="/_astro/Search.astro_astro_type_script_index_0_lang.y6iDvYgE.js"></script></div><div class="sl-hidden md:sl-flex print:hidden right-group" data-astro-cid-nen7h5rs><div class="sl-flex social-icons" data-astro-cid-nen7h5rs><a href="https://github.com/trails-game/trails-script-astro" target="_blank" rel="me noopener noreferrer" class="sl-flex" title="GitHub" data-astro-cid-nen7h5rs><span class="sr-only" data-astro-cid-nen7h5rs>GitHub</span><svg data-astro-cid-nen7h5rs="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select data-astro-cid-smhvfpqh="true"><label style="--sl-select-width: 6.25em" data-astro-cid-2z5xp7gb><span class="sr-only" data-astro-cid-2z5xp7gb>选择主题</span><span class="icon label-icon" data-astro-cid-2z5xp7gb><svg class="sl-theme-icon-dark" data-astro-cid-smhvfpqh="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg class="sl-theme-icon-light" data-astro-cid-smhvfpqh="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg class="sl-theme-icon-auto" data-astro-cid-smhvfpqh="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></span><select autocomplete="off" data-astro-cid-2z5xp7gb><option value="dark" data-astro-cid-2z5xp7gb>深色</option><option value="light" data-astro-cid-2z5xp7gb>浅色</option><option value="auto" selected data-astro-cid-2z5xp7gb>自动</option></select><svg class="icon caret" data-astro-cid-2z5xp7gb="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>(() => {
+		const theme = (typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme'));
+		if (theme) document.querySelectorAll('starlight-theme-select select').forEach((s) => { s.value = theme; });
+	})();</script><script type="module">var e=`starlight-theme`,t=e=>e===`auto`||e===`dark`||e===`light`?e:`auto`,n=()=>t(typeof localStorage<`u`&&localStorage.getItem(e));function r(t){typeof localStorage<`u`&&localStorage.setItem(e,t===`light`||t===`dark`?t:``)}var i=()=>matchMedia(`(prefers-color-scheme: light)`).matches?`light`:`dark`;function a(e){document.querySelectorAll(`starlight-theme-select select`).forEach(t=>{t.value=e}),document.documentElement.dataset.theme=e===`auto`?i():e,r(e)}matchMedia(`(prefers-color-scheme: light)`).addEventListener(`change`,()=>{n()===`auto`&&a(`auto`)});var o=class extends HTMLElement{constructor(){super(),a(n()),this.querySelector(`select`)?.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&a(t(e.currentTarget.value))})}};customElements.define(`starlight-theme-select`,o);</script><script type="module">var e=class extends HTMLElement{constructor(){super();let e=this.querySelector(`select`);e&&(e.addEventListener(`change`,e=>{e.currentTarget instanceof HTMLSelectElement&&(window.location.pathname=e.currentTarget.value)}),window.addEventListener(`pageshow`,t=>{if(!t.persisted)return;let n=e.querySelector(`option[selected]`)?.index;n!==e.selectedIndex&&(e.selectedIndex=n??0)}))}};customElements.define(`starlight-lang-select`,e);</script></div></div><nav class="nav-tabs sl-hidden md:sl-flex print:hidden" aria-label="游戏导航" data-astro-cid-nen7h5rs><a href="/" class="nav-tab" data-astro-cid-nen7h5rs>首页</a><a href="https://trails-game.com" target="_blank" rel="noopener noreferrer" class="nav-tab nav-tab-external" data-astro-cid-nen7h5rs><span data-astro-cid-nen7h5rs>Cafe主站</span><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-nen7h5rs><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" data-astro-cid-nen7h5rs></path><polyline points="15 3 21 3 21 9" data-astro-cid-nen7h5rs></polyline><line x1="10" y1="14" x2="21" y2="3" data-astro-cid-nen7h5rs></line></svg></a><a href="/kuro2/summary/" class="nav-tab" style="--tab-accent: #22d3ee" data-astro-cid-nen7h5rs><span class="tab-dot" aria-hidden="true" data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs>黎之轨迹Ⅱ</span></a><a href="/kuro/summary/" class="nav-tab" style="--tab-accent: #22d3ee" data-astro-cid-nen7h5rs><span class="tab-dot" aria-hidden="true" data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs>黎之轨迹</span></a><a href="/hajimari/summary/" class="nav-tab" style="--tab-accent: #a78bfa" data-astro-cid-nen7h5rs><span class="tab-dot" aria-hidden="true" data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs>创之轨迹</span></a><a href="/sen4/summary/" class="nav-tab" style="--tab-accent: #f43f5e" data-astro-cid-nen7h5rs><span class="tab-dot" aria-hidden="true" data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs>闪之轨迹Ⅳ</span></a><a href="/sen3/summary/" class="nav-tab" style="--tab-accent: #f43f5e" data-astro-cid-nen7h5rs><span class="tab-dot" aria-hidden="true" data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs>闪之轨迹Ⅲ</span></a><a href="/sen2/summary/" class="nav-tab" style="--tab-accent: #f43f5e" data-astro-cid-nen7h5rs><span class="tab-dot" aria-hidden="true" data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs>闪之轨迹Ⅱ</span></a><a href="/sen1/summary/" class="nav-tab" style="--tab-accent: #f43f5e" data-astro-cid-nen7h5rs><span class="tab-dot" aria-hidden="true" data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs>闪之轨迹Ⅰ</span></a><a href="/aoi/summary/" class="nav-tab" style="--tab-accent: #10b981" data-astro-cid-nen7h5rs><span class="tab-dot" aria-hidden="true" data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs>碧之轨迹</span></a><a href="/zero/summary/" class="nav-tab" style="--tab-accent: #10b981" data-astro-cid-nen7h5rs><span class="tab-dot" aria-hidden="true" data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs>零之轨迹</span></a><a href="/sora-3rd/summary/" class="nav-tab" aria-current="page" style="--tab-accent: #38bdf8" data-astro-cid-nen7h5rs><span class="tab-dot" aria-hidden="true" data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs>空之轨迹3RD</span></a><a href="/sora-sc/summary/" class="nav-tab" style="--tab-accent: #38bdf8" data-astro-cid-nen7h5rs><span class="tab-dot" aria-hidden="true" data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs>空之轨迹SC</span></a><a href="/sora-fc/summary/" class="nav-tab" style="--tab-accent: #38bdf8" data-astro-cid-nen7h5rs><span class="tab-dot" aria-hidden="true" data-astro-cid-nen7h5rs></span><span data-astro-cid-nen7h5rs>空之轨迹FC</span></a></nav><div class="reading-progress-track print:hidden" aria-hidden="true" data-astro-cid-nen7h5rs><div id="reading-progress-bar" class="reading-progress-bar" data-astro-cid-nen7h5rs></div></div></div><script type="module">var e=document.querySelector(`.nav-tabs .nav-tab[aria-current="page"]`);e&&e.scrollIntoView({block:`nearest`,inline:`center`});var t=document.getElementById(`reading-progress-bar`),n=document.getElementById(`trails-script-body`);if(t&&n){let e=!1,n=()=>{e=!1;let n=document.documentElement.scrollHeight-window.innerHeight,r=n>0?Math.min(1,Math.max(0,window.scrollY/n)):0;t.style.transform=`scaleX(${r})`};n(),window.addEventListener(`scroll`,()=>{e||(e=!0,requestAnimationFrame(n))},{passive:!0})}</script></header><nav class="sidebar print:hidden" aria-label="主要" data-astro-cid-yntsjkba><button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden" data-astro-cid-r2osgdlg><svg class="open-menu" data-astro-cid-r2osgdlg="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg><svg class="close-menu" data-astro-cid-r2osgdlg="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg><span class="sr-only" data-astro-cid-r2osgdlg>菜单</span></button><script type="module">var e=class extends HTMLElement{constructor(){super();let e=matchMedia(`(min-width: 50em)`),t=()=>{this.popover=e.matches?null:`auto`};t(),e.addEventListener(`change`,()=>t()),this.addEventListener(`toggle`,({newState:e})=>this.trapFocus(e===`open`))}trapFocus(e){document.querySelectorAll(`.main-frame, .sl-skip-link`).forEach(t=>{t.toggleAttribute(`inert`,e)})}};customElements.define(`sl-sidebar-pane`,e);</script><sl-sidebar-pane popover id="starlight__sidebar" class="sidebar-pane" data-astro-cid-yntsjkba="true"><div class="sidebar-content sl-flex" data-astro-cid-yntsjkba><div class="sl-hidden md:sl-block" data-astro-cid-wv7whodv><div class="sidebar-game-card" style="--arc-accent: #38bdf8" data-astro-cid-wv7whodv><div class="sidebar-game-badges" data-astro-cid-wv7whodv><span class="sidebar-arc-pill" data-astro-cid-wv7whodv><span class="sidebar-arc-dot" aria-hidden="true" data-astro-cid-wv7whodv></span><span data-astro-cid-wv7whodv>利贝尔王国篇</span></span><span class="sidebar-year-pill" data-astro-cid-wv7whodv>S.1203</span></div><div class="sidebar-game-title" data-astro-cid-wv7whodv>空之轨迹3RD</div><div class="sidebar-game-meta" data-astro-cid-wv7whodv><span data-astro-cid-wv7whodv>Trails in the Sky the 3rd</span><span class="sidebar-chapter-count" data-astro-cid-wv7whodv>共 42 篇</span></div></div><sl-sidebar-state-persist data-hash="1yq0lch" data-astro-cid-ipdry5cl="true"><script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script><ul class="top-level" data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/summary/" class="large" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>空之轨迹3RD - 剧情简介</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/chapter-0/" class="large" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第零话 ｢星杯骑士｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/chapter-1/" class="large" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第一话 ｢影之国｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/chapter-2/" class="large" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第二话 ｢异界化王都｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/chapter-3/" class="large" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第三话 ｢金之道，银之道｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/chapter-4/" class="large" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第四话 ｢昏暗圣痕｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/chapter-5/" class="large" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第五话 ｢光与影的迷宫｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/chapter-6/" class="large" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第六话 ｢守护者的试炼｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/chapter-7/" class="large" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第七话 ｢邃远的炙炎｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/chapter-8/" class="large" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>最终话 ｢时光的终焉，艰辛的彼岸｣</span></a></li><li data-astro-cid-rmhv4bp6><details open data-astro-cid-rmhv4bp6><summary data-astro-cid-rmhv4bp6><span class="group-label" data-astro-cid-rmhv4bp6><span class="large" data-astro-cid-rmhv4bp6>星之门</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/star/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>章节</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-1/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢尤莉亚大人的假日｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-2/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢盐之桩｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-3/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢庆祝会之夜｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-4/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢旅途的终点｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-5/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢剑之道｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-6/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢重剑流特训法｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-7/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢爱普斯泰恩财团｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-8/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢回归帝都｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-9/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢操之过急的关怀｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-10/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢戈尔地雅斯级实验计划书｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-11/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢『怪盗B』调查报告｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-12/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢调查委托，敬悉｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-13/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢帝国支部连续袭击事件｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-14/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢幻焰计划｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-15/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢乐园的少女｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-16-annulled/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢科洛丝的毕业典礼｣（废案）</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-17-annulled/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢酒的诱惑｣（废案）</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-18-annulled/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢百日战役的新星｣（废案）</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-19-annulled/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢圣痕的背叛｣（废案）</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-20-annulled/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢执行者的真实｣（废案）</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6><details open data-astro-cid-rmhv4bp6><summary data-astro-cid-rmhv4bp6><span class="group-label" data-astro-cid-rmhv4bp6><span class="large" data-astro-cid-rmhv4bp6>月之门</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="1"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/moon/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>章节</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/moon-1-1/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢导力装甲开发计划/前篇｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/moon-1-2/" aria-current="page" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢导力装甲开发计划/后篇｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/moon-2/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢委托人｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/moon-3/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢飘落的羽翼｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/moon-4/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢启程的清晨｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/moon-5/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢幸福之石｣</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6><details open data-astro-cid-rmhv4bp6><summary data-astro-cid-rmhv4bp6><span class="group-label" data-astro-cid-rmhv4bp6><span class="large" data-astro-cid-rmhv4bp6>太阳之门</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="2"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/sun/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>章节</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/sun-1/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢山猫卡普亚的特快专递｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/sun-2/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢爆钓传说艾丝蒂尔｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/sun-4/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢THE CASINO ～赌博师杰克～｣</span></a></li></ul></details></li></ul><script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script></sl-sidebar-state-persist></div><div class="md:sl-hidden" data-astro-cid-wv7whodv><ul class="mobile-quick-links" data-astro-cid-wv7whodv><li data-astro-cid-wv7whodv><a href="/" data-astro-cid-wv7whodv>首页</a></li><li data-astro-cid-wv7whodv><a href="https://trails-game.com" target="_blank" rel="noopener noreferrer" data-astro-cid-wv7whodv>Cafe主站 ↗</a></li></ul><ul class="top-level" data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><details data-astro-cid-rmhv4bp6><summary data-astro-cid-rmhv4bp6><span class="group-label" data-astro-cid-rmhv4bp6><span class="large" data-astro-cid-rmhv4bp6>黎之轨迹Ⅱ</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="3"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><a href="/kuro2/summary/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>黎之轨迹Ⅱ - 剧情简介</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro2/chapter-0/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>序幕 「绯红咆哮」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro2/chapter-pre/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>幕前 「童话庭园」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro2/chapter-1a/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第Ⅰ部side A  「北方港都随想曲」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro2/chapter-1b/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第Ⅰ部side B 「代理地下万事屋」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro2/chapter-2a/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第Ⅱ部side A 「再访煌都～黑月撩乱～」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro2/chapter-2b/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第Ⅱ部side B 「潜入亚拉密斯～并不那么悠闲的日子～」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro2/chapter-mid/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>断章 「涅梅丝岛～另一个节日～」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro2/chapter-3/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第Ⅲ部 「普世欢腾」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro2/chapter-4/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>尾声 「流转的终点」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro2/chapter-extra/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>EXTRA 「扭曲童话者～然后……」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro2/bond-events/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>连结事件</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro2/movies/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>电影文本&amp;全角色赏析</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro2/extrastories/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>调查报告&amp;有声故事</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6><details data-astro-cid-rmhv4bp6><summary data-astro-cid-rmhv4bp6><span class="group-label" data-astro-cid-rmhv4bp6><span class="large" data-astro-cid-rmhv4bp6>黎之轨迹</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="4"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><a href="/kuro/summary/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>黎之轨迹 - 剧情简介</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro/chapter-0/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>序章 「旧市街的地下万事屋」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro/chapter-1/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第一章 「纯真之焰～启程～」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro/chapter-2/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第二章 「宿星～煌都的麒麟儿」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro/chapter-3/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第三章 「萨尔巴德狂想曲」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro/chapter-4/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第四章 「灾厄协定」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro/chapter-4-5/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>间章 「龙来温泉乡奇谭」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro/chapter-5/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第五章 「白夜的嘉年华」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro/chapter-6/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>最终章 「为了总有一天终将归来的你」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro/bond-events/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>连结事件</span></a></li><li data-astro-cid-rmhv4bp6><a href="/kuro/movies/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>电影文本&amp;全角色赏析</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6><details data-astro-cid-rmhv4bp6><summary data-astro-cid-rmhv4bp6><span class="group-label" data-astro-cid-rmhv4bp6><span class="large" data-astro-cid-rmhv4bp6>创之轨迹</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="5"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><a href="/hajimari/summary/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>创之轨迹 - 剧情简介</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/chapter-0/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>序章 「克洛斯贝尔解放作战」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/chapter-1/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第一章</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/chapter-2/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第二章</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/chapter-3/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第三章</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/chapter-4/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第四章</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/chapter-5/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>终章 「终焉，以及创始」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/dlc/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>额外章节 「前往梦幻的彼端」</span></a></li><li data-astro-cid-rmhv4bp6><details open data-astro-cid-rmhv4bp6><summary data-astro-cid-rmhv4bp6><span class="group-label" data-astro-cid-rmhv4bp6><span class="large" data-astro-cid-rmhv4bp6>追忆石盘</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="6"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><a href="/hajimari/episode/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>章节</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ep1/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>退路、岔路、前方的路</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ep2/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>再出发～支援课的一天</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ep3/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>女子学院事件簿～美嘉与美丽的剑士～</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ep4/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>令人怀念的家乡</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ep5/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>白兔与沉睡的傀儡</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ep6/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>光辉中的全新一步</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ep7/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>重逢～少女的忧郁～</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ep8/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>我所选择的路</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ep9/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>两人的正义</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ep10/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>堕落的皇子</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ep11/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>新·导力装甲开发计划 前篇</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ep12/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>新·导力装甲开发计划 后篇</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ep13/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>魔女们的追忆</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ep14/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>同窗的标杆</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ep15/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>究极的野味</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ep16/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>幸运之石与不幸之船</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ep17/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>无尽之剑</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ep18/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>猜猜我是谁</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ex1/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>布莱特家的假日</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ex2/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>踏出的一步</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ex3/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>回忆的眼神无比火热</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/episodes/ex4/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第Ⅱ分校研修祭</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6><details open data-astro-cid-rmhv4bp6><summary data-astro-cid-rmhv4bp6><span class="group-label" data-astro-cid-rmhv4bp6><span class="large" data-astro-cid-rmhv4bp6>创始的彼方</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="7"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><a href="/hajimari/extra/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>前言</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/extras/extra1/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>另一个温泉乡</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/extras/extra2/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>某位少女的校园生活</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/extras/extra3/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>于是少女将握著手中的剑继续前进</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/games/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>游戏方石</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/battles/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>试炼之门</span></a></li><li data-astro-cid-rmhv4bp6><a href="/hajimari/victory/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>附录：特殊战斗胜利对话</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6><details data-astro-cid-rmhv4bp6><summary data-astro-cid-rmhv4bp6><span class="group-label" data-astro-cid-rmhv4bp6><span class="large" data-astro-cid-rmhv4bp6>闪之轨迹Ⅳ</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="8"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><a href="/sen4/summary/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>闪之轨迹Ⅳ - 剧情简介</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6><details data-astro-cid-rmhv4bp6><summary data-astro-cid-rmhv4bp6><span class="group-label" data-astro-cid-rmhv4bp6><span class="large" data-astro-cid-rmhv4bp6>闪之轨迹Ⅲ</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="9"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><a href="/sen3/summary/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>闪之轨迹Ⅲ - 剧情简介</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sen3/chapter-0/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>序章 ｢春日再临｣</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6><details data-astro-cid-rmhv4bp6><summary data-astro-cid-rmhv4bp6><span class="group-label" data-astro-cid-rmhv4bp6><span class="large" data-astro-cid-rmhv4bp6>闪之轨迹Ⅱ</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="10"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><a href="/sen2/summary/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>闪之轨迹Ⅱ - 剧情简介</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sen2/chapter-0/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>序章 「归乡～失意的尽头～」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sen2/chapter-1/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第Ⅰ部 「灰色战记」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sen2/chapter-1-5/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>幕间 「白银巨船」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sen2/chapter-2/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第Ⅱ部 「红翼～苏醒的狮子们」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sen2/memoir/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>外传 ｢边境小镇阿尔斯塔｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sen2/chapter-3/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>终章 ｢只管一路向前｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sen2/chapter-4/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>外传 「占领下的克洛斯贝尔」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sen2/chapter-5/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>后日谭 「冬日的尾声」</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sen2/bond-events/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>全羁绊事件</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6><details data-astro-cid-rmhv4bp6><summary data-astro-cid-rmhv4bp6><span class="group-label" data-astro-cid-rmhv4bp6><span class="large" data-astro-cid-rmhv4bp6>闪之轨迹Ⅰ</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="11"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><a href="/sen1/summary/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>闪之轨迹Ⅰ - 剧情简介</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sen1/chapter-0/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>序章 ｢托尔兹军官学院｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sen1/chapter-1/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第一章 ｢新学期～首次实习～｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sen1/chapter-2/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第二章 ｢美丽翡翠之都｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sen1/chapter-3/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第三章 ｢横跨铁路～苍穹的大地～｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sen1/chapter-4/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第四章 ｢绯之帝都 ～仲夏祭～｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sen1/chapter-5/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第五章 ｢开始行动的意志｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sen1/chapter-6/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第六章 ｢黑与银～钢都动乱～｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sen1/intermission/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>幕间 ｢返乡～迷惘的尽头～｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sen1/chapter-7/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>终章 ｢军官学院祭，然后──｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sen1/bond-events/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>全羁绊事件</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6><details data-astro-cid-rmhv4bp6><summary data-astro-cid-rmhv4bp6><span class="group-label" data-astro-cid-rmhv4bp6><span class="large" data-astro-cid-rmhv4bp6>碧之轨迹</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="12"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><a href="/aoi/summary/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>碧之轨迹 - 剧情简介</span></a></li><li data-astro-cid-rmhv4bp6><a href="/aoi/prologue/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>序章 ｢D之残影｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/aoi/chapter-1/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第一章 ｢预兆～崭新的日子｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/aoi/chapter-2/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第二章 ｢西塞姆里亚通商会议｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/aoi/intermission/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>间章 ｢短暂的休息｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/aoi/chapter-3/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第三章 ｢胎动～众兽的狂欢节｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/aoi/chapter-4/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第四章 ｢命运未卜的克洛斯贝尔｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/aoi/intermission2/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>断章 ｢跨越虚幻的乐土｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/aoi/chapter-5/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>终章 ｢即使如此，我们也……｣</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6><details data-astro-cid-rmhv4bp6><summary data-astro-cid-rmhv4bp6><span class="group-label" data-astro-cid-rmhv4bp6><span class="large" data-astro-cid-rmhv4bp6>零之轨迹</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="13"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><a href="/zero/summary/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>零之轨迹 - 剧情简介</span></a></li><li data-astro-cid-rmhv4bp6><a href="/zero/prologue/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>序章 ｢特别任务支援科｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/zero/chapter-1/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第一章 ｢神狼们的午后｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/zero/chapter-2/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第二章 ｢金之太阳、银之月｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/zero/chapter-3/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第三章 ｢克洛斯贝尔创立纪念庆典｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/zero/intermission/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>间章 ｢琪雅｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/zero/chapter-4/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第四章 ｢悄然袭来的睿智｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/zero/finale/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>终章 ｢克洛斯贝尔最漫长的一日｣</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6><details open data-astro-cid-rmhv4bp6><summary data-astro-cid-rmhv4bp6><span class="group-label" data-astro-cid-rmhv4bp6><span class="large" data-astro-cid-rmhv4bp6>空之轨迹3RD</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="14"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/summary/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>空之轨迹3RD - 剧情简介</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/chapter-0/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第零话 ｢星杯骑士｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/chapter-1/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第一话 ｢影之国｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/chapter-2/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第二话 ｢异界化王都｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/chapter-3/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第三话 ｢金之道，银之道｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/chapter-4/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第四话 ｢昏暗圣痕｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/chapter-5/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第五话 ｢光与影的迷宫｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/chapter-6/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第六话 ｢守护者的试炼｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/chapter-7/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第七话 ｢邃远的炙炎｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/chapter-8/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>最终话 ｢时光的终焉，艰辛的彼岸｣</span></a></li><li data-astro-cid-rmhv4bp6><details open data-astro-cid-rmhv4bp6><summary data-astro-cid-rmhv4bp6><span class="group-label" data-astro-cid-rmhv4bp6><span class="large" data-astro-cid-rmhv4bp6>星之门</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="15"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/star/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>章节</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-1/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢尤莉亚大人的假日｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-2/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢盐之桩｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-3/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢庆祝会之夜｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-4/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢旅途的终点｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-5/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢剑之道｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-6/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢重剑流特训法｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-7/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢爱普斯泰恩财团｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-8/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢回归帝都｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-9/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢操之过急的关怀｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-10/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢戈尔地雅斯级实验计划书｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-11/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢『怪盗B』调查报告｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-12/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢调查委托，敬悉｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-13/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢帝国支部连续袭击事件｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-14/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢幻焰计划｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-15/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢乐园的少女｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-16-annulled/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢科洛丝的毕业典礼｣（废案）</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-17-annulled/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢酒的诱惑｣（废案）</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-18-annulled/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢百日战役的新星｣（废案）</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-19-annulled/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢圣痕的背叛｣（废案）</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/star-20-annulled/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢执行者的真实｣（废案）</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6><details open data-astro-cid-rmhv4bp6><summary data-astro-cid-rmhv4bp6><span class="group-label" data-astro-cid-rmhv4bp6><span class="large" data-astro-cid-rmhv4bp6>月之门</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="16"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/moon/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>章节</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/moon-1-1/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢导力装甲开发计划/前篇｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/moon-1-2/" aria-current="page" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢导力装甲开发计划/后篇｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/moon-2/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢委托人｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/moon-3/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢飘落的羽翼｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/moon-4/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢启程的清晨｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/moon-5/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢幸福之石｣</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6><details open data-astro-cid-rmhv4bp6><summary data-astro-cid-rmhv4bp6><span class="group-label" data-astro-cid-rmhv4bp6><span class="large" data-astro-cid-rmhv4bp6>太阳之门</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="17"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/sun/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>章节</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/sun-1/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢山猫卡普亚的特快专递｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/sun-2/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢爆钓传说艾丝蒂尔｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-3rd/doors/sun-4/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>｢THE CASINO ～赌博师杰克～｣</span></a></li></ul></details></li></ul></details></li><li data-astro-cid-rmhv4bp6><details data-astro-cid-rmhv4bp6><summary data-astro-cid-rmhv4bp6><span class="group-label" data-astro-cid-rmhv4bp6><span class="large" data-astro-cid-rmhv4bp6>空之轨迹SC</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="18"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><a href="/sora-sc/summary/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>空之轨迹SC - 剧情简介</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-sc/chapter-0/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>序章 ｢少女的决意｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-sc/chapter-1/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第一章 ｢潜行的白影｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-sc/chapter-2/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第二章 ｢狂暴的大地｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-sc/chapter-3/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第三章 ｢纷乱的茶会｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-sc/chapter-4/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第四章 ｢雾魔的标矢｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-sc/chapter-5/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第五章 ｢守护的信念｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-sc/chapter-6/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第六章 ｢羁绊的所在｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-sc/chapter-7/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第七章 ｢四轮之塔｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-sc/chapter-8/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第八章 ｢迷乱的大地｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-sc/chapter-9/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>终章 ｢空之轨迹｣</span></a></li></ul></details></li><li data-astro-cid-rmhv4bp6><details data-astro-cid-rmhv4bp6><summary data-astro-cid-rmhv4bp6><span class="group-label" data-astro-cid-rmhv4bp6><span class="large" data-astro-cid-rmhv4bp6>空之轨迹FC</span></span><svg class="caret" data-astro-cid-rmhv4bp6="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;" data-astro-cid-hkc32dio><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="19"></sl-sidebar-restore><ul data-astro-cid-rmhv4bp6><li data-astro-cid-rmhv4bp6><a href="/sora-fc/summary/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>空之轨迹FC - 剧情简介</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-fc/chapter-0/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>序章 ｢父亲，启程｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-fc/chapter-1/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第一章 ｢消失的定期船｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-fc/chapter-2/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第二章 ｢白花恋诗｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-fc/chapter-3/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>第三章 ｢黑色导力器｣</span></a></li><li data-astro-cid-rmhv4bp6><a href="/sora-fc/chapter-4/" data-astro-cid-rmhv4bp6><span data-astro-cid-rmhv4bp6>终章 ｢王都缭乱｣</span></a></li></ul></details></li></ul><div class="mobile-preferences sl-flex" data-astro-cid-p4azlveh><div class="social-icons" data-astro-cid-p4azlveh><a href="https://github.com/trails-game/trails-script-astro" rel="me" class="sl-flex" data-astro-cid-n2mnl6yq><span class="sr-only" data-astro-cid-n2mnl6yq>GitHub</span><svg data-astro-cid-n2mnl6yq="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a></div><starlight-theme-select data-astro-cid-smhvfpqh="true"><label style="--sl-select-width: 6.25em" data-astro-cid-2z5xp7gb><span class="sr-only" data-astro-cid-2z5xp7gb>选择主题</span><span class="icon label-icon" data-astro-cid-2z5xp7gb><svg class="sl-theme-icon-dark" data-astro-cid-smhvfpqh="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg class="sl-theme-icon-light" data-astro-cid-smhvfpqh="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg class="sl-theme-icon-auto" data-astro-cid-smhvfpqh="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></span><select autocomplete="off" data-astro-cid-2z5xp7gb><option value="dark" data-astro-cid-2z5xp7gb>深色</option><option value="light" data-astro-cid-2z5xp7gb>浅色</option><option value="auto" selected data-astro-cid-2z5xp7gb>自动</option></select><svg class="icon caret" data-astro-cid-2z5xp7gb="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;" data-astro-cid-hkc32dio><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg></label></starlight-theme-select><script>(() => {
+		const theme = (typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme'));
+		if (theme) document.querySelectorAll('starlight-theme-select select').forEach((s) => { s.value = theme; });
+	})();</script></div></div></div></sl-sidebar-pane></nav><div class="main-frame" data-astro-cid-yntsjkba><script type="module">var e=document.getElementById(`starlight__sidebar`),t=e?.querySelector(`sl-sidebar-state-persist`),n=`sl-sidebar-state`,r=()=>{let r=[],i=t?.dataset.hash||``;try{let e=sessionStorage.getItem(n),t=JSON.parse(e||`{}`);Array.isArray(t.open)&&t.hash===i&&(r=t.open)}catch{}return{hash:i,open:r,scroll:e?.scrollTop||0}},i=e=>{try{sessionStorage.setItem(n,JSON.stringify(e))}catch{}},a=()=>i(r()),o=(e,t)=>{let n=r();n.open[t]=e,i(n)};t?.addEventListener(`click`,e=>{if(!(e.target instanceof Element))return;let t=e.target.closest(`summary`)?.closest(`details`);if(!t)return;let n=t.querySelector(`sl-sidebar-restore`),r=parseInt(n?.dataset.index||``);isNaN(r)||o(!t.open,r)}),addEventListener(`visibilitychange`,()=>{document.visibilityState===`hidden`&&a()});</script><div class="lg:sl-flex" data-astro-cid-lrzkfocr><aside class="right-sidebar-container print:hidden" data-astro-cid-lrzkfocr><div class="right-sidebar" data-astro-cid-lrzkfocr><div class="lg:sl-hidden" data-astro-cid-qok35upx><mobile-starlight-toc data-min-h="2" data-max-h="3" data-astro-cid-66cqc7ze="true"><nav aria-labelledby="starlight__on-this-page--mobile" data-astro-cid-66cqc7ze><details id="starlight__mobile-toc" data-astro-cid-66cqc7ze><summary id="starlight__on-this-page--mobile" class="sl-flex" data-astro-cid-66cqc7ze><span class="toggle sl-flex" data-astro-cid-66cqc7ze>本页内容<svg class="caret" data-astro-cid-66cqc7ze="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;" data-astro-cid-hkc32dio><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current" data-astro-cid-66cqc7ze></span></summary><div class="dropdown" data-astro-cid-66cqc7ze><ul class="isMobile" style="--depth: 0;" data-astro-cid-jugkfwgx><li style="--depth: 0;" data-astro-cid-jugkfwgx><a href="#_top" style="--depth: 0;" data-astro-cid-jugkfwgx><span style="--depth: 0;" data-astro-cid-jugkfwgx>概述</span></a></li></ul></div></details></nav></mobile-starlight-toc><script type="module" src="/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.C3fM4Kra.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block" data-astro-cid-qok35upx><div class="sl-container" data-astro-cid-qok35upx><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">本页内容</h2><ul style="--depth: 0;" data-astro-cid-jugkfwgx><li style="--depth: 0;" data-astro-cid-jugkfwgx><a href="#_top" style="--depth: 0;" data-astro-cid-jugkfwgx><span style="--depth: 0;" data-astro-cid-jugkfwgx>概述</span></a></li></ul></nav></starlight-toc><script type="module" src="/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BpJaGz7G.js"></script></div></div></div></aside><div class="main-pane" data-astro-cid-lrzkfocr><main data-pagefind-body lang="zh-CN" dir="ltr" data-astro-cid-g5ptsecz><div class="content-panel" data-astro-cid-a7po4psb><div class="sl-container" data-astro-cid-a7po4psb><div class="chapter-header" style="--arc-accent: #38bdf8" data-astro-cid-u72m6wot><nav class="chapter-breadcrumbs print:hidden" aria-label="面包屑导航" data-astro-cid-u72m6wot><a href="/" data-astro-cid-u72m6wot>首页</a><span class="crumb-sep" aria-hidden="true" data-astro-cid-u72m6wot>/</span><a href="/sora-3rd/summary/" data-astro-cid-u72m6wot>空之轨迹3RD</a><span class="crumb-sep" aria-hidden="true" data-astro-cid-u72m6wot>/</span><span class="crumb-current" data-astro-cid-u72m6wot>月之门: 导力装甲开发计划/后篇</span><span class="crumb-badges" data-astro-cid-u72m6wot><span class="crumb-arc-pill" data-astro-cid-u72m6wot><span class="crumb-arc-dot" aria-hidden="true" data-astro-cid-u72m6wot></span><span data-astro-cid-u72m6wot>利贝尔王国篇</span></span><span class="crumb-year-pill" data-astro-cid-u72m6wot>S.1203</span></span></nav><h1 id="_top" data-astro-cid-u72m6wot>月之门: 导力装甲开发计划/后篇</h1><div class="page-meta-bar" data-astro-cid-u72m6wot><ul class="metadata page-metadata" data-astro-cid-u72m6wot><li class="contributors" data-astro-cid-u72m6wot><span class="contributors-text" data-astro-cid-u72m6wot>本页面由以下成员整理提供:</span><ul class="contributors" data-astro-cid-u72m6wot><li data-astro-cid-u72m6wot><a href="https://trails-game.com/about/team/" target="_blank" rel="noopener noreferrer" data-astro-cid-u72m6wot><img class="avatar" src="/images/contributors/冰镇南瓜汁.webp" alt="冰镇南瓜汁" width="32" height="32" loading="lazy" data-astro-cid-u72m6wot><span data-astro-cid-u72m6wot>冰镇南瓜汁</span></a></li></ul></li></ul><div class="reader-toolbar print:hidden" role="group" aria-label="阅读器设置" data-astro-cid-u72m6wot><button type="button" class="reader-ctrl-btn" data-reader-mode-toggle title="切换剧场排版与纯文本模式" data-astro-cid-u72m6wot><span class="ctrl-label" data-astro-cid-u72m6wot>排版</span><span class="ctrl-value" data-mode-label data-astro-cid-u72m6wot>剧场</span></button><div class="reader-font-group" role="group" aria-label="字体大小" data-astro-cid-u72m6wot><span class="ctrl-label" data-astro-cid-u72m6wot>字号</span><button type="button" class="font-step-btn" data-reader-font-btn="sm" data-astro-cid-u72m6wot>小</button><button type="button" class="font-step-btn" data-reader-font-btn="md" data-astro-cid-u72m6wot>标准</button><button type="button" class="font-step-btn" data-reader-font-btn="lg" data-astro-cid-u72m6wot>大</button></div><button type="button" class="reader-ctrl-btn" data-reader-width-toggle title="切换舒适页宽与宽屏阅读" data-astro-cid-u72m6wot><span class="ctrl-label" data-astro-cid-u72m6wot>页宽</span><span class="ctrl-value" data-width-label data-astro-cid-u72m6wot>舒适</span></button></div></div></div><script type="module">var e=`trails-reader-prefs`;function t(){try{let t=localStorage.getItem(e);if(t){let e=JSON.parse(t);return{font:e.font===`sm`||e.font===`lg`?e.font:`md`,width:e.width===`wide`?`wide`:`normal`,mode:e.mode===`raw`?`raw`:`enhanced`}}}catch{}return{font:`md`,width:`normal`,mode:`enhanced`}}function n(e){let t=document.documentElement;t.dataset.readerFont=e.font,t.dataset.readerWidth=e.width,t.dataset.scriptMode=e.mode,document.querySelectorAll(`[data-reader-font-btn]`).forEach(t=>{t.setAttribute(`aria-pressed`,t.dataset.readerFontBtn===e.font?`true`:`false`)});let n=document.querySelector(`[data-reader-mode-toggle]`),r=document.querySelector(`[data-mode-label]`);n&&r&&(n.setAttribute(`aria-pressed`,e.mode===`enhanced`?`true`:`false`),r.textContent=e.mode===`enhanced`?`剧场`:`纯文本`);let i=document.querySelector(`[data-reader-width-toggle]`),a=document.querySelector(`[data-width-label]`);i&&a&&(i.setAttribute(`aria-pressed`,e.width===`wide`?`true`:`false`),a.textContent=e.width===`wide`?`宽屏`:`舒适`)}function r(t){try{localStorage.setItem(e,JSON.stringify(t))}catch{}}var i=t();n(i),document.querySelectorAll(`[data-reader-font-btn]`).forEach(e=>{e.addEventListener(`click`,()=>{let t=e.dataset.readerFontBtn;(t===`sm`||t===`md`||t===`lg`)&&(i.font=t,n(i),r(i))})}),document.querySelector(`[data-reader-mode-toggle]`)?.addEventListener(`click`,()=>{i.mode=i.mode===`enhanced`?`raw`:`enhanced`,n(i),r(i)}),document.querySelector(`[data-reader-width-toggle]`)?.addEventListener(`click`,()=>{i.width=i.width===`wide`?`normal`:`wide`,n(i),r(i)});</script></div></div><div class="content-panel" data-astro-cid-a7po4psb><div class="sl-container" data-astro-cid-a7po4psb><div class="sl-markdown-content" id="trails-script-body"><p>工房都市蔡斯（Zeiss City）<br>
+（蔡斯飞艇坪。一艘墨绿色定期飞行船降落，阿加特与众多乘客一同走下飞行船。）</p>
+<p>阿加特：（苦脸）啊—，真是麻烦…………我要是没做那种约定就好了。<br>
+阿加特：那个时候因为被那小丫头给镇住了，我才会无意中答应了什么『月末的星期五』的事……<br>
+阿加特：为了过来吃这顿饭,连每个月的行程都要调整…………<br>
+阿加特：（会心的笑容）……算了，这样也不错。谁让这是我欠她的呢。<br>
+（突然一抖）</p>
+<p>阿加特：怎、怎么了………？突然感到有股寒气………<br>
+阿加特：？？？<br>
+阿加特：算、算了……<br>
+阿加特：好像也不是因为感冒而引起的……<br>
+（阿加特慢慢走出飞艇坪）</p>
+<p>（中央工房地下实验室）</p>
+<p>丹：（站在Orbal Gear的驾驶舱上进行检测）交换作业就差不多做到这儿吧。<br>
+丹：虽然因为这个机枪是新式的，所以还有必要进行许多调整……<br>
+艾丽卡：这样一来武装强化就大体完成了呢。<br>
+艾丽卡：托彻夜工作的福，Orbal Gear的机动性能也提升了16%……<br>
+艾丽卡：呵呵呵，测取一次这个阶段的数据吧。<br>
+丹：本来，一般最初的时候只需做基本的动作测试……<br>
+丹：不过，因为有提妲帮忙，托她的福，尽管这仅是作为试制机，完成度却很高呢。<br>
+丹：不知道顺便进行一下简单的战斗之类的测试行不行呢？（跳下Orbal Gear）<br>
+艾丽卡：…………是应该这么做呢。<br>
+（目露凶光）</p>
+<p>艾丽卡：不管怎么样，今天正好有活供品要来呢……！<br>
+（提妲走进实验室来）</p>
+<p>提妲：啊…………爸爸，妈妈。<br>
+提妲：嗯，那个……<br>
+丹：（走到提妲面前）哎呀，提妲，今天你有好好睡过<br>
+丹：觉了吧？<br>
+提妲：嗯，没关系。好好地睡了一觉之后，我已经变得很有精神了。<br>
+提妲：不，不过……那个………<br>
+艾丽卡：用这个Orbal Gear彻底地把红毛揍趴下……<br>
+艾丽卡：哎呀，那个景象已经浮现在我眼前了哦………<br>
+提妲：（着急）妈，妈妈！<br>
+提妲：所以我都说了，阿加特哥哥不是坏人啊……<br>
+丹：啊哈哈……不用担心啦，提妲。<br>
+丹：虽然艾丽卡说的话有点不大好听……<br>
+丹：不过，她也只是想确认阿加特为什么要接近你而已啦。<br>
+提妲：那，那个…………<br>
+提妲：（唉……果然爸爸也有点误会啊……）（叹息）<br>
+提妲：那个啊，我再来解释一次吧。<br>
+提妲：虽然阿加特哥哥是很粗鲁，也很嫌麻烦，说话也很粗野……<br>
+提妲：但是，他实际上真的是个很温柔，很好的人啊！<br>
+（艾丽卡和丹陷入沉思）</p>
+<p>丹：是，是吗。<br>
+丹：如果是那样的话，我也有点担心了。<br>
+提妲：（惊奇得张大嘴）……咦咦！？为，为什么…………？<br>
+提妲：我都已经解释好几遍了啊……<br>
+艾丽卡：………看来差不多该预先安排一下了。<br>
+艾丽卡：丹，最后的调整就拜托你了。我稍微出去一趟。<br>
+丹：……这就要走了吗，艾丽卡。<br>
+艾丽卡：……………………嗯。<br>
+艾丽卡：听到刚才这些话，我不能再沉默下去了。<br>
+艾丽卡：（目露凶光）对于罪人，我要说的只有两个字，死吧……！<br>
+（艾丽卡很快冲出了实验室）</p>
+<p>提妲：咦咦…………！？<br>
+提妲：妈，妈妈！？你要到哪儿去……？<br>
+提妲：等，等一下呀！！（向艾丽卡追过去）<br>
+（拉赛尔博士走进来，在门口与艾丽卡相撞，艾丽卡毫不停留继续往外冲，拉赛尔博士被撞倒）</p>
+<p>拉赛尔博士：哎哟……！？<br>
+拉赛尔博士：（痛苦的蹲在地上）<br>
+（提妲跟着跑过来）</p>
+<p>提妲：妈妈！！<br>
+（提妲追着跑了出去）</p>
+<p>拉赛尔博士：出，出什么事了……<br>
+（丹走过来）</p>
+<p>丹：没有受伤吧，岳父。<br>
+拉赛尔博士：还好，没什么。<br>
+拉赛尔博士：（站起来）什么事急成那样啊，艾丽卡那家伙……<br>
+丹：哈哈哈…………<br>
+丹：……那是因为要开始了哦。那个『实验』……<br>
+拉赛尔博士：你也是个相当溺爱孩子的父亲呢……<br>
+（蔡斯大街上）</p>
+<p>提妲：（四下张望）真，真奇怪啊……<br>
+提妲：她的确是朝这个方向跑的啊……<br>
+提妲：……妈妈，你到哪儿去了呢……<br>
+（与此同时，阿加特正向蔡斯游击士支部走去）</p>
+<p>阿加特：……似乎来得太早了啊。<br>
+阿加特：在傍晚到来之前，先把告示板上的工作解决掉吧……<br>
+（走进游击士协会，阿加特突然感觉到两道恐怖的光闪过）</p>
+<p>阿加特：什…………！？<br>
+（挥起剑）</p>
+<p>（协会内部，一位身着中央工房研究制服的金发女性正背对阿加特）</p>
+<p>阿加特：（警惕）…………………………………？<br>
+阿加特：（刚才，我感觉到了非常强烈的杀气……）<br>
+阿加特：（结果只是工房的研究者来进行委托吗……）<br>
+阿加特：（……是我太敏感了吗…………）<br>
+女性研究者：哎～呀，怎么会有这么巧的事啊～……<br>
+女性研究者：（转过身来）那边那个红头发的，不就是阿加特·科洛斯纳吗。<br>
+女性研究者：呵呵呵，真是可怜的人啊～。<br>
+阿加特：…………啥？<br>
+女性研究者：（走近阿加特）看来，你似乎满不在乎的到刑场来了呢。<br>
+女性研究者：正好…………我就直接告诉你吧。<br>
+女性研究者：事实上，我已经准备好了让你死得其所的地方哦。<br>
+女性研究者：那么，就请你赶快到中央工房来吧。<br>
+阿加特：你谁啊……专门来找我吵架的吗？<br>
+女性研究者：这可不是吵架。<br>
+女性研究者：……这是委托哦。<br>
+女性研究者：这是我给游击士阿加特·科洛斯纳的委托。<br>
+阿加特：有这么意义不明的委托吗。<br>
+阿加特：如果想委托我，至少也得带个像样点的来。<br>
+女性研究者：……哎呀，这还真是难办呢，你的理解能力居然这么不好啊。<br>
+女性研究者：（目露凶光）……对你自己犯下的罪，给我有点自觉意识啊……！<br>
+阿加特：（什，什么啊这家伙……？）<br>
+阿加特：（眼神一点都不正常……）<br>
+女性研究者：……好了没？你给我掏干净耳朵听清楚。<br>
+女性研究者：这个委托，是要通过将Orbal Gear与你进行比较，来达到检测其机体性能的目的。<br>
+女性研究者：……也就是说，我要你为Orbal Gear的改良做出贡献！<br>
+女性研究者：呵呵，这样一来你的罪也……<br>
+阿加特：……什么不明不白的事情啊…………（叹息）<br>
+阿加特：……听好了，所谓委托，是指真的遇到的很难办的事情。<br>
+阿加特：……游击士可不是打杂的。<br>
+阿加特：我们可没空和你这种没事找事的人打交道。<br>
+女性研究者：……………………<br>
+女性研究者：噗嗤…………<br>
+女性研究者：哎呀哎呀，你怕了吗～？<br>
+阿加特：…………………啥？<br>
+（提妲慢慢走到游击士协会门口）</p>
+<p>提妲：街上也找了，没有，家里也没有……<br>
+提妲：……你到底上哪儿去了啊，妈妈……<br>
+（游击士协会里传来女性的声音）</p>
+<p>女性的声音：……所以我不是说了吗。<br>
+女性的声音：你参加这个实验的话，可以考虑给你减刑哦！<br>
+提妲：刚才的，是妈妈的声音啊。<br>
+提妲：难，难道说……（走向游击士协会）<br>
+（协会里）</p>
+<p>阿加特：你就这么想让人帮忙吗……！（怒吼道）<br>
+（提妲走进了协会，2人发现了提妲）</p>
+<p>阿加特：提妲…………？<br>
+提妲：阿，阿加特哥哥……！？<br>
+（艾丽卡迅速挡在提妲面前）</p>
+<p>提妲：还有妈妈……<br>
+女性研究者：对了对了……还有一点不能不说……<br>
+女性研究者：（咬牙切齿）你在半径1赛尔矩以内不准靠近我的提妲！<br>
+女性研究者：……听懂了没有，你这个没有自知之明的家伙！！<br>
+阿加特：喂，喂喂你等一下……<br>
+女性研究者：咻…………！<br>
+阿加特：喂，喂…………！？<br>
+（艾丽卡迅速的拖着提妲离开了协会）</p>
+<p>女性研究者：咻…………！！<br>
+阿加特：……那女人搞什么鬼啊……？<br>
+阿加特：而且还把提妲也拉走了……<br>
+阿加特：难道那个小丫头被某个地方的危险份子给抓走了……！？<br>
+雾香：那个你不用担心。<br>
+阿加特：……雾香，原来你在啊。（走过去）<br>
+雾香：她叫艾丽卡·拉赛尔。是提妲的母亲哦。<br>
+阿加特：……母亲………？<br>
+阿加特：……她是，提妲的？<br>
+阿加特：啥…………！？<br>
+雾香：大概在两周之前吧，那孩子的双亲回国了。<br>
+雾香：丹·拉赛尔和艾丽卡·拉赛尔博士。<br>
+雾香：……虽然听上去多少有点混乱，不过这就是事实。<br>
+阿加特：那，那种家伙是……？<br>
+雾香：……虽然你现在好像很忙的样子，不过能谈谈关于工作的事吗？<br>
+阿加特：啊，哦…………<br>
+阿加特：我到傍晚为止都还有空，如果是比较轻松的委托，应该能完成一些吧。<br>
+雾香：………那么，首先是从中央工房来的委托开始。<br>
+雾香：协助新兵器Orbal Gear试制机的各种测试实验。<br>
+阿加特：Orbal……Gear……？<br>
+阿加特：……喂，等一下。这个委托……<br>
+雾香：艾丽卡博士的委托，我已经作为正式的工作受理了。<br>
+雾香：阿加特，你被指名了哦。<br>
+阿加特：……切，那个女人……<br>
+阿加特：原来真的是来进行委托的吗……<br>
+雾香：关于Orbal Gear的详细情况，我也不清楚。<br>
+雾香：不过根据艾丽卡博士的说明，这是凝聚了利贝尔导力技术精华的新兵器。<br>
+雾香：是拉赛尔全家共同参与开发的。<br>
+雾香：场所似乎是中央工房。<br>
+阿加特：……新兵器吗…………？<br>
+阿加特：喂，刚才你说拉赛尔全家共同参与是……？<br>
+阿加特：该不会是……提妲也参加开发了吧？<br>
+雾香：……谁知道呢，我所了解的也就到此为止了。<br>
+雾香：据说那孩子很快就要结束实习、成为正式的导力技师了。因此，也许事情真的是这样也说不定。<br>
+雾香：阿加特，还有什么问题吗？<br>
+阿加特：………………没有…………<br>
+阿加特：（提妲的双亲什么的，我也只是从她那里稍微听过一点，仅仅是这种程度而已……）<br>
+阿加特：（这不是和她以往说的完全不同嘛。再加上，那女人好像哪里不正常……）<br>
+阿加特：………………………………………………<br>
+阿加特：（不过，如果那女人真的把提妲卷进新兵器的开发之中的话……）<br>
+阿加特：……雾香。把这个委托暂停。<br>
+雾香：保留……你是这个意思吗？<br>
+阿加特：………………嗯。<br>
+阿加特：……我去确认一件事情。<br>
+阿加特：你可别随便派别人来办这件事啊！<br>
+阿加特：（快步跑出游击士协会）<br>
+（阿加特走进中央工房，并来到中央工房屋顶）</p>
+<p>阿加特：切……到底死哪儿去了……<br>
+阿加特：提妲也好，艾丽卡也好，连个人影都找不着。<br>
+（发现自己前面站着一个整备员，正背对着他）</p>
+<p>穿整备服的男性：呀……<br>
+穿整备服的男性：你就是阿加特君吧。<br>
+阿加特：（这家伙，不只是个整备员那么简单啊……）<br>
+阿加特：………………………………<br>
+阿加特：哦，是这样啊……你就是丹吧。<br>
+阿加特：我听过一些传言。你原来是游击士吧。<br>
+丹：啊，难不成……是从卡西乌斯先生那里听说的吗。<br>
+阿加特：不，那倒不是……<br>
+阿加特：……是从提妲和拉赛尔老头那里听说了一点而已……<br>
+丹：…………………………<br>
+丹：呵呵，原来如此吗。<br>
+阿加特：（这么说来，确实听说过这家伙大概在10年前放弃了游击士的工作……）<br>
+阿加特：（正好和卡西乌斯大叔擦肩而过啊……）<br>
+阿加特：……………………………………<br>
+阿加特：（那么，他应该不是那种脑筋不对头的人吧……）<br>
+阿加特：……开发新兵器的事，你是知道的吧。<br>
+阿加特：提妲那小丫头也来帮忙的事，是真的吗？<br>
+丹：嗯，啊…………<br>
+丹：不过，她已经不仅仅是帮忙，而是正式参加了哦。<br>
+丹：……提妲在这两年间，本领也长进了不少呢。<br>
+丹：渐渐地，我能教她的事也越来越少了啊……<br>
+阿加特：（切，果然是这样吗……）<br>
+阿加特：（靠近丹）……喂，你们这些家伙，在让自己的女儿做些什么啊？<br>
+丹：…………嗯……？<br>
+阿加特：因为工作忙而无法回家，这我能理解。<br>
+阿加特：那小丫头喜欢摆弄机械，所以让她协助发明我也能理解。<br>
+阿加特：（突然大声吼道）……但是，兵器开发什么的，不应该是让女儿碰的事吧！<br>
+阿加特：用常识想想啊，用常识！<br>
+丹：哈哈……<br>
+阿加特：有什么好笑的……<br>
+丹：阿加特君，你啊……你相信提妲吗？<br>
+阿加特：……………………啥？<br>
+阿加特：别转移话题！你们这些家伙，把那小丫头给卷进来……<br>
+丹：阿加特君，你刚才说的话我从很多人那里听到过。<br>
+丹：但是，只有这点，我希望能听到你亲口说出来。<br>
+丹：你似乎是由于某种机会，而和提妲一起行动的……<br>
+丹：你是因为觉得提妲不可靠而无法对她置之不理呢，<br>
+丹：还是只是被形势所迫呢？<br>
+丹：…………到底，你是抱着什么样的想法呢？<br>
+阿加特：那，那种事情鬼知道啊。<br>
+阿加特：不过……<br>
+阿加特：……我受到过那小丫头许多的帮助呢。<br>
+阿加特：最初只是觉得她这样太危险，看不下去了，所以想要保护她而已……<br>
+阿加特：……结果，这是怎么回事呢，到头来反而是我受到她的许多照顾了。<br>
+丹：………………………………<br>
+阿加特：从这点来说，我是很信赖那小丫头的啦。<br>
+阿加特：你们的女儿，真的是个了不起的家伙哦。<br>
+丹：原来如此啊……<br>
+阿加特：（呼，我还担心他是个没常识的家伙呢……）<br>
+阿加特：（幸好……看起来不是这样啊。）<br>
+阿加特：…………………………………………<br>
+阿加特：……喂，提妲会参加这个兵器的开发，应该是有什么理由的吧。<br>
+阿加特：……说来听听吧，丹。<br>
+丹：啊啊，是啊……<br>
+丹：……算了，就告诉你吧。<br>
+（慢步走到阿加特身后）</p>
+<p>丹：你知道《歼灭天使》玲和《帕蒂尔·玛蒂尔》吧？<br>
+阿加特：……呃，知道…………<br>
+阿加特：就是那不得了的小姑娘和傻大个人形兵器吧。<br>
+丹：提妲啊，她说她和那个玲是朋友呢。<br>
+丹：虽然按照一般逻辑来考虑，她应该是不会说这种话的……<br>
+阿加特：不………………我知道的。<br>
+阿加特：虽然她没有特别说什么……<br>
+阿加特：……但是她一直很不自然的回避着这个话题。<br>
+丹：……是吗，那么话就好说了。<br>
+丹：Orbal Gear计划原本就是为了对抗结社那惊人的技术力、军事力而进行开发的。<br>
+丹：计划的最终的目标，是获得与帕蒂尔·玛蒂尔相抗衡的力量。<br>
+丹：然后，提妲说她想参加这个计划。<br>
+丹：虽然我和艾丽卡也反对她这样……<br>
+丹：但提妲说这和玲有所关联。<br>
+丹：因为，这是她能为玲做到的事情……<br>
+丹：……提妲其实不是真的想对玲做什么的吧。<br>
+丹：只是，参加Orbal Gear计划的话，她就可以继续考虑玲的事了。<br>
+丹：即使无法到达，即使无法相见，她们的心灵也仍然是联系在一起的。<br>
+丹：虽然真的只是微小的关联……<br>
+丹：不过，这是那孩子现在所能做到的最大限度的努力吧。<br>
+阿加特：……………………………………<br>
+阿加特：……那小丫头……………这种事………………<br>
+（掏出胸前的饰物并凝视着它）</p>
+<p>阿加特：（……真是个傻孩子啊…………）<br>
+阿加特：（从什么时候起，开始背负这样的事呢……）<br>
+丹：……现在，提妲正作为一个技师而工作着。<br>
+丹：这是艾丽卡的判断。<br>
+丹：既然她的觉悟已经到达这种地步，就不能以哄小孩的态度来对待她了。<br>
+阿加特：（将饰物放回，转过身来）……丹，再告诉我一件事吧。<br>
+阿加特：那个Orbal Gear，在哪儿？<br>
+丹：你要过去吗？<br>
+阿加特：反正也不能放着不管嘛。<br>
+阿加特：要是把那小丫头置之不理，她又会做出一些乱来的事了吧。<br>
+丹：……是吗。<br>
+丹：呵呵，和岳父说的一样嘛。<br>
+丹：你很有希望哦。<br>
+阿加特：啥，那是什么意思啊……？<br>
+阿加特：岳父……是说拉赛尔那老爷子吗？<br>
+丹：这个你拿去吧。</p>
+<p>从丹那里得到了认证卡。</p>
+<p>丹：在乘电梯时使用这个的话，就能到地下5层的实验场去。<br>
+丹：提妲和艾丽卡都在那里吧。<br>
+丹：……不过，如果要去，还是先下定决心比较好。<br>
+丹：因为，艾丽卡想要考验考验你哦。<br>
+阿加特：哼……那种事怎么样都无所谓。<br>
+阿加特：我只是去对提妲的实验奉陪到底而已。<br>
+（阿加特走了几步，回过头来）</p>
+<p>阿加特：……丹，你要怎么办？<br>
+阿加特：不去参加实验吗？<br>
+丹：不用担心。实验的时候我会到场的。<br>
+丹：……因为，我也还没承认你呢。<br>
+阿加特：（冒黑线圈）（所以说，那个承认什么的是啥啊……）<br>
+（阿加特来到地下实验场）</p>
+<p>阿加特：是这里吗…………？<br>
+阿加特：那，那就是Orbal Gear吗……！？<br>
+（提妲正在对Orbal Gear进行检查）</p>
+<p>提妲：嗯，足部的检查也完成了。<br>
+提妲：再次确认一下时序控制流程吧。<br>
+提妲：妈妈他们到哪儿去了呢……<br>
+（提妲去操作电脑，阿加特走到Orbal Gear前）</p>
+<p>阿加特：还以为一定是导力炮之类的东西……<br>
+阿加特：不过，还真是不错嘛，居然做出了这种东西。<br>
+提妲：啊，阿加特哥哥！？<br>
+提妲：你怎么会在这里……？<br>
+提妲：难，难道是妈妈吗！？<br>
+提妲：你是被妈妈叫来的吗……<br>
+提妲：对，对不起……<br>
+提妲：爸爸妈妈好像对阿加特哥哥有点误会。<br>
+提妲：虽然我从昨天开始就在给他们解释，但是他们还是完全不明白……<br>
+阿加特：啊，不是那样的。……………别担心。<br>
+提妲：咦…………？<br>
+阿加特：呃，那啥……<br>
+阿加特：听说你成为了正式技师，很努力的在工作啊。<br>
+阿加特：所以，我今天来陪你做实验，就当作是替你加油啦。<br>
+阿加特：我是来协助Orbal Gear实验的……姑且这也算是正式的委托啊。<br>
+提妲：…………………………<br>
+提妲：嗯，嘿嘿嘿…………<br>
+提妲：那个那个，嗯，那我对Orbal Gear作一下说明吧。<br>
+（走到Orbal Gear旁边）</p>
+<p>提妲：这架试制机的最大特征就是，它是载人型的导力机器人……<br>
+提妲：啊，不过这个开发方针还没有最终决定下来。<br>
+提妲：那个，还有，它能最大限度的提取机动性能……<br>
+提妲：啊，阿加特哥哥。过来这里一下。<br>
+阿加特：啊，哦…………<br>
+（跟着提妲走）</p>
+<p>提妲：这里，这个新的步行系统特别提升了二足型导力机器人的机动性能……<br>
+提妲：通常的二足步行系统必须联合精密的姿势控制与重心控制单位，其结果……<br>
+提妲：系统的全部资源被大量消耗。为了解决这个问题……<br>
+（提妲往前走，突然撞到什么东西弹回来）</p>
+<p>提妲：咦，咦…………？<br>
+（艾丽卡从Orbal Gear背后走出来，两人吓了一跳）</p>
+<p>阿加特：啥……！？你，你是……！<br>
+提妲：妈……妈妈！？什么时候来的！？<br>
+艾丽卡：（很快挡在提妲前面）阿加特·科洛斯纳……<br>
+艾丽卡：感谢你来协助实验。<br>
+艾丽卡：你终于承认了自己的罪，打算忏悔了啊！<br>
+阿加特：又，又说这种莫名其妙的话了……<br>
+艾丽卡：刚才，你靠近提妲了对吧？<br>
+艾丽卡：对吧，靠近了吧！？<br>
+艾丽卡：（目露凶光）我掌握决定性证据了！！<br>
+阿加特：别用那种眼神行不……<br>
+老人的声音：唉，机械白痴就是机械白痴啊……<br>
+老人的声音：不过这不也很有趣么？<br>
+男性的声音：是啊……<br>
+男性的声音：虽然关于这点还稍微有点担心……<br>
+（丹和拉赛尔博士站在实验场的环梯上观望着这一切）</p>
+<p>丹：不过即使对于自己跟不上的话题，他也不会不分青红皂白的否定，这点也许还是可以给予好评的。<br>
+阿加特：你，你们为什么会在那种地方……！？<br>
+阿加特：对了丹，你不是在楼顶上么……<br>
+丹：……我不是说过了吗。<br>
+丹：『实验』的时候我会到场的。<br>
+阿加特：（这，这家伙也是，不知道他怎么想的……）<br>
+艾丽卡：（咬牙切齿）……阿加特·科洛斯纳！？别无视我啊！<br>
+（使劲把阿加特撞开）</p>
+<p>（丹和拉赛尔博士从环梯上走下来）</p>
+<p>拉赛尔博士：好了，就像预定那样，好像都到齐了嘛。<br>
+丹：那么，差不多该开始了吧。<br>
+提妲：…………那个……？？<br>
+提妲：虽然最终检查大致是完成了……？<br>
+艾丽卡：干得不错呢呢，提妲。<br>
+艾丽卡：『实验』终于要开始了呢！<br>
+拉赛尔博士：哦呵呵呵呵！<br>
+丹：哈哈哈哈哈……<br>
+艾丽卡：（十分高兴的笑道）<br>
+艾丽卡：哦～呵～呵～呵～～！！<br>
+阿加特：什么啊，这一家子………？（叹气）<br>
+（提妲乘上Orbal Gear）</p>
+<p>艾丽卡：提妲，如何？<br>
+艾丽卡：操纵还算顺利吧？<br>
+提妲：嗯，还好。毕竟已经练习过很多次了……<br>
+提妲：随时都可以活动哦。<br>
+拉赛尔博士：（站在测控装置前进行操作）监测系统启动。<br>
+拉赛尔博士：数据传输装置无异常。<br>
+丹：……看来一切都准备就绪了呢。<br>
+丹：（转向阿加特）……那么阿加特君，接下来将开始Orbal Gear Ver.0.5的动作实验。<br>
+丹：你做好心理准备了吗？<br>
+阿加特：（闭目）……啊啊，就包在我身上吧。<br>
+阿加特：（露出自信的微笑）既然都已经到这里来了，<br>
+阿加特：我当然既不会逃跑也不会躲起来的。<br>
+丹：那么，首先，也是唯一的一条，希望你能答应我。<br>
+丹：实验的最后，你要和Orbal Gear进行模拟战斗……<br>
+艾丽卡：如果提妲少了一根头发……<br>
+艾丽卡：我就把你送到空之女神身边去……！！<br>
+丹：哈哈哈……<br>
+丹：要直截了当地说的话，就是这样。<br>
+丹：只有受伤是不允许的。<br>
+阿加特：……我明白啦。这点还不用你们来说。<br>
+阿加特：（叹气）<br>
+阿加特：虽然我不会手软，不过也不打算伤人。<br>
+丹：…………那就好。<br>
+丹：那么，首先……</p>
+<p>丹在阿加特身上安装了一小圈结晶回路。</p>
+<p>阿加特：干，干啥呢……<br>
+丹：实验中，要实时的取得你的身体数据。<br>
+丹：这架试制机的基本运动性能恐怕和现在的你具有同等水平，或者还要略胜一筹。<br>
+丹：对于性能的比较这点来说，这个实验选择你正合适吧？<br>
+阿加特：唔…………<br>
+阿加特：你不是故意整我的吧……<br>
+丹：哈哈，你多心了。<br>
+丹：…………接下来。<br>
+丹：那么，艾丽卡，拜托你了。<br>
+艾丽卡：好，开始了！<br>
+（艾丽卡开始……运气）</p>
+<p>艾丽卡：（绕着实验场到处转悠）<br>
+艾丽卡：喝啊啊啊…………<br>
+艾丽卡：嗨……！<br>
+艾丽卡：嘿呀……！<br>
+艾丽卡：喝————！<br>
+艾丽卡：哈————！！<br>
+艾丽卡：嗨呀呀……<br>
+艾丽卡：呜哦哦哦哦哦……！！<br>
+（艾丽卡气势如同火光冲天，阿加特囧）</p>
+<p>阿加特：那，那是啥啊……<br>
+丹：那是艾丽卡的『成功舞曲』。<br>
+丹：进行重大实验之前她是一定会做的。<br>
+艾丽卡：喝哈哈！好！精神饱满啦！<br>
+（艾丽卡立刻很快的冲到控制台前开始敲击键盘）</p>
+<p>艾丽卡：噼里啪啦……！<br>
+艾丽卡：噼里啪啦噼里啪啦！！<br>
+艾丽卡：好，设置完成。<br>
+提妲：妈，妈妈……还是老样子啊……<br>
+拉赛尔博士：哼，不过是个不祥的人罢了。<br>
+拉赛尔博士：从统计的结果上来看，成功率没什么变化嘛～。<br>
+拉赛尔博士：怎～么，不如让我来代替你做这次的管理吧……<br>
+（拉赛尔博士朝艾丽卡走过去，却突然被艾丽卡踹开……）</p>
+<p>艾丽卡：喝啊啊～！！<br>
+拉赛尔博士：呜哦……！？<br>
+（阿加特囧）</p>
+<p>丹：……她现在很兴奋，你可别刺激她哦。<br>
+阿加特：（真，真不是一般的累啊……）<br>
+（实验开始，实验场的中心和外围摆设了2圈路障，提妲坐上Orbal Gear和阿加特站在实验场左侧边上，丹开始向2人讲述实验要求）</p>
+<p>丹：第一项实验是行驶测试。测试内容为绕实验场外围三圈。<br>
+丹：途中有一些障碍物，请小心哦。<br>
+丹：阿加特君，准备好了么？<br>
+阿加特：……啊啊，赶紧开始吧。<br>
+阿加特：我好歹也算是为了工作而来的。<br>
+丹：呵呵，是啊。<br>
+丹：那么，请就位吧。<br>
+（2人站在同一起跑线上）</p>
+<p>丹：预备，开始！<br>
+（2人同时开跑，开始时阿加特一路略为领先，但临近终点时，Orbal Gear突然开启背部的推进器向前一跳，瞬间落在了阿加特的前面…阿加特汗…）</p>
+<p>阿加特：哈，哈…………<br>
+阿加特：喂，刚才那是什么！？那不是跳么！！<br>
+提妲：对，对不起，阿加特哥哥……<br>
+提妲：不过，最后要我跳到终点的是妈妈……<br>
+艾丽卡：哼……<br>
+阿加特：（那个女人……）<br>
+丹：阿加特，用跳跃并不是犯规哦。<br>
+丹：因为取得跳跃时的数据也是早就预定的实验内容。<br>
+丹：刚才那回，大概……是你疏忽大意了吧？<br>
+阿加特：唔…………<br>
+（场景变换，实验场的左右2侧各摆放了红，黄，绿，蓝四个油罐，丹开始继续讲解要求）</p>
+<p>阿加特：喂，这个又是什么……<br>
+丹：接下来的实验是精密控制测试。<br>
+丹：将4种颜色的油罐分别移到相应颜色的瓷砖上。<br>
+丹：这事做起来可比看上去要难，所以还是不要太掉以<br>
+丹：轻心为好哦。<br>
+阿加特：………………………………<br>
+阿加特：（要是输在这上面，肯定会被说『亏你还是个人，居然这么没用』了之类的话吧……）<br>
+丹：那么，这就开始吧。<br>
+（双方就位，分别站到一组油罐面前）</p>
+<p>丹：……开始！<br>
+（开始搬……阿加特先搬完）</p>
+<p>阿加特：哼，这点小事算什么……<br>
+艾丽卡：哎呀，相当不错的数据呢。<br>
+艾丽卡：（走近提妲）提妲，干得不错。操作也是越来越熟练了呢。<br>
+提妲：嘿嘿……<br>
+提妲：不过，果然是托爸爸调整的福呢。<br>
+提妲：动作装置的调整也很完美。<br>
+艾丽卡：呵呵，是啊……<br>
+艾丽卡：丹在这方面的事情上的确很灵巧呢～。<br>
+提妲：嗯，这机械手臂的所有动作都能得到更快的控制……<br>
+阿加特：……喂，你们无视我啊。（叹气）<br>
+丹：哈哈，因为这项实验的目的到底是要取得数据啊。<br>
+丹：不过…………<br>
+丹：…………接下来就不一样了哦。<br>
+艾丽卡：哼哼哼哼哼…………<br>
+艾丽卡：（目露凶光……）哼哼，从现在开始才是动真格的哦！<br>
+（场景切换）</p>
+<p>丹：最后，为了检测综合能力，将进行模拟战斗。<br>
+丹：双方请各自就位。<br>
+提妲：是！<br>
+阿加特：好好好。<br>
+（2人分开了一段距离，相对着站好，并摆好了战斗架势。）</p>
+<p>艾丽卡：……我想你也明白，你只能瞄准Orbal Gear这一点。<br>
+艾丽卡：提妲要是有一点受伤，……………………斩立决，哟。<br>
+阿加特：…………所以，我都说了知道的嘛。<br>
+丹：……准备好了吗？<br>
+阿加特：啊啊…………<br>
+阿加特：随时候教！<br>
+（战斗胜利）</p>
+<p>阿加特：……呼。唉，这东西的战斗力也就如此而已吧。（收起重剑）<br>
+艾丽卡：（咬牙）哼，哼唔唔唔唔唔…………！<br>
+艾丽卡：……阿加特·科洛斯纳。<br>
+艾丽卡：刚才，你犯规了吧。<br>
+阿加特：啥，犯规？<br>
+阿加特：我可没干那种事啊。<br>
+艾丽卡：（走近阿加特）不，你就是犯规了。<br>
+艾丽卡：你使用了什么不可见的力量吧！！<br>
+阿加特：我，我怎么会懂得那种东西啊！<br>
+丹：（走过来）哈哈哈……<br>
+丹：总之，这次的比试是阿加特君胜利了呢。<br>
+艾丽卡：喀嚓——！！<br>
+艾丽卡：喀嗤喀嗤，喀嗤喀嗤……（愤怒的磨牙声）<br>
+阿加特：……喂，实验就到此为止了吧。<br>
+阿加特：那么这项委托就算完成了。<br>
+艾丽卡：………丹。说起来昨天……<br>
+艾丽卡：你说过想和这个红毛小子比试一场对吧？<br>
+丹：……咦？<br>
+丹：啊啊……算是吧。<br>
+丹：他的事，我也从卡西乌斯先生那里听过一些……<br>
+阿加特：……啥…………！？<br>
+阿加特：（总觉得有一种不祥的预感……）<br>
+艾丽卡：哼哼……决定了。<br>
+艾丽卡：（对丹）那么，快点去把你的拿手武器亮出来吧！<br>
+丹：诶，即使不现在比试，我也是很乐意的，不过……<br>
+艾丽卡：好了，快点快点……！<br>
+丹：……我明白了。<br>
+丹：那么，这里就拜托了。<br>
+（丹去抄家伙了）</p>
+<p>艾丽卡：……我话先说在前头，虽然是因为受伤而引退，不过丹可是很强的哟。<br>
+艾丽卡：再怎么说，他也是10年前为卡西乌斯进行了棒术基础指导的人啊。<br>
+阿加特：（惊）什……！？<br>
+艾丽卡：虽然，在那之后，卡西乌斯似乎是靠自己的努力到达了棒术的顶峰。<br>
+艾丽卡：……不过即便如此，你也能知道他的实力了吧？<br>
+阿加特：呵，既然听到这样的话，那我也不能退缩了……<br>
+阿加特：……不对，等等！实验不是已经结束了吗！？<br>
+阿加特：你怎么突然又说这种话！？<br>
+艾丽卡：……还没完呢！<br>
+艾丽卡：……啊，对了对了。提妲的身体情况也必须要调查呢。<br>
+艾丽卡：（目露凶光……）万一，她被你伤了一根毫毛的话……<br>
+艾丽卡：提妲，下来吧～！<br>
+提妲：啊，嗯……<br>
+（艾丽卡发现情况有些异常）</p>
+<p>艾丽卡：提妲……？怎么了？<br>
+提妲：那个，出现了点奇怪的错误……<br>
+提妲：咦，咦…………？<br>
+提妲：怎，怎么了？？<br>
+（Orbal Gear开始发出奇怪的响声并冒白烟）</p>
+<p>拉赛尔博士：啊，不好！！<br>
+（Orbal Gear开始不受控制的强烈震动起来）</p>
+<p>艾丽卡：这，这是……<br>
+艾丽卡：不行……！！<br>
+（艾丽卡冲到控制电脑前）</p>
+<p>艾丽卡：切…………不接受命令……！<br>
+艾丽卡：提妲，暂时丢下系统别管了！<br>
+提妲：这，这是……<br>
+提妲：总觉得Orbal Gear现在不听指挥了……<br>
+阿加特：喂，喂……到底怎么了啊！？<br>
+阿加特：用我也能明白的话解释一下啊！<br>
+提妲：那个那个……<br>
+提妲：哇啊……！？<br>
+（Orbal Gear失控，开始乱撞，一下冲过去撞碎了实验场入口门出的2个木箱）</p>
+<p>阿加特：…………提妲！！<br>
+阿加特：这东西，失控了吗！？<br>
+提妲：阿加特哥哥，那个……<br>
+提妲：快逃！！<br>
+（Orbal Gear突然调转头朝着阿加特冲了过去，阿加特急忙向后一跳，挥出重剑临时应战！）</p>
+<p>（战斗结束之后，Orbal Gear暂时沉默了下来）</p>
+<p>阿加特：……切…………<br>
+阿加特：提妲，没事吧！？<br>
+阿加特：它停下来了，快下来！！<br>
+提妲：这、这个……<br>
+（Orbal Gear起火）</p>
+<p>提妲：皮带卡住了……<br>
+阿加特：切…………<br>
+（阿加特挥出重剑，跳到Orbal Gear的右后方用重剑狠狠的劈了Orbal Gear一下，然后跳上Orbal Gear的驾驶舱，把提妲抱住，跳了下来。）</p>
+<p>艾丽卡：提妲，太好了……<br>
+（Orbal Gear突然再次失控，站了起来急速冲向背对着它的阿加特，而此刻艾丽卡和阿加特已然发现了这情况，却似乎无法再做什么…屏幕闪白…只听得“BANG”一声重响，什么东西被击飞了出去…）</p>
+<p>（屏幕恢复正常，阿加特闭目静静的仰面躺在离Orbal Gear很远的地方，Orbal Gear也停了下来，提妲仍然毫发无伤的半蹲在原地）</p>
+<p>提妲：………………！<br>
+提妲：咦，咦……？<br>
+（四下张望情况）</p>
+<p>（突然Orbal Gear发出一声怪响，再次向提妲冲过来）</p>
+<p>艾丽卡：提妲……！<br>
+（此刻丹终于拿着武术棍出现，只见他急速飞跃到Orbal Gear后面，狠命2下重击！）</p>
+<p>丹：喝……！！<br>
+丹：嗨……！！<br>
+（伴随着2下金属碰撞的响声，Orbal Geal彻底不能动了，白烟和火花也终于不冒了）</p>
+<p>丹：呼，赶上了……<br>
+丹：（收起棍子）大家都没受伤吧？<br>
+艾丽卡：嗯，我和提妲都没事……<br>
+艾丽卡：不过…………………<br>
+（艾丽卡和提妲转过身）</p>
+<p>提妲：啊…………<br>
+（阿加特倒在地上，失去了知觉）</p>
+<p>提妲：阿加特哥哥！！<br>
+（提妲冲到阿加特身边）</p>
+<p>提妲：……阿加特哥哥！……阿加特哥哥！<br>
+阿加特：……………………<br>
+提妲：（低头哭泣）……………呜……<br>
+提妲：怎，怎么会这样……都是我的错……<br>
+提妲：都是我的错…………把阿加特哥哥……<br>
+阿加特：………………………<br>
+提妲：对……对不、起…………<br>
+提妲：……我总是很任性，给阿加特哥哥添麻烦……<br>
+提妲：就是因为总是这样……阿加特哥哥才会变成这样……<br>
+提妲：都是……因为我的任性……<br>
+提妲：想，想要接近小玲什么的……<br>
+提妲：明明就什么都做不到……却还要期望着不可能实现的事情！<br>
+提妲：我并不想要这种事情发生啊……<br>
+提妲：明明不希望发生这样的事情……<br>
+提妲：可是……可是为什么…………！<br>
+阿加特：……唔…………<br>
+阿加特：（睁开眼睛）吵……吵死了……<br>
+阿加特：脑袋里嗡嗡的直响。别那么大声啊。<br>
+提妲：啊………………<br>
+提妲：阿……阿加特，哥哥……？<br>
+阿加特：哼，我怎么可能因为这种程度的攻击就死掉啊……<br>
+阿加特：…………好痛…………<br>
+阿加特：（费力的直起身子）真是的……力量还真是挺大的嘛……<br>
+阿加特：还好重剑挡住了它的斩击……<br>
+阿加特：哼，要是正面吃它一击的话，我现在早就到那个世界去了。<br>
+提妲：……抽泣…………………………抽泣…………<br>
+阿加特：所，所以说没受什么严重的伤啦！<br>
+阿加特：不要哭哭啼啼的啦。<br>
+提妲：可，可是都是我的错嘛……<br>
+提妲：呜呜…………阿加特哥哥对不起……！<br>
+提妲：我，我…………<br>
+提妲：……我不会再做这种事了………<br>
+提妲：所，所以…………<br>
+阿加特：…………………………<br>
+阿加特：不要因为这种程度的挫折就<br>
+阿加特：放弃啊！！<br>
+提妲：……咦………………？<br>
+阿加特：不要这么轻易地放弃。<br>
+阿加特：你不是想要接近玲那小丫头么。<br>
+阿加特：你不是想要理解那个不得了的小丫头么。<br>
+阿加特：……不要放弃啊。<br>
+提妲：阿加特……哥哥……？<br>
+（阿加特握住胸前的饰物）</p>
+<p>阿加特：……提妲，我啊。曾经毫无意义地过了10年。<br>
+阿加特：虽然真的是毫无意义的10年，但唯独这个东西我却无论如何也无法舍弃。<br>
+阿加特：绝对，不会舍弃。<br>
+阿加特：…………这样就足够了。<br>
+阿加特：所以我现在在当游击士。<br>
+阿加特：无论如何都不能舍弃的东西，是存在的哦。<br>
+阿加特：那就是，哪怕再怎么想忘记，也绝对忘不了的东西。<br>
+阿加特：………………提妲。<br>
+阿加特：你……不是也找到那样的东西了吗？<br>
+提妲：……啊………………<br>
+提妲：（原来是这样………………）<br>
+提妲：（……我…………我果然……）<br>
+提妲：……那，那个，阿加特哥哥…………<br>
+提妲：我，我……我不会放弃的！<br>
+提妲：（站起来）我不能在这里哭……<br>
+提妲：因为，我已经决心要做我能做的事了。<br>
+提妲：因为，就像阿加特哥哥是游击士那样，我也是个研究者啊！<br>
+阿加特：……………………<br>
+阿加特：……是吗…………<br>
+（阿加特站起来）</p>
+<p>提妲：………………？？？<br>
+提妲：阿加特哥哥……？<br>
+阿加特：……没什么啦，小丫头………（会心的笑容）<br>
+（阿加特慢慢走到提妲身边，温柔的握住提妲的小手。）</p>
+<p>（就在此刻，一声巨响，画面突然定格！又有人爆发出了强烈的怨念…）</p>
+<p>（2人转过身去，看到众人沉默中）</p>
+<p>阿加特：干，干什么啊你们。一直站在那个地方……<br>
+艾丽卡：哎………………<br>
+艾丽卡：哎呀哎呀，这也许是没办法的事呢。<br>
+拉赛尔博士：所以我不是说过了嘛。<br>
+拉赛尔博士：这个红毛男，虽然又笨又粗暴又迟钝，个性又不好……<br>
+拉赛尔博士：不过也还是有些优点的啦。<br>
+艾丽卡：虽然还在准备中……<br>
+艾丽卡：不过，必须火速实行对红毛的第二阶段『实验』！<br>
+阿加特：喂喂，你在说什么话啊……？<br>
+（丹走到阿加特面前）</p>
+<p>丹：我对你另眼相看了哦，阿加特君。<br>
+丹：和约定的一样，提妲似乎也没有受伤呢。<br>
+阿加特：呃，哦…………<br>
+丹：傍晚请到我们家来吧。<br>
+阿加特：啥…………？<br>
+阿加特：不对，最初就说好晚上要去蹭饭的……<br>
+丹：…………欢迎大驾光临哦。<br>
+阿加特：（干，干嘛用敬语啊……）<br>
+提妲：啊，阿加特哥哥……！<br>
+提妲：那个……刚才真是谢谢你了。<br>
+提妲：我又被你保护了一次……<br>
+阿加特：那种事怎么样说都无所谓的啦！<br>
+阿加特：话，话说回来，不好意思今天的晚饭我就……<br>
+提妲：那个，晚饭是用蘑菇和野菜做的火锅以及放了很多海草的汤。<br>
+提妲：爸爸妈妈看来也理解阿加特哥哥了……<br>
+提妲：（开心的笑容）嘿嘿，今天可以大家一起吃火锅呢。<br>
+阿加特：是，是啊，哈哈哈……（汗）<br>
+阿加特：你居然超级期待的样子啊……（叹气）<br>
+（场景切换，傍晚，阿加特正朝提妲家走去，提妲家里的实验室中，Orbal Gear被分解成一堆零件扔在地上，提妲等4人正在分析此次事故的原因）</p>
+<p>提妲：唔唔，是这样啊……<br>
+提妲：最终检查的时候我明明应该注意到的……<br>
+艾丽卡：…………提妲，还没有确认到问题所在哦。<br>
+艾丽卡：不要轻易地下判断。<br>
+艾丽卡：反省也好、感到自责也好，都要先把原因彻底查清楚。<br>
+提妲：嗯，嗯……<br>
+提妲：但是果然…………<br>
+（突然外面传来响声，然后是惨叫声）</p>
+<p>青年的声音：呜哇……！？<br>
+青年的声音：为，为什么这个锤子……？<br>
+青年的声音：……好，好险啊…………<br>
+提妲：咦，刚才那不是阿加特哥哥的声音吗？（奇怪）<br>
+艾丽卡：谁知道呢～，是错觉吧？（诡异的笑容）<br>
+提妲：唔，可是……<br>
+提妲：马上就到约定的时间了呢。<br>
+提妲：……我得去把料理热一下了。<br>
+（提妲去加热饭菜，门外再次传来某种机关的响声并伴随着惨叫声）</p>
+<p>青年的声音：哇啊……！？<br>
+青年的声音：为，为什么马路上会有矛啊……！？<br>
+（拉赛尔博士和丹同时汗…）</p>
+<p>拉赛尔博士：哎—，艾丽卡……<br>
+拉赛尔博士：用矛也太过火了点吧……<br>
+丹：是，是啊。最多挖个陷阱什么的也就算了吧……<br>
+（又是发动机关的响声并继续传来惨叫声）</p>
+<p>青年的声音：呜啊…………！？<br>
+丹：（汗）…………那个，到阿加特君到达这里为止，<br>
+丹：还得花多久呢？<br>
+丹：我还想和他推心置腹地交谈一下的……<br>
+艾丽卡：哼哼哼……那种事只有空之女神才知道。<br>
+艾丽卡：（得意的笑容）<br>
+（走到控制仪器的面前）</p>
+<p>艾丽卡：呵呵，看来他相当善战嘛。<br>
+艾丽卡：……不过。不过呢，阿加特·科洛斯纳。<br>
+艾丽卡：（最后一次目露凶光）<br>
+艾丽卡：『实验』可是才刚刚开始哦！</p></div><script type="module">function e(e){let t=e.querySelector(`source`)?.getAttribute(`src`)||e.getAttribute(`src`)||``;if(!t)return`游戏原声 BGM`;let n=t.split(`/`).pop()?.split(`?`)[0]||t,r=n;try{r=decodeURIComponent(n)}catch{}return r.replace(/\.mp3$/i,``).replace(/^\d+_\d+_/,``).replace(/-/g,` `).trim()}function t(){let t=Array.from(document.querySelectorAll(`audio`));for(let n of t){if(n.closest(`.orbal-audio-card`))continue;let t=e(n),r=document.createElement(`div`);r.className=`orbal-audio-card not-content`;let i=document.createElement(`div`);i.className=`orbal-audio-head`,i.innerHTML=`
+				<span class="orbal-disc" aria-hidden="true"></span>
+				<span class="orbal-audio-meta">
+					<span class="orbal-audio-label">导力留声机 · BGM</span>
+					<span class="orbal-audio-title"></span>
+				</span>
+				<span class="orbal-eq" aria-hidden="true">
+					<i></i><i></i><i></i><i></i>
+				</span>
+			`;let a=i.querySelector(`.orbal-audio-title`);a&&(a.textContent=t),n.parentNode?.insertBefore(r,n),r.appendChild(i),r.appendChild(n);let o=()=>{r.classList.toggle(`is-playing`,!n.paused&&!n.ended)};n.addEventListener(`play`,o),n.addEventListener(`pause`,o),n.addEventListener(`ended`,o)}}function n(e){let t=e.replace(/^[【（(]|[】）)]$/g,``),n=0;for(let e=0;e<t.length;e++)n+=t.charCodeAt(e);return n%8}function r(e){return e.replace(/(<[^>]+>)|(\{([^{}<>\n]{1,45})\})/g,(e,t,n,r)=>t||`<span class="trails-gloss"><span class="rp">{</span>${r}<span class="rp">}</span></span>`)}function i(e){return e.replace(/(<[^>]+>)|(【[^】<>]{1,48}】|（[^）<>]{1,48}）)/g,(e,t,n)=>t||`<span class="dlg-action">${n}</span>`)}function a(e){if(!e.trim())return{html:e,changed:!1};if(/^\s*(?:<strong>)?\s*(?:【(?:场景|剧情时间|时间|章节标题)】|——)/.test(e))return{html:`<span class="script-scene-line">${r(e)}</span>`,changed:!0};if(/^\s*(?:<strong>)?\s*【角色介绍】/.test(e))return{html:`<span class="script-char-line">${r(e)}</span>`,changed:!0};let t=e.match(/^(\s*)(【[^】<>]{1,20}】|[^：:<>\n【（(“"「『※*\s][^：:<>\n【（(]{0,20})：(\s*)([\s\S]+)$/);if(t){let[,e,a,o,s]=t,c=n(a),l=r(i(s));return{html:`${e}<span class="dlg-line"><span class="dlg-speaker" data-hue="${c}">${r(a)}</span><span class="dlg-colon">：</span><span class="dlg-speech">${o}${l}</span></span>`,changed:!0}}return/^\s*(?:【[^】<>]+】|（[^）<>]+）)\s*$/.test(e)?{html:`<span class="script-stage-line">${r(e)}</span>`,changed:!0}:/\{[^{}<>\n]{1,45}\}/.test(e)?{html:r(e),changed:!0}:{html:e,changed:!1}}function o(e){if(e.dataset.enhanced===`1`||(e.dataset.enhanced=`1`,e.querySelector(`audio, img, a, table, pre, code`)))return;let t=e.innerHTML.split(/<br\s*\/?>\n?/i),n=!1,r=t.map(e=>{let t=a(e);return t.changed&&(n=!0),t.html});n&&(e.innerHTML=r.join(`<br>
+`),e.classList.add(`has-script-lines`))}function s(){let e=document.getElementById(`trails-script-body`);if(!e)return;let t=Array.from(e.querySelectorAll(`:scope > p`)),n=t.slice(0,60);for(let e of n)o(e);let r=t.slice(60);if(r.length===0)return;let i=new Set(r),a=`IntersectionObserver`in window?new IntersectionObserver(e=>{for(let t of e){if(!t.isIntersecting)continue;let e=t.target;i.delete(e),a?.unobserve(e),o(e)}},{rootMargin:`800px 0px`}):null;for(let e of r)a?.observe(e);let s=window.requestIdleCallback||(e=>window.setTimeout(e,16));function c(){let e=0;for(let t of i)if(i.delete(t),a?.unobserve(t),o(t),e++,e>=80)break;i.size>0&&s(c)}s(c)}t(),s();</script><footer class="sl-flex" data-astro-cid-jo6i4kqk><div class="meta sl-flex" data-astro-cid-jo6i4kqk><div class="git-dates" data-astro-cid-wytylmfw><p class="git-date-item" data-astro-cid-wytylmfw><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" data-astro-cid-wytylmfw><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z" data-astro-cid-wytylmfw></path></svg><span data-astro-cid-wytylmfw>最近更新：</span><time datetime="2023-06-12T02:41:42.000Z" data-astro-cid-wytylmfw>2023/06/12 10:41</time></p><p class="git-date-item" data-astro-cid-wytylmfw><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" data-astro-cid-wytylmfw><path d="M15 13h1.5v2.8l2.4 1.4-.8 1.3-3.1-1.8V13m4-1c2.2 0 4 1.8 4 4s-1.8 4-4 4-4-1.8-4-4 1.8-4 4-4m0-2c-3.3 0-6 2.7-6 6s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6m-7 9.9c-4.4-.4-7.9-4.1-7.9-8.6 0-4.8 3.9-8.7 8.7-8.7 3.9 0 7.2 2.6 8.3 6.2-.7-.2-1.4-.3-2.2-.3-1.1-3-3.9-5-7.2-5-4.1 0-7.4 3.3-7.4 7.4 0 3.7 2.8 6.8 6.4 7.3-.4.5-.6 1.1-.7 1.7m1.5-12.9v5.2l2.1 1.3c-.4.4-.7.9-.9 1.4L12 13V7h1.5Z" data-astro-cid-wytylmfw></path></svg><span data-astro-cid-wytylmfw>创建日期：</span><time datetime="2021-02-18T00:24:44.000Z" data-astro-cid-wytylmfw>2021/02/18 08:24</time></p></div></div><div class="pagination-links print:hidden" dir="ltr" data-astro-cid-jo6i4kqk><a href="/sora-3rd/doors/moon-1-1/" rel="prev" data-astro-cid-jo6i4kqk><svg data-astro-cid-jo6i4kqk="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;" data-astro-cid-hkc32dio><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg><span data-astro-cid-jo6i4kqk>上一页<br data-astro-cid-jo6i4kqk><span class="link-title" data-astro-cid-jo6i4kqk>｢导力装甲开发计划/前篇｣</span></span></a><a href="/sora-3rd/doors/moon-2/" rel="next" data-astro-cid-jo6i4kqk><svg data-astro-cid-jo6i4kqk="true" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;" data-astro-cid-hkc32dio><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg><span data-astro-cid-jo6i4kqk>下一页<br data-astro-cid-jo6i4kqk><span class="link-title" data-astro-cid-jo6i4kqk>｢委托人｣</span></span></a></div><div class="site-legal-footer" data-astro-cid-jo6i4kqk><p data-astro-cid-jo6i4kqk>ICP备案: <a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer" data-astro-cid-jo6i4kqk>沪ICP备2021002641号-1</a></p><p data-astro-cid-jo6i4kqk>沪公网安备: <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31010402008841" target="_blank" rel="noopener noreferrer" data-astro-cid-jo6i4kqk>31010402008841号</a></p></div></footer><button type="button" id="back-to-top" class="back-to-top print:hidden" aria-label="回到顶部" data-astro-cid-jo6i4kqk><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-jo6i4kqk><polyline points="18 15 12 9 6 15" data-astro-cid-jo6i4kqk></polyline></svg><span data-astro-cid-jo6i4kqk>回到顶部</span></button><script type="module" src="/_astro/Footer.astro_astro_type_script_index_0_lang.DNML6o2r.js"></script></div></div></main></div></div></div></div></body></html>
