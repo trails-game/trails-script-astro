@@ -1,9 +1,10 @@
 ---
 import { AUTHOR_INFO } from '../data/authors';
 import { getGameByPathname } from '../data/games';
+import { stripBase, withBase } from '../utils/paths';
 
 const entry = Astro.locals.starlightRoute.entry;
-const pathname = Astro.url.pathname;
+const pathname = stripBase(Astro.url.pathname);
 const isHome = pathname === '/';
 const is404 = entry.id === '404' || pathname === '/404' || pathname === '/404.html';
 const authors = entry.data.authors ?? [];
@@ -16,9 +17,9 @@ const gameCtx = getGameByPathname(pathname);
 	<div class="chapter-header" style={gameCtx ? `--arc-accent: ${gameCtx.arc.color}` : undefined}>
 		{gameCtx && (
 			<nav class="chapter-breadcrumbs print:hidden" aria-label="面包屑导航">
-				<a href="/">首页</a>
+				<a href={withBase('/')}>首页</a>
 				<span class="crumb-sep" aria-hidden="true">/</span>
-				<a href={`/${gameCtx.game.prefix}/summary/`}>{gameCtx.game.title}</a>
+				<a href={withBase(`/${gameCtx.game.prefix}/summary/`)}>{gameCtx.game.title}</a>
 				<span class="crumb-sep" aria-hidden="true">/</span>
 				<span class="crumb-current">{entry.data.title}</span>
 				<span class="crumb-badges">

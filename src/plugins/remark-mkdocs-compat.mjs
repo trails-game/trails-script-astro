@@ -65,7 +65,17 @@ function applyAttrsToNode(child, parent, index, classes, attrs) {
 	return index;
 }
 
-export default function remarkMkdocsCompat() {
+function prefixRootPath(url, basePrefix) {
+	if (!basePrefix || typeof url !== 'string') return url;
+	if (!url.startsWith('/') || url.startsWith('//')) return url;
+	if (url === basePrefix || url.startsWith(`${basePrefix}/`)) return url;
+	return `${basePrefix}${url}`;
+}
+
+export default function remarkMkdocsCompat(options = {}) {
+	const rawBase = options.base || process.env.ASTRO_BASE || '/';
+	const basePrefix = rawBase === '/' ? '' : `/${rawBase.replace(/^\/+|\/+$/g, '')}`;
+
 	return (tree) => {
 		visit(tree, (node) => {
 			if (!Array.isArray(node.children)) return;
@@ -141,5 +151,18 @@ export default function remarkMkdocsCompat() {
 					.replaceAll(':o:', '⭕');
 			}
 		});
+
+		if (basePrefix) {
+			visit(tree, (node) => {
+				if (node.type === 'image' || node.type === 'link') {
+					node.url = prefixRootPath(node.url, basePrefix);
+				} else if (node.type === 'html' && typeof node.value === 'string') {
+					node.value = node.value.replace(
+						/(\b(?:src|href)\s*=\s*)(["'])(\/[^"']*)\2/gi,
+						(_full, attr, quote, url) => `${attr}${quote}${prefixRootPath(url, basePrefix)}${quote}`
+					);
+				}
+			});
+		}
 	};
 }

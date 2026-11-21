@@ -92,10 +92,12 @@ header.header {
 		padding-block: 0;
 	}
 
-	/* Keep homepage full-width without desktop left sidebar, while preserving mobile menu drawer */
+	/* Keep homepage full-width centered without desktop left sidebar, while preserving mobile menu drawer */
+	:root[data-has-sidebar]:has(.home-portal),
 	:root:has(.home-portal) {
 		--sl-content-inline-start: 0rem;
 		--sl-content-width: 67.5rem;
+		--__sidebar-pad: 0rem;
 	}
 
 	:root:has(.home-portal) .sidebar-pane {

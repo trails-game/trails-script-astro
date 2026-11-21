@@ -7,11 +7,12 @@ import ThemeSelect from 'virtual:starlight/components/ThemeSelect';
 import { Icon } from '@astrojs/starlight/components';
 import navigation from '../data/navigation.json';
 import { ARC_BY_ID, GAMES, getGameByPathname } from '../data/games';
+import { stripBase, withBase } from '../utils/paths';
 
 const shouldRenderSearch =
 	config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro';
 const socialLinks = config.social || [];
-const pathname = Astro.url.pathname;
+const pathname = stripBase(Astro.url.pathname);
 const gameCtx = getGameByPathname(pathname);
 const activePrefix = gameCtx?.game.prefix ?? null;
 const activeArc = gameCtx?.arc ?? null;
@@ -44,7 +45,7 @@ const activeArc = gameCtx?.arc ?? null;
 	</div>
 
 	<nav class="nav-tabs sl-hidden md:sl-flex print:hidden" aria-label="游戏导航">
-		<a href="/" class="nav-tab" aria-current={pathname === '/' ? 'page' : undefined}>
+		<a href={withBase('/')} class="nav-tab" aria-current={pathname === '/' ? 'page' : undefined}>
 			首页
 		</a>
 		{navigation.externalLinks.map((ext) => (
@@ -77,7 +78,7 @@ const activeArc = gameCtx?.arc ?? null;
 			const tabColor = game ? ARC_BY_ID[game.arcId].color : undefined;
 			return (
 				<a
-					href={section.href}
+					href={withBase(section.href)}
 					class="nav-tab"
 					aria-current={activePrefix === section.prefix ? 'page' : undefined}
 					style={tabColor ? `--tab-accent: ${tabColor}` : undefined}

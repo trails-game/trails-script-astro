@@ -4,9 +4,10 @@ import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.ast
 import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
 import navigation from '../data/navigation.json';
 import { CHAPTER_COUNTS, getGameByPathname } from '../data/games';
+import { stripBase, withBase } from '../utils/paths';
 
 const { sidebar } = Astro.locals.starlightRoute;
-const pathname = Astro.url.pathname;
+const pathname = stripBase(Astro.url.pathname);
 const gameIdx = navigation.sections.findIndex((s) => pathname.startsWith(`/${s.prefix}/`));
 const gameCtx = getGameByPathname(pathname);
 
@@ -45,7 +46,7 @@ const mobileSublist = sidebar.map((entry, idx) =>
 <div class="md:sl-hidden">
 	<ul class="mobile-quick-links">
 		<li>
-			<a href="/" aria-current={pathname === '/' ? 'page' : undefined}>首页</a>
+			<a href={withBase('/')} aria-current={pathname === '/' ? 'page' : undefined}>首页</a>
 		</li>
 		{navigation.externalLinks.map((ext) => (
 			<li>

@@ -1,4 +1,5 @@
 import navigation from './navigation.json';
+import { stripBase, withBase } from '../utils/paths';
 
 export type ArcId = 'liberl' | 'crossbell' | 'erebonia' | 'reverie' | 'calvard';
 
@@ -75,7 +76,7 @@ export const ARC_BY_ID: Record<ArcId, ArcMeta> = Object.fromEntries(
 	ARCS.map((arc) => [arc.id, arc])
 ) as Record<ArcId, ArcMeta>;
 
-export const GAMES: Record<string, GameMeta> = {
+const RAW_GAMES: Record<string, GameMeta> = {
 	'sora-fc': {
 		prefix: 'sora-fc',
 		title: '空之轨迹FC',
@@ -249,6 +250,19 @@ export const GAMES: Record<string, GameMeta> = {
 	},
 };
 
+export const GAMES: Record<string, GameMeta> = Object.fromEntries(
+	Object.entries(RAW_GAMES).map(([key, game]) => [
+		key,
+		{
+			...game,
+			quickLinks: game.quickLinks.map((ql) => ({
+				...ql,
+				href: withBase(ql.href),
+			})),
+		},
+	])
+);
+
 export const GAMES_CHRONOLOGICAL: GameMeta[] = [
 	GAMES['sora-fc'],
 	GAMES['sora-sc'],
@@ -290,7 +304,7 @@ export const TOTAL_CHAPTERS: number = Object.values(CHAPTER_COUNTS).reduce((a, b
 export function getGameByPathname(
 	pathname: string
 ): { game: GameMeta; arc: ArcMeta } | null {
-	const clean = pathname.replace(/^\/+/, '');
+	const clean = stripBase(pathname).replace(/^\/+/, '');
 	const prefix = clean.split('/')[0];
 	if (!prefix) return null;
 	const game = GAMES[prefix];

@@ -1,3 +1,5 @@
+import { withBase } from '../utils/paths';
+
 export interface AuthorProfile {
 	name: string;
 	avatar: string;
@@ -7,42 +9,42 @@ export interface AuthorProfile {
 export const AUTHOR_INFO: Record<string, AuthorProfile> = {
 	冰镇南瓜汁: {
 		name: '冰镇南瓜汁',
-		avatar: '/images/contributors/冰镇南瓜汁.webp',
+		avatar: withBase('/images/contributors/冰镇南瓜汁.webp'),
 		link: 'https://trails-game.com/about/team/',
 	},
 	CC: {
 		name: 'C.C.',
-		avatar: '/images/contributors/cc.webp',
+		avatar: withBase('/images/contributors/cc.webp'),
 		link: 'https://trails-game.com/about/team/',
 	},
 	Winston: {
 		name: 'Winston',
-		avatar: '/images/contributors/winston.webp',
+		avatar: withBase('/images/contributors/winston.webp'),
 		link: 'https://space.bilibili.com/392143020',
 	},
 	Rieveldt: {
 		name: 'Rieveldt624',
-		avatar: '/images/contributors/Rieveldt624.webp',
+		avatar: withBase('/images/contributors/Rieveldt624.webp'),
 		link: 'https://trails-game.com/about/team/',
 	},
 	linsage: {
 		name: 'linsage',
-		avatar: '/images/contributors/linsage.webp',
+		avatar: withBase('/images/contributors/linsage.webp'),
 		link: 'https://trails-game.com/about/team/',
 	},
 	XDi: {
 		name: 'XDi',
-		avatar: '/images/contributors/XDi.webp',
+		avatar: withBase('/images/contributors/XDi.webp'),
 		link: 'https://space.bilibili.com/10822381',
 	},
 	Flytutu: {
 		name: 'Flytutu',
-		avatar: '/images/contributors/flytutu.webp',
+		avatar: withBase('/images/contributors/flytutu.webp'),
 		link: 'https://trails-game.com/about/team/',
 	},
 	无始无过亦无终: {
 		name: '无始无过亦无终',
-		avatar: '/images/contributors/无始无过亦无终.webp',
+		avatar: withBase('/images/contributors/无始无过亦无终.webp'),
 		link: 'https://space.bilibili.com/13364946',
 	},
 };

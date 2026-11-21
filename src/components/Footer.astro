@@ -4,14 +4,15 @@ import LastUpdated from 'virtual:starlight/components/LastUpdated';
 import { Icon } from '@astrojs/starlight/components';
 import config from 'virtual:starlight/user-config';
 import navigation from '../data/navigation.json';
+import { stripBase } from '../utils/paths';
 
 const { dir, pagination } = Astro.locals.starlightRoute;
-const pathname = Astro.url.pathname;
+const pathname = stripBase(Astro.url.pathname);
 const activePrefix =
 	navigation.sections.find((s) => pathname.startsWith(`/${s.prefix}/`))?.prefix ?? null;
 
 const sameGame = (href?: string) =>
-	Boolean(href && activePrefix && href.startsWith(`/${activePrefix}/`));
+	Boolean(href && activePrefix && stripBase(href).startsWith(`/${activePrefix}/`));
 
 const prev = sameGame(pagination.prev?.href) ? pagination.prev : undefined;
 const next = sameGame(pagination.next?.href) ? pagination.next : undefined;

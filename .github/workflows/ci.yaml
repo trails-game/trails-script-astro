@@ -5,12 +5,15 @@ on:
       - main
   workflow_dispatch:
 
-permissions:
-  contents: write
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  build:
+  deploy-gh-pages:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -25,13 +28,11 @@ jobs:
       - name: Type and template check
         run: npm run check
 
-      - name: Build Astro Starlight site
+      - name: Build Astro Starlight site for GitHub Pages
+        env:
+          ASTRO_SITE: https://trails-game.github.io
+          ASTRO_BASE: /trails-script-astro
         run: npm run build
-
-      - name: Precompress assets with Brotli for .htaccess
-        run: |
-          command -v brotli >/dev/null 2>&1 || (sudo apt-get update && sudo apt-get install -y brotli)
-          find dist -type f \( -name "*.js" -o -name "*.css" -o -name "*.json" \) -exec brotli -q 9 -k {} +
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
@@ -39,38 +40,50 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
 
-      - name: Upload dist artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: astro-artifacts
-          path: dist
-          include-hidden-files: true
-
   deploy-oss:
     runs-on: ubuntu-latest
-    needs: build
     if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
     steps:
-      - uses: yizhoumo/setup-ossutil@v1
-        with:
-          ossutil-version: '1.7.15'
-          endpoint: oss-cn-hangzhou.aliyuncs.com
-          access-key-id: ${{ secrets.ACCESS_ID }}
-          access-key-secret: ${{ secrets.ACCESS_KEY_SECRET }}
+      - uses: actions/checkout@v4
 
-      - name: Download dist artifacts
-        uses: actions/download-artifact@v4
+      - uses: actions/setup-node@v4
         with:
-          path: dist
-          name: astro-artifacts
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type and template check
+        run: npm run check
+
+      - name: Build Astro Starlight site for Aliyun OSS
+        run: npm run build
+
+      - name: Precompress assets with Brotli for .htaccess
+        run: |
+          command -v brotli >/dev/null 2>&1 || (sudo apt-get update && sudo apt-get install -y brotli)
+          find dist -type f \( -name "*.js" -o -name "*.css" -o -name "*.json" \) -exec brotli -q 9 -k {} +
+
+      - name: Install ossutil v2
+        run: |
+          curl -fsSL "https://gosspublic.alicdn.com/ossutil/v2/2.4.1/ossutil-2.4.1-linux-amd64.zip" -o /tmp/ossutil.zip
+          unzip -q /tmp/ossutil.zip -d /tmp/ossutil-bin
+          sudo install -m 0755 /tmp/ossutil-bin/ossutil-2.4.1-linux-amd64/ossutil /usr/local/bin/ossutil
+          ossutil version
 
       - name: Sync artifacts to OSS
         env:
-          OSS_BUCKET: ${{ secrets.BUCKET }}
+          AK_ID: ${{ secrets.ACCESS_ID }}
+          AK_SECRET: ${{ secrets.ACCESS_KEY_SECRET }}
+          TARGET_BUCKET: ${{ secrets.BUCKET }}
         run: |
-          OSS_BUCKET="$(printf '%s' "$OSS_BUCKET" | tr -d '[:space:]')"
-          case "$OSS_BUCKET" in
-            oss://*) TARGET="$OSS_BUCKET" ;;
-            *) TARGET="oss://${OSS_BUCKET#/}" ;;
+          (umask 077 && printf '[default]\naccessKeyID=%s\naccessKeySecret=%s\nregion=cn-hangzhou\nendpoint=oss-cn-hangzhou.aliyuncs.com\n' "$AK_ID" "$AK_SECRET" > ~/.ossutilconfig)
+          TARGET_BUCKET="$(printf '%s' "$TARGET_BUCKET" | tr -d '[:space:]')"
+          case "$TARGET_BUCKET" in
+            oss://*) TARGET="$TARGET_BUCKET" ;;
+            *) TARGET="oss://${TARGET_BUCKET#/}" ;;
           esac
-          ossutil sync dist/ "$TARGET" -u --delete -f
+          ossutil sync dist/ "$TARGET" --checksum --delete --job 10 -f

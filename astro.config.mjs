@@ -3,13 +3,18 @@ import starlight from '@astrojs/starlight';
 import remarkMkdocsCompat from './src/plugins/remark-mkdocs-compat.mjs';
 import navigation from './src/data/navigation.json';
 
+const site = process.env.ASTRO_SITE || 'https://book.trails-game.com';
+const rawBase = process.env.ASTRO_BASE || '/';
+const base = rawBase === '/' ? '/' : `/${rawBase.replace(/^\/+|\/+$/g, '')}`;
+
 export default defineConfig({
-	site: 'https://book.trails-game.com',
+	site,
+	base,
 	prefetch: {
 		defaultStrategy: 'hover',
 	},
 	markdown: {
-		remarkPlugins: [remarkMkdocsCompat],
+		remarkPlugins: [[remarkMkdocsCompat, { base }]],
 	},
 	integrations: [
 		starlight({

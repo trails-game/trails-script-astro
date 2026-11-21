@@ -1,8 +1,9 @@
 ---
 import '@astrojs/starlight/style/markdown.css';
 import HomePortal from './HomePortal.astro';
+import { stripBase } from '../utils/paths';
 
-const isHome = Astro.url.pathname === '/';
+const isHome = stripBase(Astro.url.pathname) === '/';
 ---
 
 {isHome ? (

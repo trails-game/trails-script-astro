@@ -7,6 +7,7 @@ import {
 	GAMES_CHRONOLOGICAL,
 	TOTAL_CHAPTERS,
 } from '../data/games';
+import { withBase } from '../utils/paths';
 
 const contributors = Object.values(AUTHOR_INFO);
 ---
@@ -72,10 +73,10 @@ const contributors = Object.values(AUTHOR_INFO);
 			</div>
 
 			<div class="hero-actions">
-				<a href="/sora-fc/summary/" class="btn-orbal btn-primary">
+				<a href={withBase('/sora-fc/summary/')} class="btn-orbal btn-primary">
 					<span>从《空之轨迹FC》启程</span>
 				</a>
-				<a href="/kuro2/summary/" class="btn-orbal btn-secondary">
+				<a href={withBase('/kuro2/summary/')} class="btn-orbal btn-secondary">
 					<span>最新收录《黎之轨迹Ⅱ》</span>
 				</a>
 				<button type="button" class="btn-orbal btn-ghost" data-trigger-search>
@@ -117,7 +118,7 @@ const contributors = Object.values(AUTHOR_INFO);
 
 		<div class="featured-bgm-card">
 			<audio controls loop style="width: 100%">
-				<source src="/bgms/sora-fc/Hoshi-no-Arika.mp3" type="audio/mpeg" />
+				<source src={withBase('/bgms/sora-fc/Hoshi-no-Arika.mp3')} type="audio/mpeg" />
 				Your browser does not support the audio element.
 			</audio>
 		</div>
@@ -175,7 +176,7 @@ const contributors = Object.values(AUTHOR_INFO);
 										</div>
 
 										<h4 class="game-title">
-											<a href={`/${game.prefix}/summary/`}>{game.title}</a>
+											<a href={withBase(`/${game.prefix}/summary/`)}>{game.title}</a>
 										</h4>
 										<div class="game-subtitle">{game.subtitle}</div>
 										<p class="game-tagline">{game.tagline}</p>
