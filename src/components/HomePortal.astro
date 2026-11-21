@@ -1,4 +1,6 @@
 ---
+import { readdirSync } from 'node:fs';
+import { resolve } from 'node:path';
 import logoImg from '../assets/logo.webp';
 import { AUTHOR_INFO } from '../data/authors';
 import {
@@ -10,6 +12,19 @@ import {
 import { withBase } from '../utils/paths';
 
 const contributors = Object.values(AUTHOR_INFO);
+
+let totalBgms = 0;
+try {
+	const bgmEntries = readdirSync(resolve(process.cwd(), 'public/bgms'), { recursive: true });
+	totalBgms = bgmEntries.filter((entry) => String(entry).toLowerCase().endsWith('.mp3')).length;
+} catch {
+	totalBgms = 0;
+}
+
+const latestGame = GAMES_CHRONOLOGICAL.at(-1);
+const latestGameHref =
+	latestGame?.quickLinks[0]?.href ??
+	(latestGame ? withBase(`/${latestGame.prefix}/summary/`) : withBase('/'));
 ---
 
 <div class="home-portal not-content">
@@ -55,11 +70,11 @@ const contributors = Object.values(AUTHOR_INFO);
 
 			<div class="hero-stats">
 				<div class="stat-pill">
-					<span class="stat-num">5</span>
+					<span class="stat-num">{ARCS.length}</span>
 					<span class="stat-label">大故事篇章</span>
 				</div>
 				<div class="stat-pill">
-					<span class="stat-num">12</span>
+					<span class="stat-num">{GAMES_CHRONOLOGICAL.length}</span>
 					<span class="stat-label">部系列作品</span>
 				</div>
 				<div class="stat-pill">
@@ -67,7 +82,7 @@ const contributors = Object.values(AUTHOR_INFO);
 					<span class="stat-label">篇收录章节</span>
 				</div>
 				<div class="stat-pill">
-					<span class="stat-num">34</span>
+					<span class="stat-num">{totalBgms}</span>
 					<span class="stat-label">首经典 BGM</span>
 				</div>
 			</div>
@@ -76,9 +91,11 @@ const contributors = Object.values(AUTHOR_INFO);
 				<a href={withBase('/sora-fc/summary/')} class="btn-orbal btn-primary">
 					<span>从《空之轨迹FC》启程</span>
 				</a>
-				<a href={withBase('/kuro2/summary/')} class="btn-orbal btn-secondary">
-					<span>最新收录《黎之轨迹Ⅱ》</span>
-				</a>
+				{latestGame && (
+					<a href={latestGameHref} class="btn-orbal btn-secondary">
+						<span>最新收录《{latestGame.title}》</span>
+					</a>
+				)}
 				<button type="button" class="btn-orbal btn-ghost" data-trigger-search>
 					<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 						<circle cx="11" cy="11" r="8" />

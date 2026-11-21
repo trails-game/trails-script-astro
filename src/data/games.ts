@@ -263,20 +263,8 @@ export const GAMES: Record<string, GameMeta> = Object.fromEntries(
 	])
 );
 
-export const GAMES_CHRONOLOGICAL: GameMeta[] = [
-	GAMES['sora-fc'],
-	GAMES['sora-sc'],
-	GAMES['sora-3rd'],
-	GAMES.zero,
-	GAMES.aoi,
-	GAMES.sen1,
-	GAMES.sen2,
-	GAMES.sen3,
-	GAMES.sen4,
-	GAMES.hajimari,
-	GAMES.kuro,
-	GAMES.kuro2,
-];
+// Derived in chronological order from RAW_GAMES
+export const GAMES_CHRONOLOGICAL: GameMeta[] = Object.values(GAMES);
 
 interface NavItem {
 	slug?: string;
