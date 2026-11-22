@@ -9,6 +9,37 @@ const isHome = pathname === '/';
 const is404 = entry.id === '404' || pathname === '/404' || pathname === '/404.html';
 const authors = entry.data.authors ?? [];
 const gameCtx = getGameByPathname(pathname);
+
+function detectScriptContent(rawBody: string | undefined, entryId: string): boolean {
+	if (!rawBody) return false;
+	if (entryId === '404' || entryId === 'index' || entryId === 'summary' || entryId.endsWith('/summary')) {
+		return false;
+	}
+	const lines = rawBody.split(/\r?\n|<br\s*\/?>/i);
+	for (const rawLine of lines) {
+		const line = rawLine.trim();
+		if (!line) continue;
+		if (/!\[|\]\(|<(?:audio|source|img|a|table)\b/i.test(line)) continue;
+		if (/^(?:\*\*|<strong>)?\s*(?:【(?:场景|剧情时间|时间|章节标题|角色介绍)】|——)/.test(line)) {
+			return true;
+		}
+		if (/^(?:【[^】<>\n]+】|（[^）<>\n]+）)$/.test(line)) {
+			return true;
+		}
+		if (
+			!/^\d{1,2}：\d{2}\b/.test(line) &&
+			/^(?:【[^】<>\n]{1,20}】|[^：:<>\n【（(“"「『※*\s#|-][^：:<>\n【（(]{0,20})：\s*\S/.test(line)
+		) {
+			return true;
+		}
+		if (/\{(?![.:])[^{}<>\n]{1,45}\}/.test(line)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+const showScriptModeToggle = detectScriptContent(entry.body, entry.id);
 ---
 
 {isHome ? null : is404 ? (
@@ -68,15 +99,65 @@ const gameCtx = getGameByPathname(pathname);
 			)}
 
 			<div class="reader-toolbar print:hidden" role="group" aria-label="阅读器设置">
-				<button
-					type="button"
-					class="reader-ctrl-btn"
-					data-reader-mode-toggle
-					title="切换剧场排版与纯文本模式"
-				>
-					<span class="ctrl-label">排版</span>
-					<span class="ctrl-value" data-mode-label>剧场</span>
-				</button>
+				{showScriptModeToggle && (
+					<div class="reader-mode-group" data-reader-mode-group>
+						<button
+							type="button"
+							class="reader-ctrl-btn reader-mode-btn"
+							data-reader-mode-toggle
+						>
+							<span class="ctrl-label">排版</span>
+							<span class="ctrl-value" data-mode-label>剧场</span>
+						</button>
+						<button
+							type="button"
+							class="reader-help-btn"
+							data-reader-help-btn
+							aria-label="排版模式说明"
+							aria-expanded="false"
+							aria-controls="reader-mode-popover"
+						>
+							<span class="help-icon" aria-hidden="true">?</span>
+						</button>
+
+						<div
+							id="reader-mode-popover"
+							class="reader-help-popover print:hidden"
+							role="tooltip"
+							data-reader-help-popover
+							hidden
+						>
+							<div class="popover-title">剧本排版模式说明</div>
+							<div class="popover-section">
+								<div class="popover-item-head">
+									<span class="popover-badge is-theater">剧场</span>
+									<span class="popover-item-title">沉浸式剧本排版（默认）</span>
+								</div>
+								<p class="popover-desc">
+									自动识别并高亮角色名标签、场景与时间横幅、动作神态提示及专有名词注音胶囊。
+								</p>
+								<div class="popover-sample is-theater" aria-hidden="true">
+									<span class="sample-speaker">艾丝蒂尔</span>
+									<span>
+										这就是导力器<span class="sample-gloss">战术导力器</span>吗？
+									</span>
+								</div>
+							</div>
+							<div class="popover-section">
+								<div class="popover-item-head">
+									<span class="popover-badge">纯文本</span>
+									<span class="popover-item-title">原始文本排版</span>
+								</div>
+								<p class="popover-desc">
+									还原「角色：台词」与「&#123;注音&#125;」原始格式，便于整段复制摘录或极简阅读。
+								</p>
+								<div class="popover-sample is-raw" aria-hidden="true">
+									艾丝蒂尔：这就是导力器&#123;战术导力器&#125;吗？
+								</div>
+							</div>
+						</div>
+					</div>
+				)}
 
 				<div class="reader-font-group" role="group" aria-label="字体大小">
 					<span class="ctrl-label">字号</span>
@@ -178,6 +259,148 @@ const gameCtx = getGameByPathname(pathname);
 		applyPrefs(prefs);
 		savePrefs(prefs);
 	});
+
+	const helpBtn = document.querySelector<HTMLButtonElement>('[data-reader-help-btn]');
+	const popover = document.querySelector<HTMLElement>('[data-reader-help-popover]');
+	if (helpBtn && popover) {
+		if (popover.parentElement !== document.body) {
+			document.body.appendChild(popover);
+		}
+
+		let pinned = false;
+		let closeTimer: number | undefined;
+
+		const clearCloseTimer = () => {
+			if (closeTimer !== undefined) {
+				window.clearTimeout(closeTimer);
+				closeTimer = undefined;
+			}
+		};
+
+		const positionPopover = () => {
+			if (popover.hidden) return;
+			const rect = helpBtn.getBoundingClientRect();
+			const pw = popover.offsetWidth;
+			const ph = popover.offsetHeight;
+			const vw = window.innerWidth;
+			const vh = window.innerHeight;
+			const margin = 12;
+
+			const left = Math.min(Math.max(margin, rect.right - pw), Math.max(margin, vw - pw - margin));
+			let top = rect.bottom + 8;
+			if (top + ph > vh - margin && rect.top - 8 - ph >= margin) {
+				top = rect.top - 8 - ph;
+			} else {
+				top = Math.min(top, Math.max(margin, vh - ph - margin));
+			}
+
+			popover.style.left = `${Math.round(left)}px`;
+			popover.style.top = `${Math.round(top)}px`;
+		};
+
+		const syncExpanded = () => {
+			helpBtn.setAttribute('aria-expanded', popover.hidden ? 'false' : 'true');
+		};
+
+		const openPopover = () => {
+			clearCloseTimer();
+			if (popover.hidden) {
+				popover.style.visibility = 'hidden';
+				popover.hidden = false;
+				positionPopover();
+				popover.style.visibility = '';
+			} else {
+				positionPopover();
+			}
+			syncExpanded();
+		};
+
+		const closePopover = () => {
+			clearCloseTimer();
+			if (!popover.hidden) {
+				popover.hidden = true;
+			}
+			syncExpanded();
+		};
+
+		const scheduleHoverClose = () => {
+			clearCloseTimer();
+			closeTimer = window.setTimeout(() => {
+				if (!pinned) {
+					closePopover();
+				}
+			}, 150);
+		};
+
+		helpBtn.addEventListener('pointerenter', (e) => {
+			if (e.pointerType === 'mouse') {
+				openPopover();
+			}
+		});
+
+		helpBtn.addEventListener('pointerleave', (e) => {
+			if (e.pointerType === 'mouse' && !pinned) {
+				scheduleHoverClose();
+			}
+		});
+
+		popover.addEventListener('pointerenter', (e) => {
+			if (e.pointerType === 'mouse') {
+				clearCloseTimer();
+			}
+		});
+
+		popover.addEventListener('pointerleave', (e) => {
+			if (e.pointerType === 'mouse' && !pinned) {
+				scheduleHoverClose();
+			}
+		});
+
+		helpBtn.addEventListener('click', (e) => {
+			e.stopPropagation();
+			if (popover.hidden) {
+				pinned = true;
+				openPopover();
+			} else if (pinned) {
+				pinned = false;
+				closePopover();
+			} else {
+				pinned = true;
+				syncExpanded();
+			}
+		});
+
+		helpBtn.addEventListener('focus', () => {
+			if (helpBtn.matches(':focus-visible')) {
+				openPopover();
+			}
+		});
+
+		helpBtn.addEventListener('blur', () => {
+			if (!pinned) {
+				scheduleHoverClose();
+			}
+		});
+
+		document.addEventListener('pointerdown', (e) => {
+			const target = e.target as Node | null;
+			if (!popover.hidden && target && !helpBtn.contains(target) && !popover.contains(target)) {
+				pinned = false;
+				closePopover();
+			}
+		});
+
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape' && !popover.hidden) {
+				pinned = false;
+				closePopover();
+				helpBtn.focus();
+			}
+		});
+
+		window.addEventListener('scroll', positionPopover, { passive: true });
+		window.addEventListener('resize', positionPopover, { passive: true });
+	}
 </script>
 
 <style>
@@ -274,16 +497,21 @@ const gameCtx = getGameByPathname(pathname);
 		}
 
 		.reader-ctrl-btn,
-		.reader-font-group {
+		.reader-font-group,
+		.reader-mode-group {
 			display: inline-flex;
 			align-items: center;
-			gap: 0.35rem;
-			padding: 0.25rem 0.55rem;
 			border-radius: 0.55rem;
 			border: 1px solid var(--archive-border);
 			background: var(--archive-surface);
 			color: var(--sl-color-gray-2);
 			font-size: 0.75rem;
+		}
+
+		.reader-ctrl-btn,
+		.reader-font-group {
+			gap: 0.35rem;
+			padding: 0.25rem 0.55rem;
 		}
 
 		.reader-ctrl-btn {
@@ -294,6 +522,61 @@ const gameCtx = getGameByPathname(pathname);
 		.reader-ctrl-btn:hover {
 			border-color: var(--sl-color-text-accent);
 			color: var(--sl-color-white);
+		}
+
+		.reader-mode-group {
+			align-items: stretch;
+			overflow: hidden;
+			transition: border-color 0.15s ease;
+		}
+
+		.reader-mode-group[hidden] {
+			display: none;
+		}
+
+		.reader-mode-group:has(.reader-mode-btn:hover),
+		.reader-mode-group:has(.reader-help-btn:hover),
+		.reader-mode-group:has(.reader-help-btn[aria-expanded='true']) {
+			border-color: var(--sl-color-text-accent);
+		}
+
+		.reader-mode-btn {
+			border: 0;
+			border-radius: 0;
+			background: transparent;
+		}
+
+		.reader-help-btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			min-width: 1.7rem;
+			padding: 0.25rem 0.42rem;
+			border: 0;
+			border-inline-start: 1px solid var(--archive-border);
+			background: transparent;
+			color: var(--sl-color-gray-3);
+			cursor: pointer;
+			transition: background-color 0.15s ease, color 0.15s ease;
+		}
+
+		.reader-help-btn .help-icon {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 1rem;
+			height: 1rem;
+			border-radius: 9999px;
+			border: 1px solid currentColor;
+			font-size: 0.68rem;
+			font-weight: 700;
+			line-height: 1;
+		}
+
+		.reader-help-btn:hover,
+		.reader-help-btn[aria-expanded='true'] {
+			background: var(--archive-pill-bg);
+			color: var(--sl-color-text-accent);
 		}
 
 		.ctrl-label {
@@ -320,6 +603,113 @@ const gameCtx = getGameByPathname(pathname);
 		.font-step-btn[aria-pressed='true'] {
 			background: var(--sl-color-text-accent);
 			color: var(--sl-color-text-invert);
+		}
+
+		.reader-help-popover {
+			position: fixed;
+			z-index: 70;
+			width: min(21rem, calc(100vw - 1.5rem));
+			padding: 0.85rem 0.95rem;
+			border-radius: 0.8rem;
+			border: 1px solid var(--archive-border-strong);
+			background: var(--archive-surface-elevated);
+			backdrop-filter: blur(14px);
+			-webkit-backdrop-filter: blur(14px);
+			box-shadow: var(--sl-shadow-lg);
+			color: var(--sl-color-gray-2);
+			display: flex;
+			flex-direction: column;
+			gap: 0.7rem;
+			font-size: 0.78rem;
+			line-height: 1.55;
+		}
+
+		.reader-help-popover[hidden] {
+			display: none;
+		}
+
+		.popover-title {
+			font-size: 0.82rem;
+			font-weight: 700;
+			color: var(--sl-color-white);
+			padding-bottom: 0.45rem;
+			border-bottom: 1px solid var(--archive-border);
+		}
+
+		.popover-section {
+			display: flex;
+			flex-direction: column;
+			gap: 0.3rem;
+		}
+
+		.popover-item-head {
+			display: flex;
+			align-items: center;
+			gap: 0.45rem;
+		}
+
+		.popover-badge {
+			display: inline-flex;
+			align-items: center;
+			padding: 0.08rem 0.42rem;
+			border-radius: 0.35rem;
+			border: 1px solid var(--archive-border);
+			background: var(--archive-pill-bg);
+			color: var(--sl-color-gray-2);
+			font-size: 0.7rem;
+			font-weight: 700;
+		}
+
+		.popover-badge.is-theater {
+			border-color: var(--archive-border-strong);
+			background: var(--archive-gloss-bg);
+			color: var(--sl-color-text-accent);
+		}
+
+		.popover-item-title {
+			font-weight: 600;
+			color: var(--sl-color-white);
+		}
+
+		.popover-desc {
+			margin: 0;
+			color: var(--sl-color-gray-3);
+			font-size: 0.74rem;
+		}
+
+		.popover-sample {
+			padding: 0.38rem 0.55rem;
+			border-radius: 0.45rem;
+			border: 1px solid var(--archive-border);
+			background: var(--archive-pill-bg);
+			font-size: 0.74rem;
+			color: var(--sl-color-gray-1);
+		}
+
+		.popover-sample.is-raw {
+			font-family: var(--sl-font-mono);
+			color: var(--sl-color-gray-2);
+		}
+
+		.sample-speaker {
+			display: inline-block;
+			padding: 0.02rem 0.42rem;
+			margin-right: 0.25rem;
+			border-radius: 0.32rem;
+			font-weight: 700;
+			background: var(--archive-gloss-bg);
+			color: var(--sl-color-text-accent);
+		}
+
+		.sample-gloss {
+			display: inline;
+			padding: 0.01rem 0.3rem;
+			margin: 0 0.12rem;
+			border-radius: 0.3rem;
+			border: 1px solid var(--archive-gloss-border);
+			background: var(--archive-gloss-bg);
+			font-size: 0.86em;
+			color: var(--sl-color-text-accent);
 		}
 	}
 </style>

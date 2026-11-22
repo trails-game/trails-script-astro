@@ -3,13 +3,15 @@ import '@astrojs/starlight/style/markdown.css';
 import HomePortal from './HomePortal.astro';
 import { stripBase } from '../utils/paths';
 
-const isHome = stripBase(Astro.url.pathname) === '/';
+const normPath = stripBase(Astro.url.pathname).replace(/\/+$/, '') || '/';
+const isHome = normPath === '/';
+const isSummary = normPath === '/summary' || normPath.endsWith('/summary');
 ---
 
 {isHome ? (
 	<HomePortal />
 ) : (
-	<div class="sl-markdown-content" id="trails-script-body">
+	<div class="sl-markdown-content" id="trails-script-body" data-is-summary={isSummary ? '1' : undefined}>
 		<slot />
 	</div>
 )}
@@ -118,10 +120,12 @@ const isHome = stripBase(Astro.url.pathname) === '/';
 			};
 		}
 
-		// 3. Spoken dialogue line: `Speaker：Speech`
-		const dlgMatch = line.match(
-			/^(\s*)(【[^】<>]{1,20}】|[^：:<>\n【（(“"「『※*\s][^：:<>\n【（(]{0,20})：(\s*)([\s\S]+)$/
-		);
+		// 3. Spoken dialogue line: `Speaker：Speech` (exclude clock times like `12：00`)
+		const dlgMatch = !/^\s*\d{1,2}：\d{2}\b/.test(line)
+			? line.match(
+					/^(\s*)(【[^】<>]{1,20}】|[^：:<>\n【（(“"「『※*\s][^：:<>\n【（(]{0,20})：(\s*)([\s\S]+)$/
+				)
+			: null;
 		if (dlgMatch) {
 			const [, leadWs, speaker, midWs, speech] = dlgMatch;
 			const hue = speakerHue(speaker);
@@ -172,9 +176,15 @@ const isHome = stripBase(Astro.url.pathname) === '/';
 		}
 	}
 
+	function syncScriptToolbar(container: HTMLElement) {
+		if (!container.querySelector('.has-script-lines')) {
+			document.querySelector<HTMLElement>('[data-reader-mode-group]')?.setAttribute('hidden', '');
+		}
+	}
+
 	function enhanceScriptBody() {
 		const container = document.getElementById('trails-script-body');
-		if (!container) return;
+		if (!container || container.dataset.isSummary === '1') return;
 
 		const paragraphs = Array.from(container.querySelectorAll<HTMLParagraphElement>(':scope > p'));
 		const initialBatch = paragraphs.slice(0, 60);
@@ -183,9 +193,18 @@ const isHome = stripBase(Astro.url.pathname) === '/';
 		}
 
 		const remaining = paragraphs.slice(60);
-		if (remaining.length === 0) return;
+		if (remaining.length === 0) {
+			syncScriptToolbar(container);
+			return;
+		}
 
 		const pending = new Set<HTMLParagraphElement>(remaining);
+		const finishCheck = () => {
+			if (pending.size === 0) {
+				syncScriptToolbar(container);
+			}
+		};
+
 		const observer =
 			'IntersectionObserver' in window
 				? new IntersectionObserver(
@@ -197,6 +216,7 @@ const isHome = stripBase(Astro.url.pathname) === '/';
 								observer?.unobserve(p);
 								enhanceParagraph(p);
 							}
+							finishCheck();
 						},
 						{ rootMargin: '800px 0px' }
 					)
@@ -221,6 +241,8 @@ const isHome = stripBase(Astro.url.pathname) === '/';
 			}
 			if (pending.size > 0) {
 				scheduleIdle(drainChunk);
+			} else {
+				finishCheck();
 			}
 		}
 
